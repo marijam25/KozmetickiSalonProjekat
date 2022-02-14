@@ -5,20 +5,19 @@
  */
 package ServerReplies;
 
-import java.io.Serializable;
-
 /**
  *
  * @author milic
  */
-public class AddNewCosmeticReply implements Serializable {
+public class DeleteCosmeticReply {
     private boolean success;
 
-    public AddNewCosmeticReply(boolean success) {
+    public DeleteCosmeticReply(boolean success) {
         this.success = success;
     }
 
     public boolean isSuccess() {
         return success;
     }
+  
 }

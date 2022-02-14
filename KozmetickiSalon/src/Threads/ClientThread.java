@@ -5,12 +5,22 @@
  */
 package Threads;
 
+import ClientRequests.AddNewAppointmentRequest;
 import ClientRequests.AddNewClientRequest;
 import ClientRequests.AddNewCosmeticRequest;
+import ClientRequests.AddNewServiceRequest;
+import ClientRequests.DeleteAppointmentRequest;
+import ClientRequests.DeleteCosmeticRequest;
+import ClientRequests.DeleteServiceRequest;
 import ClientRequests.RequestTypes;
 import Controler.Controler;
+import ServerReplies.AddNewAppointmentReply;
 import ServerReplies.AddNewClientReply;
 import ServerReplies.AddNewCosmeticReply;
+import ServerReplies.AddNewServiceReply;
+import ServerReplies.DeleteAppointmentReply;
+import ServerReplies.DeleteCosmeticReply;
+import ServerReplies.DeleteServiceReply;
 import ServerReplies.ReplyTypes;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -58,6 +68,56 @@ public class ClientThread extends Thread {
 
                     AddNewCosmeticReply reply = new AddNewCosmeticReply(uspeo);
                     oos.write(ReplyTypes.ADD_NEW_COSMETIC_REPLY);
+                    oos.writeObject(reply);
+                }
+                
+                case RequestTypes.DELETE_COSMETIC_REQUEST:{
+                    DeleteCosmeticRequest request = (DeleteCosmeticRequest) ois.readObject();
+                    
+                    boolean uspeo = c.obrisiKozmeticara(request.getKozmeticar());
+                    
+                    DeleteCosmeticReply reply = new DeleteCosmeticReply(uspeo);
+                    oos.write(ReplyTypes.DELETE_COSMETIC_REPLY);
+                    oos.writeObject(reply);
+                }
+                
+                case RequestTypes.ADD_NEW_SERVICE_REQUEST:{
+                    AddNewServiceRequest request = (AddNewServiceRequest) ois.readObject();
+                    
+                    boolean uspeo = c.dodajNovuUslugu(request.getUsluga());
+                    
+                    AddNewServiceReply reply = new AddNewServiceReply(uspeo);
+                    oos.write(ReplyTypes.ADD_NEW_SERVICE_REPLY);
+                    oos.writeObject(reply);
+                }
+                
+                case RequestTypes.DELETE_SERVICE_REQUEST:{
+                    DeleteServiceRequest request = (DeleteServiceRequest) ois.readObject();
+                    
+                    boolean uspeo = c.obrisiUslugu(request.getUsluga());
+                    
+                    DeleteServiceReply reply = new DeleteServiceReply(uspeo);
+                    oos.write(ReplyTypes.DELETE_SERVICE_REPLY);
+                    oos.writeObject(reply);
+                }
+                
+                case RequestTypes.ADD_NEW_APPOINTMENT_REQUEST:{
+                    AddNewAppointmentRequest request = (AddNewAppointmentRequest) ois.readObject();
+                    
+                    boolean uspeo = c.dodajNoviTermin(request.getTermin());
+                    
+                    AddNewAppointmentReply reply = new AddNewAppointmentReply(uspeo);
+                    oos.write(ReplyTypes.ADD_NEW_APPOINTMENT_REPLY);
+                    oos.writeObject(reply);
+                }
+                
+                case RequestTypes.DELETE_APPOINTMENT_REQUEST:{
+                    DeleteAppointmentRequest request = (DeleteAppointmentRequest) ois.readObject();
+                    
+                    boolean uspeo = c.obrisiTermin(request.getTermin());
+                    
+                    DeleteAppointmentReply reply = new DeleteAppointmentReply(uspeo);
+                    oos.write(ReplyTypes.DELETE_APPOINTMENT_REPLY);
                     oos.writeObject(reply);
                 }
 

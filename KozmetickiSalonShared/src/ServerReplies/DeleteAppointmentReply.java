@@ -11,14 +11,16 @@ import java.io.Serializable;
  *
  * @author milic
  */
-public class AddNewCosmeticReply implements Serializable {
+public class DeleteAppointmentReply implements Serializable{
     private boolean success;
 
-    public AddNewCosmeticReply(boolean success) {
+    public DeleteAppointmentReply(boolean success) {
         this.success = success;
     }
 
     public boolean isSuccess() {
         return success;
     }
+    
+    
 }

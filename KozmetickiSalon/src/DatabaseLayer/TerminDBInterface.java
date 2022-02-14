@@ -5,12 +5,12 @@
  */
 package DatabaseLayer;
 
-import Beans.Klijent;
-import Beans.Kozmeticar;
+import Beans.Termin;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,51 +20,55 @@ import java.util.logging.Logger;
  *
  * @author milic
  */
-public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
+public class TerminDBInterface implements DBInterface<Termin> {
 
     public DBBroker broker;
 
-    public KozmeticarDBInterface(DBBroker broker) {
+    public TerminDBInterface(DBBroker broker) {
         this.broker = broker;
     }
 
     @Override
-    public List<Kozmeticar> getAll() {
+    public List<Termin> getAll() {
         return getAll("");
     }
 
     @Override
-    public List<Kozmeticar> getAll(String condition) {
-        List<Kozmeticar> listaKozmeticar = new ArrayList<>();
+    public List<Termin> getAll(String condition) {
+        List<Termin> listaTermina = new ArrayList<>();
         try {
-            String query = "select * from Kozmeticar where " + condition;
+            String query = "select * from Termin where " + condition;
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
-                int id = rs.getInt("KozmeticarID");
-                String ime = rs.getString("Ime");
-                String prezime = rs.getString("Prezime");
-                Kozmeticar k = new Kozmeticar(id, ime, prezime);
-                listaKozmeticar.add(k);
+                int id = rs.getInt("TerminID");
+                java.sql.Date sqlDate = rs.getDate("Datum");
+                java.sql.Time sqlTime = rs.getTime("Vreme");
+                java.util.Date datum = new java.util.Date(sqlDate.getTime());
+                java.util.Date vreme = new java.util.Date(sqlTime.getTime());
+                Termin t = new Termin(id, datum, (Time) vreme);
+                listaTermina.add(t);
             }
             rs.close();
             statement.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return listaKozmeticar;
+        return listaTermina;
     }
 
     @Override
-    public boolean add(Kozmeticar k) {
+    public boolean add(Termin t) {
         try {
-            String upit = "insert into Kozmeticar(ime, prezime) values (?, ?)";
+            String upit = "insert into Termin(Datum, Vreme) values (?,?)";
             PreparedStatement ps = broker.getConnection().prepareStatement(upit);
-            ps.setString(1, k.getIme());
-            ps.setString(2, k.getPrezime());
+            java.sql.Date sqlDate = new java.sql.Date(t.getDatumTermina().getTime());
+            java.sql.Time sqlTime = new java.sql.Time(t.getVremeTermina().getTime());
+            ps.setDate(1, sqlDate);
+            ps.setTime(2, sqlTime);
             return ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,25 +78,25 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
     }
 
     @Override
-    public void edit(Kozmeticar t) {
+    public void edit(Termin t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Kozmeticar t) {
+    public boolean delete(Termin t) {
         try {
-            String upit = "delete from Kozmeticar where KozmeticarID= "+t.getKozmeticarId();
+            String query = "delete from Termin where TerminID= " + t.getTerminId();
             Statement statement = broker.getConnection().createStatement();
-            statement.executeUpdate(upit);
+            statement.executeUpdate(query);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(KozmeticarDBInterface.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminDBInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
     @Override
-    public Kozmeticar getById(int id) {
+    public Termin getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

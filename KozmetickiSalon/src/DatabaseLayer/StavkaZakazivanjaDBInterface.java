@@ -5,7 +5,7 @@
  */
 package DatabaseLayer;
 
-import Beans.Klijent;
+import Beans.StavkaZakazivanja;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,70 +19,73 @@ import java.util.logging.Logger;
  *
  * @author milic
  */
-public class KlijentDBInterface implements DBInterface<Klijent>{
-    
+public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivanja>{
+
     public DBBroker broker;
 
-    public KlijentDBInterface(DBBroker broker) {
+    public StavkaZakazivanjaDBInterface(DBBroker broker) {
         this.broker = broker;
     }
-    
+
     @Override
-    public List<Klijent> getAll() {
+    public List<StavkaZakazivanja> getAll() {
         return getAll("");
     }
-    
+
     @Override
-    public List<Klijent> getAll(String condition) {
-        List<Klijent> listaKlijenata = new ArrayList<>();
+    public List<StavkaZakazivanja> getAll(String condition) {
+        List<StavkaZakazivanja> listaStavkiZakazivanja = new ArrayList<>();
         try {
-            String query = "select * from Klijent where " + condition;
+            String query = "select * from StavkaZakazivanja where " + condition;
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
-                int id = rs.getInt("KlijentID");
-                String ime = rs.getString("Ime");
-                String prezime = rs.getString("Prezime");
-                Klijent k = new Klijent(id, ime, prezime);
-                listaKlijenata.add(k);
+                int stavkaId = rs.getInt("StavkaID");
+                int zakazivanjeId = rs.getInt("ZakazivanjeID");
+                int terminId = rs.getInt("TerminID");
+                int uslugaId = rs.getInt("UslugaID");
+                StavkaZakazivanja sz = new StavkaZakazivanja(stavkaId, zakazivanjeId, terminId, uslugaId);
+                listaStavkiZakazivanja.add(sz);
             }
             rs.close();
             statement.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return listaKlijenata;
+        return listaStavkiZakazivanja;
     }
 
     @Override
-    public boolean add(Klijent k) {
+    public boolean add(StavkaZakazivanja sz) {
         try {
-            String upit = "insert into Klijent(ime, prezime) values (?, ?)";
+            String upit = "insert into StavkaZakazivanja(zakazivanjeId, terminId, uslugaId) values (?,?,?)";
             PreparedStatement ps = broker.getConnection().prepareStatement(upit);
-            ps.setString(1, k.getIme());
-            ps.setString(2, k.getPrezime());
+            ps.setInt(1, sz.getZakazivanjeId());
+            ps.setInt(2, sz.getTerminId());
+            ps.setInt(3, sz.getUslugaId());
             return ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
 
     @Override
-    public void edit(Klijent t) {
+    public void edit(StavkaZakazivanja t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Klijent t) {
+    public boolean delete(StavkaZakazivanja t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Klijent getById(int id) {
+    public StavkaZakazivanja getById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
