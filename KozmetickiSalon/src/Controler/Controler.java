@@ -101,4 +101,16 @@ public class Controler {
         return nizUsluga;
     }
 
+    public boolean azurirajTermin(Termin termin) {
+        boolean uspeo = terminDBInterface.edit(termin);
+        return uspeo;
+    }
+
+    public ArrayList<Kozmeticar> vratiSveKozmeticare() {
+        ArrayList<Kozmeticar> listaKozmeticara = (ArrayList<Kozmeticar>) kozmeticarDBInterface.getAll();
+        return listaKozmeticara;
+    }
+
+    
+
 }

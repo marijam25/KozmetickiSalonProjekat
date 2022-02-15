@@ -37,7 +37,10 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
     public List<Kozmeticar> getAll(String condition) {
         List<Kozmeticar> listaKozmeticar = new ArrayList<>();
         try {
-            String query = "select * from Kozmeticar where " + condition;
+            String query = "select * from Kozmeticar";
+            if(!condition.isEmpty()){
+                query += " where " + condition;
+            }
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
@@ -65,7 +68,7 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
             PreparedStatement ps = broker.getConnection().prepareStatement(upit);
             ps.setString(1, k.getIme());
             ps.setString(2, k.getPrezime());
-            return ps.execute();
+            return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

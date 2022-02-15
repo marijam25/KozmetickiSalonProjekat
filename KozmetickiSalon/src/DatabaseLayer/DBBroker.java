@@ -44,7 +44,7 @@ public class DBBroker {
                 String user = dbl.getValue(DBPropertiesLoader.Constants.USER);
                 String password = dbl.getValue(DBPropertiesLoader.Constants.PASS);
                 connection = DriverManager.getConnection(url, user, password);
-                connection.setAutoCommit(false);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException ex) {
             System.out.println("Neuspesno uspostavljanje konekcije!\n" + ex.getMessage());

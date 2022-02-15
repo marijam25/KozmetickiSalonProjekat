@@ -5,11 +5,13 @@
  */
 package ServerReplies;
 
+import java.io.Serializable;
+
 /**
  *
  * @author milic
  */
-public class DeleteCosmeticReply {
+public class DeleteCosmeticReply implements Serializable {
     private boolean success;
 
     public DeleteCosmeticReply(boolean success) {

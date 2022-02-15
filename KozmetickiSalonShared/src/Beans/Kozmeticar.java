@@ -38,6 +38,14 @@ public class Kozmeticar implements Serializable{
     public String toString() {
         return "Kozmeticar{" + "ime=" + ime + ", prezime=" + prezime + '}';
     }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
+    }
     
     
 }
