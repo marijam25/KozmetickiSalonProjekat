@@ -16,7 +16,7 @@ public interface DBInterface<T> {
     public List<T> getAll(String condition);
     public boolean add(T t);
     // update
-    public void edit(T t);
+    public boolean edit(T t);
     public boolean delete(T t);
     public T getById(int id);
 }

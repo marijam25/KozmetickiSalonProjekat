@@ -73,7 +73,7 @@ public class UslugaDBInterface implements DBInterface<Usluga> {
     }
 
     @Override
-    public void edit(Usluga t) {
+    public boolean edit(Usluga t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

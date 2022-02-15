@@ -78,8 +78,19 @@ public class TerminDBInterface implements DBInterface<Termin> {
     }
 
     @Override
-    public void edit(Termin t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean edit(Termin t) {
+        try {
+            String upit = "update Kozmeticar set Datum=?, Vreme=? where TerminId=?";
+            PreparedStatement ps = broker.getConnection().prepareStatement(upit);
+            ps.setDate(1, new java.sql.Date(t.getDatumTermina().getTime()));
+            ps.setTime(2, new java.sql.Time(t.getVremeTermina().getTime()));
+            ps.setInt(3, t.getTerminId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(KozmeticarDBInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 
     @Override

@@ -74,8 +74,19 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
     }
 
     @Override
-    public void edit(Kozmeticar t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean edit(Kozmeticar t) {
+        try {
+            String upit = "update Kozmeticar set ime=?, prezime=? where KOzmeticarID=?";
+            PreparedStatement ps = broker.getConnection().prepareStatement(upit);
+            ps.setString(1, t.getIme());
+            ps.setString(2, t.getPrezime());
+            ps.setInt(3, t.getKozmeticarId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(KozmeticarDBInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 
     @Override

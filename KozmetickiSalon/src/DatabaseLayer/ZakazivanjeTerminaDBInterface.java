@@ -75,7 +75,7 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
     }
 
     @Override
-    public void edit(ZakazivanjeTermina t) {
+    public boolean edit(ZakazivanjeTermina t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -72,7 +72,7 @@ public class KategorijaUslugaDBInterface implements DBInterface<KategorijaUsluga
     }
 
     @Override
-    public void edit(KategorijaUsluga t) {
+    public boolean edit(KategorijaUsluga t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

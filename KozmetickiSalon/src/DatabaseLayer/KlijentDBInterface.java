@@ -72,7 +72,7 @@ public class KlijentDBInterface implements DBInterface<Klijent>{
     }
 
     @Override
-    public void edit(Klijent t) {
+    public boolean edit(Klijent t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

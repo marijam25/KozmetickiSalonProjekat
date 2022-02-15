@@ -5,6 +5,7 @@
  */
 package Threads;
 
+import Beans.Usluga;
 import ClientRequests.AddNewAppointmentRequest;
 import ClientRequests.AddNewClientRequest;
 import ClientRequests.AddNewCosmeticRequest;
@@ -13,6 +14,8 @@ import ClientRequests.DeleteAppointmentRequest;
 import ClientRequests.DeleteCosmeticRequest;
 import ClientRequests.DeleteServiceRequest;
 import ClientRequests.RequestTypes;
+import ClientRequests.SearchServiceRequest;
+import ClientRequests.UpdateCosmeticRequest;
 import Controler.Controler;
 import ServerReplies.AddNewAppointmentReply;
 import ServerReplies.AddNewClientReply;
@@ -22,10 +25,13 @@ import ServerReplies.DeleteAppointmentReply;
 import ServerReplies.DeleteCosmeticReply;
 import ServerReplies.DeleteServiceReply;
 import ServerReplies.ReplyTypes;
+import ServerReplies.SearchServiceReply;
+import ServerReplies.UpdateCosmeticReply;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -120,7 +126,26 @@ public class ClientThread extends Thread {
                     oos.write(ReplyTypes.DELETE_APPOINTMENT_REPLY);
                     oos.writeObject(reply);
                 }
-
+                
+                case RequestTypes.UPDATE_COSMETIC_REQUEST:{
+                    UpdateCosmeticRequest request = (UpdateCosmeticRequest) ois.readObject();
+                    
+                    boolean uspeo = c.azurirajKozmeticara(request.getKozmeticar());
+                    
+                    UpdateCosmeticReply reply = new UpdateCosmeticReply(uspeo);
+                    oos.write(ReplyTypes.UPDATE_COSMETIC_REPLY);
+                    oos.writeObject(reply);
+                }
+                
+                case RequestTypes.SEARCH_SERVICE_REQUEST:{
+                    SearchServiceRequest request = (SearchServiceRequest) ois.readObject();
+                    
+                    ArrayList<Usluga> nizUsluga = c.pretraziUsluge(request.getNazivUsluge(), request.getKategorijaID());
+                    
+                    SearchServiceReply reply = new SearchServiceReply(nizUsluga);
+                    oos.write(ReplyTypes.SEARCH_SERVICE_REPLY);
+                    oos.writeObject(reply);
+                }
             }
 
         } catch (IOException ex) {

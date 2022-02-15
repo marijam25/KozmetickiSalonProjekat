@@ -75,7 +75,7 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
     }
 
     @Override
-    public void edit(StavkaZakazivanja t) {
+    public boolean edit(StavkaZakazivanja t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

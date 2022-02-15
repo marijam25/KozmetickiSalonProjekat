@@ -15,6 +15,7 @@ import DatabaseLayer.KozmeticarDBInterface;
 import DatabaseLayer.TerminDBInterface;
 import DatabaseLayer.UslugaDBInterface;
 import Threads.ListenerThread;
+import java.util.ArrayList;
 
 /**
  *
@@ -77,6 +78,27 @@ public class Controler {
     public boolean obrisiTermin(Termin termin) {
         boolean uspeo = terminDBInterface.delete(termin);
         return uspeo;
+    }
+
+    public boolean azurirajKozmeticara(Kozmeticar kozmeticar) {
+        boolean uspeo = kozmeticarDBInterface.edit(kozmeticar);
+        return uspeo;
+    }
+
+    public ArrayList<Usluga> pretraziUsluge(String nazivUsluge, int kategorijaID) {
+        String condString = "";
+        if(!nazivUsluge.equals("")){
+            condString+="nazivUsluge=" + nazivUsluge;
+        }
+        if(kategorijaID != -1){
+            if(!condString.equals("")){
+                condString+=" and ";
+            }
+            condString+=" KategorijaId = " + Integer.toString(kategorijaID);
+        }
+        
+        ArrayList<Usluga> nizUsluga = (ArrayList<Usluga>) uslugaDBInterface.getAll(condString);
+        return nizUsluga;
     }
 
 }
