@@ -36,6 +36,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         btnIzmenaKozmeticara = new javax.swing.JButton();
         btnKreiranjeUsluge = new javax.swing.JButton();
         btnPretragaUsluga = new javax.swing.JButton();
+        btnObrisiUslugu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +75,13 @@ public class GlavnaForma extends javax.swing.JFrame {
             }
         });
 
+        btnObrisiUslugu.setText("Obrisi uslugu");
+        btnObrisiUslugu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiUsluguActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,18 +91,23 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPretragaUsluga)
                     .addComponent(btnKreiranjeUsluge)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtBrisanjeKozmeticara)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnIzmenaKozmeticara)
-                            .addComponent(btnKreirajKozmeticara))))
-                .addContainerGap(657, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtBrisanjeKozmeticara)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnIzmenaKozmeticara)
+                                .addComponent(btnKreirajKozmeticara)))
+                        .addGap(121, 121, 121)
+                        .addComponent(btnObrisiUslugu)))
+                .addContainerGap(429, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(btnKreirajKozmeticara)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnKreirajKozmeticara)
+                    .addComponent(btnObrisiUslugu))
                 .addGap(34, 34, 34)
                 .addComponent(btnIzmenaKozmeticara)
                 .addGap(37, 37, 37)
@@ -144,6 +157,13 @@ public class GlavnaForma extends javax.swing.JFrame {
         pu.setVisible(true);
     }//GEN-LAST:event_btnPretragaUslugaActionPerformed
 
+    private void btnObrisiUsluguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiUsluguActionPerformed
+        // TODO add your handling code here:
+        BrisanjeUslugeForma buf = new BrisanjeUslugeForma();
+        this.setVisible(false);
+        buf.setVisible(true);
+    }//GEN-LAST:event_btnObrisiUsluguActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -183,6 +203,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JButton btnIzmenaKozmeticara;
     private javax.swing.JButton btnKreirajKozmeticara;
     private javax.swing.JButton btnKreiranjeUsluge;
+    private javax.swing.JButton btnObrisiUslugu;
     private javax.swing.JButton btnPretragaUsluga;
     private javax.swing.JButton txtBrisanjeKozmeticara;
     // End of variables declaration//GEN-END:variables
