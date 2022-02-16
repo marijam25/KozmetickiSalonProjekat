@@ -7,17 +7,14 @@ package Forme;
 
 import Beans.Kozmeticar;
 import ClientRequests.RequestTypes;
-import ClientRequests.UpdateCosmeticRequest;
-import ServerReplies.AddNewCosmeticReply;
+import Modeli.ModelTabeleKozmeticara;
 import ServerReplies.GetAllCosmeticReply;
-import ServerReplies.UpdateCosmeticReply;
-import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
 /**
@@ -26,12 +23,15 @@ import komunikacija.KomunikacijaSaServerom;
  */
 public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
+    private ArrayList<Kozmeticar> listaTabela;
+
     /**
      * Creates new form IzmenaKozmeticaraForma
      */
     public IzmenaKozmeticaraForma() {
         initComponents();
-        popuniCmbKozmeticara();
+        tblKozmeticar.setVisible(false);
+        listaTabela = new ArrayList<>();
     }
 
     /**
@@ -43,24 +43,38 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbKozmeticari = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        txtIme = new javax.swing.JTextField();
         txtPrezime = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblKozmeticar = new javax.swing.JTable();
+        btnPretrazi = new javax.swing.JButton();
+        btnIzmeni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cmbKozmeticari.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbKozmeticari.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbKozmeticariItemStateChanged(evt);
+        tblKozmeticar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblKozmeticar);
+
+        btnPretrazi.setText("Pretrazi");
+        btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPretraziActionPerformed(evt);
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIzmeni.setText("Izmeni");
+        btnIzmeni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIzmeniActionPerformed(evt);
             }
         });
 
@@ -71,70 +85,78 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(cmbKozmeticari, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(233, 233, 233)
+                        .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton1)
-                            .addComponent(txtPrezime, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIme, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(btnIzmeni)))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(cmbKozmeticari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(jButton1)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPretrazi))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(btnIzmeni)))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbKozmeticariItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbKozmeticariItemStateChanged
-        // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED){
-            Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticari.getSelectedItem();
-            txtIme.setText(kozmeticar.getIme());
-            txtPrezime.setText(kozmeticar.getPrezime());
-            
-        }
-    }//GEN-LAST:event_cmbKozmeticariItemStateChanged
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
         try {
             // TODO add your handling code here:
-            Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticari.getSelectedItem();
-            kozmeticar.setIme(txtIme.getText());
-            kozmeticar.setPrezime(txtPrezime.getText());
-            UpdateCosmeticRequest zahtev = new UpdateCosmeticRequest(kozmeticar);
-            
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(RequestTypes.UPDATE_COSMETIC_REQUEST);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            
-            UpdateCosmeticReply odgovor = (UpdateCosmeticReply) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            
-            if(odgovor.isSuccess()){
-                JOptionPane.showMessageDialog(this, "Kozmeticar uspesno izmenjen!");
+            String pretraga = txtPrezime.getText();
+
+            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
+            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
+            oos.writeInt(RequestTypes.GET_ALL_COSMETIC_REQUEST);
+            oos.flush();
+
+            int tipOdgovora = ois.readInt();
+            GetAllCosmeticReply odgovor = (GetAllCosmeticReply) ois.readObject();
+
+            for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
+                if (kozmeticar.getPrezime().contains(pretraga)) {
+                    listaTabela.add(kozmeticar);
+                }
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Neuspesna izmena kozmeticara!");
-            }
+            ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
+            tblKozmeticar.setModel(mtk);
+            tblKozmeticar.setVisible(true);
+
         } catch (IOException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnPretraziActionPerformed
+
+    private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
+        // TODO add your handling code here:
+        int izabraniRed = tblKozmeticar.getSelectedRow();
+        Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
+        KozmeticarIzmenaForma kif = new KozmeticarIzmenaForma(kozmeticar);
+        this.setVisible(false);
+        kif.setVisible(true);
+        ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
+        tblKozmeticar.setModel(mtk);
+        mtk.osveziTabelu();
+
+    }//GEN-LAST:event_btnIzmeniActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,30 +194,10 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cmbKozmeticari;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JTextField txtIme;
+    private javax.swing.JButton btnIzmeni;
+    private javax.swing.JButton btnPretrazi;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblKozmeticar;
     private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
-
-    private void popuniCmbKozmeticara() {
-        try {
-            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
-            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(RequestTypes.GET_ALL_COSMETIC_REQUEST);
-            oos.flush();
-
-            int tipOdgovora = ois.readInt();
-            GetAllCosmeticReply odgovor = (GetAllCosmeticReply) ois.readObject();
-            cmbKozmeticari.removeAllItems();
-
-            for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
-                cmbKozmeticari.addItem(kozmeticar);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

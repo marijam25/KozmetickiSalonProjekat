@@ -37,7 +37,10 @@ public class TerminDBInterface implements DBInterface<Termin> {
     public List<Termin> getAll(String condition) {
         List<Termin> listaTermina = new ArrayList<>();
         try {
-            String query = "select * from Termin where " + condition;
+            String query = "select * from Termin";
+            if(!condition.isEmpty()){
+                query += " where " + condition;
+            }
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
@@ -69,7 +72,7 @@ public class TerminDBInterface implements DBInterface<Termin> {
             java.sql.Time sqlTime = new java.sql.Time(t.getVremeTermina().getTime());
             ps.setDate(1, sqlDate);
             ps.setTime(2, sqlTime);
-            return ps.execute();
+            return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

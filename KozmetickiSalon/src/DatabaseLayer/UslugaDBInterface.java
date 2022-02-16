@@ -36,7 +36,10 @@ public class UslugaDBInterface implements DBInterface<Usluga> {
     public List<Usluga> getAll(String condition) {
         List<Usluga> listaUsluga = new ArrayList<>();
         try {
-            String query = "select * from Usluga where " + condition;
+            String query = "select * from Usluga";
+            if(!condition.isEmpty()){
+                query += " where " + condition;
+            }
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
@@ -64,7 +67,7 @@ public class UslugaDBInterface implements DBInterface<Usluga> {
             PreparedStatement ps = broker.getConnection().prepareStatement(upit);
             ps.setString(1, u.getNazivUsluge());
             ps.setInt(2, u.getKategorijaId());
-            return ps.execute();
+            return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

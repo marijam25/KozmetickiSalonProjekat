@@ -36,7 +36,10 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
     public List<StavkaZakazivanja> getAll(String condition) {
         List<StavkaZakazivanja> listaStavkiZakazivanja = new ArrayList<>();
         try {
-            String query = "select * from StavkaZakazivanja where " + condition;
+            String query = "select * from StavkaZakazivanja";
+            if(!condition.isEmpty()){
+                query += " where " + condition;
+            }
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
@@ -66,7 +69,7 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
             ps.setInt(1, sz.getZakazivanjeId());
             ps.setInt(2, sz.getTerminId());
             ps.setInt(3, sz.getUslugaId());
-            return ps.execute();
+            return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

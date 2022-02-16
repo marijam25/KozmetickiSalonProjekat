@@ -5,11 +5,13 @@
  */
 package Controler;
 
+import Beans.KategorijaUsluga;
 import Beans.Klijent;
 import Beans.Kozmeticar;
 import Beans.Termin;
 import Beans.Usluga;
 import DatabaseLayer.DBBroker;
+import DatabaseLayer.KategorijaUslugaDBInterface;
 import DatabaseLayer.KlijentDBInterface;
 import DatabaseLayer.KozmeticarDBInterface;
 import DatabaseLayer.TerminDBInterface;
@@ -29,6 +31,7 @@ public class Controler {
     private KozmeticarDBInterface kozmeticarDBInterface;
     private UslugaDBInterface uslugaDBInterface;
     private TerminDBInterface terminDBInterface;
+    private KategorijaUslugaDBInterface kategorijaUslugaDBInterface;
 
     private Controler() {
         broker = new DBBroker();
@@ -36,6 +39,7 @@ public class Controler {
         kozmeticarDBInterface = new KozmeticarDBInterface(broker);
         uslugaDBInterface = new UslugaDBInterface(broker);
         terminDBInterface = new TerminDBInterface(broker);
+        kategorijaUslugaDBInterface = new KategorijaUslugaDBInterface(broker);
     }
 
     public static Controler getInstance() {
@@ -109,6 +113,11 @@ public class Controler {
     public ArrayList<Kozmeticar> vratiSveKozmeticare() {
         ArrayList<Kozmeticar> listaKozmeticara = (ArrayList<Kozmeticar>) kozmeticarDBInterface.getAll();
         return listaKozmeticara;
+    }
+
+    public ArrayList<KategorijaUsluga> vratiSveKategorijeUsluga() {
+        ArrayList<KategorijaUsluga> listaKategorijaUsluga = (ArrayList<KategorijaUsluga>) kategorijaUslugaDBInterface.getAll();
+        return listaKategorijaUsluga;
     }
 
     

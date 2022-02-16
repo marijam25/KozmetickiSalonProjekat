@@ -23,4 +23,5 @@ public class ReplyTypes implements Serializable {
     public static final int SEARCH_SERVICE_REPLY = 9;
     public static final int UPDATE_APPOINTMENT_REPLY = 10;
     public static final int GET_ALL_COSMETIC_REPLY = 11;
+    public static final int VRATI_SVE_KATEGORIJE_USLUGA_ODGOVOR = 12;
 }

@@ -36,7 +36,10 @@ public class KlijentDBInterface implements DBInterface<Klijent>{
     public List<Klijent> getAll(String condition) {
         List<Klijent> listaKlijenata = new ArrayList<>();
         try {
-            String query = "select * from Klijent where " + condition;
+            String query = "select * from Klijent";
+            if(!condition.isEmpty()){
+                query += " where " + condition;
+            }
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
@@ -63,7 +66,7 @@ public class KlijentDBInterface implements DBInterface<Klijent>{
             PreparedStatement ps = broker.getConnection().prepareStatement(upit);
             ps.setString(1, k.getIme());
             ps.setString(2, k.getPrezime());
-            return ps.execute();
+            return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,4 +24,5 @@ public class RequestTypes implements Serializable{
     public static final int SEARCH_SERVICE_REQUEST = 9;
     public static final int UPDATE_APPOINTMENT_REQUEST = 10;
     public static final int GET_ALL_COSMETIC_REQUEST = 11;
+    public static final int VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV = 12;
 }

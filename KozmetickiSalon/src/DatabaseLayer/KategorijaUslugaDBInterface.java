@@ -36,7 +36,10 @@ public class KategorijaUslugaDBInterface implements DBInterface<KategorijaUsluga
     public List<KategorijaUsluga> getAll(String condition) {
         List<KategorijaUsluga> listaKategorijaUsluga = new ArrayList<>();
         try {
-            String query = "select * from KategorijaUsluga where " + condition;
+            String query = "select * from KategorijaUsluga";
+            if(!condition.isEmpty()){
+                query += " where " + condition;
+            }
             Statement statement = broker.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(query);
 
@@ -63,7 +66,7 @@ public class KategorijaUslugaDBInterface implements DBInterface<KategorijaUsluga
             String upit = "insert into KategorijaUsluga(nazivKategorije) values (?)";
             PreparedStatement ps = broker.getConnection().prepareStatement(upit);
             ps.setString(1, ku.getNazivKategorije());
-            return ps.execute();
+            return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

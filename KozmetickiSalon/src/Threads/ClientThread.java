@@ -5,6 +5,7 @@
  */
 package Threads;
 
+import Beans.KategorijaUsluga;
 import Beans.Kozmeticar;
 import Beans.Usluga;
 import ClientRequests.AddNewAppointmentRequest;
@@ -31,6 +32,7 @@ import ServerReplies.ReplyTypes;
 import ServerReplies.SearchServiceReply;
 import ServerReplies.UpdateAppointmentReply;
 import ServerReplies.UpdateCosmeticReply;
+import ServerReplies.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -187,10 +189,20 @@ public class ClientThread extends Thread {
                         oos.writeObject(reply);
                         break;
                     }
+                    
+                    case RequestTypes.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV:{
+                        ArrayList<KategorijaUsluga> listaKategorijaUsluga = c.vratiSveKategorijeUsluga();
+                        
+                        VratiSveKategorijeUslugaOdgovor odgovor = new VratiSveKategorijeUslugaOdgovor(listaKategorijaUsluga);
+                        oos.writeInt(ReplyTypes.VRATI_SVE_KATEGORIJE_USLUGA_ODGOVOR);
+                        oos.writeObject(odgovor);
+                        break;
+                    }
                 }
 
             } catch (IOException ex) {
-                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Klijent disconectovan");
                 return;
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
