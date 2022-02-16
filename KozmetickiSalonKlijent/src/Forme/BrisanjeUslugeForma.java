@@ -33,8 +33,8 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
      */
     public BrisanjeUslugeForma() {
         initComponents();
-        tblUsluge.setVisible(false);
         listaTabela = new ArrayList<>();
+        podesiModelTabele();
     }
 
     /**
@@ -51,6 +51,9 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsluge = new javax.swing.JTable();
         btnObrisi = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnNazad = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,37 +84,63 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Brisanje usluge");
+
+        jLabel2.setText("Pretraga usluga po nazivu:");
+
+        btnNazad.setText("Nazad");
+        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNazadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(txtNazivUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPretrazi)
-                .addGap(123, 123, 123))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnObrisi)
-                .addGap(136, 136, 136))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(66, 66, 66)
+                        .addComponent(txtNazivUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPretrazi)
+                        .addGap(72, 72, 72))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNazad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnObrisi))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 83, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNazivUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPretrazi)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNazivUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPretrazi))
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(btnObrisi)
-                .addContainerGap(151, Short.MAX_VALUE))
+                    .addComponent(btnObrisi)
+                    .addComponent(btnNazad))
+                .addGap(52, 52, 52))
         );
 
         pack();
@@ -121,23 +150,21 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String pretraga = txtNazivUsluge.getText();
-            
+
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
             oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
             oos.flush();
-            
+
             int tipOdgovora = ois.readInt();
             PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
-            
+
             for (Usluga usluga : odgovor.getNizUsluga()) {
                 if (usluga.getNazivUsluge().toLowerCase().contains(pretraga.toLowerCase())) {
                     listaTabela.add(usluga);
                 }
             }
-            ModelTabeleUsluge mtu = new ModelTabeleUsluge(listaTabela);
-            tblUsluge.setModel(mtu);
-            tblUsluge.setVisible(true);
+            podesiModelTabele();
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -150,32 +177,36 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             // TODO add your handling code here:
             int izabraniRed = tblUsluge.getSelectedRow();
             Usluga usluga = listaTabela.get(izabraniRed);
-            
+
             ObrisiUsluguZahtev zahtev = new ObrisiUsluguZahtev(usluga);
-            
+
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            
+
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            
-            if(odgovor.isUspeo()){
+
+            if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Usluga uspesno obrisana!");
                 listaTabela.remove(usluga);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Neuspesno brisanje usluge!");
             }
-            
-            ModelTabeleUsluge mtu = new ModelTabeleUsluge(listaTabela);
-            tblUsluge.setModel(mtu);
-            mtu.osveziTabelu();
+
+            podesiModelTabele();
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        GlavnaForma gf = new GlavnaForma();
+        this.setVisible(false);
+        gf.setVisible(true);
+    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,10 +244,19 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPretrazi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsluge;
     private javax.swing.JTextField txtNazivUsluge;
     // End of variables declaration//GEN-END:variables
+
+    private void podesiModelTabele() {
+        ModelTabeleUsluge mtu = new ModelTabeleUsluge(listaTabela);
+        tblUsluge.setModel(mtu);
+        mtu.osveziTabelu();
+    }
 }

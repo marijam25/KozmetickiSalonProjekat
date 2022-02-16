@@ -5,7 +5,6 @@
  */
 package db;
 
-import Domen.Klijent;
 import Domen.Kozmeticar;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

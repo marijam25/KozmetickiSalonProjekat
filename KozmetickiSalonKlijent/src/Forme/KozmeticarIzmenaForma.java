@@ -22,12 +22,15 @@ import komunikacija.KomunikacijaSaServerom;
 public class KozmeticarIzmenaForma extends javax.swing.JFrame {
 
     private Kozmeticar kozmeticar;
+
     /**
      * Creates new form KozmeticarIzmenaForma
      */
     public KozmeticarIzmenaForma(Kozmeticar kozmeticar) {
         initComponents();
-        this.kozmeticar=kozmeticar;
+        this.kozmeticar = kozmeticar;
+        txtIme.setText(kozmeticar.getIme());
+        txtPrezime.setText(kozmeticar.getPrezime());
     }
 
     /**
@@ -42,6 +45,10 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         txtIme = new javax.swing.JTextField();
         txtPrezime = new javax.swing.JTextField();
         btnSacuvaj = new javax.swing.JButton();
+        btnNazad = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,31 +59,65 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             }
         });
 
+        btnNazad.setText("Nazad");
+        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNazadActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Izmena kozmeticara");
+
+        jLabel2.setText("Ime");
+
+        jLabel3.setText("Prezime");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtIme)
-                    .addComponent(txtPrezime, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(220, Short.MAX_VALUE)
-                .addComponent(btnSacuvaj)
-                .addGap(215, 215, 215))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnNazad)
+                            .addComponent(btnSacuvaj))
+                        .addGap(213, 213, 213))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(66, 66, 66))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(48, 48, 48)
                 .addComponent(btnSacuvaj)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(btnNazad)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,39 +128,44 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             // TODO add your handling code here:
             String ime = txtIme.getText();
             String prezime = txtPrezime.getText();
-            
-            if(ime.isEmpty() || prezime.isEmpty()){
+
+            if (ime.isEmpty() || prezime.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna");
             }
-            
+
             kozmeticar.setIme(ime);
             kozmeticar.setPrezime(prezime);
-            
+
             IzmeniKozmeticaraZahtev zahtev = new IzmeniKozmeticaraZahtev(kozmeticar);
-            
+
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.IZMENI_KOZMETICARA_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            
+
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             IzmeniKozmeticaraOdgovor odgovor = (IzmeniKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            if(odgovor.isUspeo()){
+            if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Kozmeticar uspesno izmenjen!");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Neuspesna izmena kozmeticara!");
             }
-            
+
             this.setVisible(false);
             IzmenaKozmeticaraForma ikf = new IzmenaKozmeticaraForma();
             ikf.setVisible(true);
-            
-            
+
         } catch (IOException ex) {
             Logger.getLogger(KozmeticarIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(KozmeticarIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
+
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        IzmenaKozmeticaraForma ikf = new IzmenaKozmeticaraForma();
+        ikf.setVisible(true);
+    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +203,11 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables

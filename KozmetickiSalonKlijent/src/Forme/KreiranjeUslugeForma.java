@@ -45,6 +45,10 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
         txtNazivUsluge = new javax.swing.JTextField();
         cmbKategorijaUsluga = new javax.swing.JComboBox();
         btnSacuvaj = new javax.swing.JButton();
+        btnNazad = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,32 +61,62 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             }
         });
 
+        btnNazad.setText("Nazad");
+        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNazadActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Unos usluge");
+
+        jLabel2.setText("Naziv usluge");
+
+        jLabel3.setText("Kategorija usluge");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNazivUsluge)
-                            .addComponent(cmbKategorijaUsluga, 0, 235, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(btnSacuvaj)))
-                .addContainerGap(225, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNazivUsluge)
+                    .addComponent(cmbKategorijaUsluga, 0, 323, Short.MAX_VALUE))
+                .addGap(105, 105, 105))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(302, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnNazad)
+                    .addComponent(btnSacuvaj))
+                .addGap(243, 243, 243))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(txtNazivUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(cmbKategorijaUsluga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNazivUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(62, 62, 62)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbKategorijaUsluga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(54, 54, 54)
                 .addComponent(btnSacuvaj)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(btnNazad)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,6 +152,13 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             Logger.getLogger(KreiranjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
+
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        GlavnaForma gf = new GlavnaForma();
+        this.setVisible(false);
+        gf.setVisible(true);
+    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,8 +196,12 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
     private javax.swing.JComboBox cmbKategorijaUsluga;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtNazivUsluge;
     // End of variables declaration//GEN-END:variables
 

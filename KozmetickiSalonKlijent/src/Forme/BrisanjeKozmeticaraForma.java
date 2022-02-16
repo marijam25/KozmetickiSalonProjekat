@@ -32,8 +32,9 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
      */
     public BrisanjeKozmeticaraForma() {
         initComponents();
-        tblKozmeticar.setVisible(false);
         listaTabela = new ArrayList<>();
+        podesiModelTabele();
+        
     }
 
     /**
@@ -50,6 +51,9 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKozmeticar = new javax.swing.JTable();
         btnObrisi = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnNazad = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,36 +84,58 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Pretraga kozmeticara po prezimenu:");
+
+        jLabel2.setText("Brisanje kozmeticara");
+
+        btnNazad.setText("Nazad");
+        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNazadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnObrisi)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(237, 237, 237)
-                            .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(115, 115, 115)
-                            .addComponent(btnPretrazi)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(53, 53, 53)
+                                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPretrazi))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(btnNazad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnObrisi)))
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPretrazi))
+                    .addComponent(btnPretrazi)
+                    .addComponent(jLabel1))
                 .addGap(51, 51, 51)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(btnObrisi)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnObrisi)
+                    .addComponent(btnNazad))
+                .addGap(68, 68, 68))
         );
 
         pack();
@@ -133,9 +159,8 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                     listaTabela.add(kozmeticar);
                 }
             }
-            ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
-            tblKozmeticar.setModel(mtk);
-            tblKozmeticar.setVisible(true);
+            podesiModelTabele();
+            
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -164,16 +189,21 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             else{
                 JOptionPane.showMessageDialog(this, "Neuspesno brisanje kozmeticara!");
             }
+            podesiModelTabele();
             
-            ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
-            tblKozmeticar.setModel(mtk);
-            mtk.osveziTabelu();
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        GlavnaForma gf = new GlavnaForma();
+        this.setVisible(false);
+        gf.setVisible(true);
+    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,10 +241,19 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPretrazi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKozmeticar;
     private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
+
+    private void podesiModelTabele() {
+        ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
+        tblKozmeticar.setModel(mtk);
+        mtk.osveziTabelu();
+    }
 }

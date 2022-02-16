@@ -37,6 +37,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         btnKreiranjeUsluge = new javax.swing.JButton();
         btnPretragaUsluga = new javax.swing.JButton();
         btnObrisiUslugu = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,29 +83,34 @@ public class GlavnaForma extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Dobrodosli!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPretragaUsluga)
-                    .addComponent(btnKreiranjeUsluge)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnPretragaUsluga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnKreiranjeUsluge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtBrisanjeKozmeticara)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnIzmenaKozmeticara)
-                                .addComponent(btnKreirajKozmeticara)))
-                        .addGap(121, 121, 121)
-                        .addComponent(btnObrisiUslugu)))
-                .addContainerGap(429, Short.MAX_VALUE))
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnKreirajKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIzmenaKozmeticara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addComponent(txtBrisanjeKozmeticara, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(95, 95, 95)
+                .addComponent(btnObrisiUslugu, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKreirajKozmeticara)
                     .addComponent(btnObrisiUslugu))
@@ -114,9 +120,9 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addComponent(txtBrisanjeKozmeticara)
                 .addGap(41, 41, 41)
                 .addComponent(btnKreiranjeUsluge)
-                .addGap(50, 50, 50)
+                .addGap(44, 44, 44)
                 .addComponent(btnPretragaUsluga)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,6 +211,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JButton btnKreiranjeUsluge;
     private javax.swing.JButton btnObrisiUslugu;
     private javax.swing.JButton btnPretragaUsluga;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton txtBrisanjeKozmeticara;
     // End of variables declaration//GEN-END:variables
 

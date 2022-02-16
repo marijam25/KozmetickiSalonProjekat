@@ -82,6 +82,7 @@ public class TerminDBInterface implements DBInterface<Termin> {
 
     @Override
     public boolean izmeni(Termin t) {
+        
         try {
             String upit = "update Kozmeticar set Datum=?, Vreme=? where TerminId=?";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
@@ -90,9 +91,8 @@ public class TerminDBInterface implements DBInterface<Termin> {
             ps.setInt(3, t.getTerminId());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
-            Logger.getLogger(KozmeticarDBInterface.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminDBInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return false;
     }
 

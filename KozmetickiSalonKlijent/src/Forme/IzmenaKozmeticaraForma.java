@@ -30,8 +30,8 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
      */
     public IzmenaKozmeticaraForma() {
         initComponents();
-        tblKozmeticar.setVisible(false);
         listaTabela = new ArrayList<>();
+        podesiModelTabele();
     }
 
     /**
@@ -48,6 +48,9 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
         tblKozmeticar = new javax.swing.JTable();
         btnPretrazi = new javax.swing.JButton();
         btnIzmeni = new javax.swing.JButton();
+        btnNazad = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,39 +81,56 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             }
         });
 
+        btnNazad.setText("Nazad");
+        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNazadActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Izmena kozmeticara");
+
+        jLabel2.setText("Pretraga kozmeticara po prezimenu");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(116, 116, 116)
-                        .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(btnIzmeni)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                        .addComponent(btnNazad)
+                        .addGap(635, 635, 635)
+                        .addComponent(btnIzmeni))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(47, 47, 47)
+                            .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(71, 71, 71)
+                            .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
                     .addComponent(btnPretrazi))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(btnIzmeni)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIzmeni)
+                    .addComponent(btnNazad))
+                .addGap(64, 64, 64))
         );
 
         pack();
@@ -134,9 +154,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
                     listaTabela.add(kozmeticar);
                 }
             }
-            ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
-            tblKozmeticar.setModel(mtk);
-            tblKozmeticar.setVisible(true);
+            podesiModelTabele();
 
         } catch (IOException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,11 +170,16 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
         KozmeticarIzmenaForma kif = new KozmeticarIzmenaForma(kozmeticar);
         this.setVisible(false);
         kif.setVisible(true);
-        ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
-        tblKozmeticar.setModel(mtk);
-        mtk.osveziTabelu();
+        podesiModelTabele();
 
     }//GEN-LAST:event_btnIzmeniActionPerformed
+
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        GlavnaForma gf = new GlavnaForma();
+        this.setVisible(false);
+        gf.setVisible(true);
+    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,9 +218,18 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIzmeni;
+    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnPretrazi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKozmeticar;
     private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
+
+    private void podesiModelTabele() {
+        ModelTabeleKozmeticara mtk = new ModelTabeleKozmeticara(listaTabela);
+        tblKozmeticar.setModel(mtk);
+        mtk.osveziTabelu();
+    }
 }
