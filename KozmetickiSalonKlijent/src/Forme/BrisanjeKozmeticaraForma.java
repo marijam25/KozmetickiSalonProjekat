@@ -129,7 +129,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             GetAllCosmeticReply odgovor = (GetAllCosmeticReply) ois.readObject();
 
             for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
-                if (kozmeticar.getPrezime().contains(pretraga)) {
+                if (kozmeticar.getPrezime().toLowerCase().contains(pretraga.toLowerCase())) {
                     listaTabela.add(kozmeticar);
                 }
             }

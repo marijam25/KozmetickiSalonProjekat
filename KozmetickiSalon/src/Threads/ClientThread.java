@@ -160,9 +160,9 @@ public class ClientThread extends Thread {
                     }
 
                     case RequestTypes.SEARCH_SERVICE_REQUEST: {
-                        SearchServiceRequest request = (SearchServiceRequest) ois.readObject();
+                        //SearchServiceRequest request = (SearchServiceRequest) ois.readObject();
 
-                        ArrayList<Usluga> nizUsluga = c.pretraziUsluge(request.getNazivUsluge(), request.getKategorijaID());
+                        ArrayList<Usluga> nizUsluga = c.pretraziUsluge();
 
                         SearchServiceReply reply = new SearchServiceReply(nizUsluga);
                         oos.writeInt(ReplyTypes.SEARCH_SERVICE_REPLY);

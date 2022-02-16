@@ -35,6 +35,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         txtBrisanjeKozmeticara = new javax.swing.JButton();
         btnIzmenaKozmeticara = new javax.swing.JButton();
         btnKreiranjeUsluge = new javax.swing.JButton();
+        btnPretragaUsluga = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +67,13 @@ public class GlavnaForma extends javax.swing.JFrame {
             }
         });
 
+        btnPretragaUsluga.setText("Pretraga usluga");
+        btnPretragaUsluga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPretragaUslugaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,6 +81,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPretragaUsluga)
                     .addComponent(btnKreiranjeUsluge)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txtBrisanjeKozmeticara)
@@ -92,7 +101,9 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addComponent(txtBrisanjeKozmeticara)
                 .addGap(41, 41, 41)
                 .addComponent(btnKreiranjeUsluge)
-                .addContainerGap(354, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(btnPretragaUsluga)
+                .addContainerGap(279, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,6 +136,13 @@ public class GlavnaForma extends javax.swing.JFrame {
         this.setVisible(false);
         kuf.setVisible(true);
     }//GEN-LAST:event_btnKreiranjeUslugeActionPerformed
+
+    private void btnPretragaUslugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretragaUslugaActionPerformed
+        // TODO add your handling code here:
+        PretrazivanjeUsluge pu = new PretrazivanjeUsluge();
+        this.setVisible(false);
+        pu.setVisible(true);
+    }//GEN-LAST:event_btnPretragaUslugaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +183,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JButton btnIzmenaKozmeticara;
     private javax.swing.JButton btnKreirajKozmeticara;
     private javax.swing.JButton btnKreiranjeUsluge;
+    private javax.swing.JButton btnPretragaUsluga;
     private javax.swing.JButton txtBrisanjeKozmeticara;
     // End of variables declaration//GEN-END:variables
 

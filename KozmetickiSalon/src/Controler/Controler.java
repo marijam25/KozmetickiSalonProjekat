@@ -89,8 +89,8 @@ public class Controler {
         return uspeo;
     }
 
-    public ArrayList<Usluga> pretraziUsluge(String nazivUsluge, int kategorijaID) {
-        String condString = "";
+    public ArrayList<Usluga> pretraziUsluge() {
+        /*String condString = "";
         if(!nazivUsluge.equals("")){
             condString+="nazivUsluge=" + nazivUsluge;
         }
@@ -99,9 +99,9 @@ public class Controler {
                 condString+=" and ";
             }
             condString+=" KategorijaId = " + Integer.toString(kategorijaID);
-        }
+        }*/
         
-        ArrayList<Usluga> nizUsluga = (ArrayList<Usluga>) uslugaDBInterface.getAll(condString);
+        ArrayList<Usluga> nizUsluga = (ArrayList<Usluga>) uslugaDBInterface.getAll();
         return nizUsluga;
     }
 
