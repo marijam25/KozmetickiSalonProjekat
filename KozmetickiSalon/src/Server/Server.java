@@ -5,7 +5,7 @@
  */
 package Server;
 
-import Niti.OsluskivacNit;
+import Niti.ServerskaNit;
 
 /**
  *
@@ -13,6 +13,6 @@ import Niti.OsluskivacNit;
  */
 public class Server {
     public static void main(String[] args) {
-        new OsluskivacNit(9000);
+        new ServerskaNit(9000);
     }
 }

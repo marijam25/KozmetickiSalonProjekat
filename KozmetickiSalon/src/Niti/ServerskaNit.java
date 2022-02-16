@@ -17,16 +17,16 @@ import java.util.logging.Logger;
  *
  * @author milic
  */
-public class OsluskivacNit extends Thread {
+public class ServerskaNit extends Thread {
     
     private ServerSocket ss;
     private ArrayList<KlijentskaNit> klijenti;
 
-    public OsluskivacNit(int port) {
+    public ServerskaNit(int port) {
         try {
             ss = new ServerSocket(port);
         } catch (IOException ex) {
-            Logger.getLogger(OsluskivacNit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServerskaNit.class.getName()).log(Level.SEVERE, null, ex);
         }
         klijenti = new ArrayList<KlijentskaNit>();
         this.run();
@@ -40,7 +40,7 @@ public class OsluskivacNit extends Thread {
                 KlijentskaNit ct = new KlijentskaNit(s);
                 klijenti.add(ct);
             } catch (IOException ex) {
-                Logger.getLogger(OsluskivacNit.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServerskaNit.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -55,7 +55,7 @@ public class OsluskivacNit extends Thread {
         try {
             ss.close();
         } catch (IOException ex) {
-            Logger.getLogger(OsluskivacNit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServerskaNit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

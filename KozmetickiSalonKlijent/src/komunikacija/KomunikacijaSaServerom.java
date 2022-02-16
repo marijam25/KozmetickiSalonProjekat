@@ -28,8 +28,6 @@ public class KomunikacijaSaServerom {
         return instanca;
     }
     
-    
-
     private KomunikacijaSaServerom(String host, int port) {
         try {
             soket = new Socket(host, port);

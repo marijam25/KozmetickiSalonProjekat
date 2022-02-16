@@ -18,6 +18,7 @@ import KlijentskiZahtev.ObrisiUsluguZahtev;
 import KlijentskiZahtev.TipoviZahteva;
 import KlijentskiZahtev.IzmeniTerminZahtev;
 import KlijentskiZahtev.IzmeniKozmeticaraZahtev;
+import KlijentskiZahtev.PrijavljivanjeZahtev;
 import Kontroler.Kontroler;
 import ServerskiOdgovor.DodajNoviTerminOdgovor;
 import ServerskiOdgovor.DodajNovogKlijentaOdgovor;
@@ -31,6 +32,7 @@ import ServerskiOdgovor.TipoviOdgovora;
 import ServerskiOdgovor.PretraziUslugeOdgovor;
 import ServerskiOdgovor.IzmeniTerminOdgovor;
 import ServerskiOdgovor.IzmeniKozmeticaraOdgovor;
+import ServerskiOdgovor.PrijavljivanjeOdgovor;
 import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -195,6 +197,18 @@ public class KlijentskaNit extends Thread {
                         VratiSveKategorijeUslugaOdgovor odgovor = new VratiSveKategorijeUslugaOdgovor(listaKategorijaUsluga);
                         oos.writeInt(TipoviOdgovora.VRATI_SVE_KATEGORIJE_USLUGA_ODGOVOR);
                         oos.writeObject(odgovor);
+                        break;
+                    }
+                    
+                    case TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV:{
+                        PrijavljivanjeZahtev zahtev = (PrijavljivanjeZahtev) ois.readObject();
+                        
+                        boolean uspesno = c.prijavljivanje(zahtev.getKorisnickoIme(),zahtev.getSifra());
+                        
+                        PrijavljivanjeOdgovor odgovor = new PrijavljivanjeOdgovor(uspesno);
+                        oos.writeInt(TipoviOdgovora.PRIJAVLJIVANJE_ODGOVOR);
+                        oos.writeObject(odgovor);
+                        
                         break;
                     }
                 }

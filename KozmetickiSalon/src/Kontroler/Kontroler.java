@@ -7,6 +7,7 @@ package Kontroler;
 
 import Domen.KategorijaUsluga;
 import Domen.Klijent;
+import Domen.KorisnikSistema;
 import Domen.Kozmeticar;
 import Domen.Termin;
 import Domen.Usluga;
@@ -16,7 +17,8 @@ import db.KlijentDBInterface;
 import db.KozmeticarDBInterface;
 import db.TerminDBInterface;
 import db.UslugaDBInterface;
-import Niti.OsluskivacNit;
+import Niti.ServerskaNit;
+import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +34,7 @@ public class Kontroler {
     private UslugaDBInterface uslugaDBInterface;
     private TerminDBInterface terminDBInterface;
     private KategorijaUslugaDBInterface kategorijaUslugaDBInterface;
+    private ArrayList<KorisnikSistema> listaKorisnikaSistema;
 
     private Kontroler() {
         broker = new DBBroker();
@@ -40,6 +43,12 @@ public class Kontroler {
         uslugaDBInterface = new UslugaDBInterface(broker);
         terminDBInterface = new TerminDBInterface(broker);
         kategorijaUslugaDBInterface = new KategorijaUslugaDBInterface(broker);
+        listaKorisnikaSistema = new ArrayList<>();
+        listaKorisnikaSistema.add(new KorisnikSistema("korisnik1", "sifra1"));
+        listaKorisnikaSistema.add(new KorisnikSistema("korisnik2", "sifra2"));
+        listaKorisnikaSistema.add(new KorisnikSistema("korisnik3", "sifra3"));
+        listaKorisnikaSistema.add(new KorisnikSistema("korisnik4", "sifra4"));
+                
     }
 
     public static Kontroler getInstance() {
@@ -118,6 +127,15 @@ public class Kontroler {
     public ArrayList<KategorijaUsluga> vratiSveKategorijeUsluga() {
         ArrayList<KategorijaUsluga> listaKategorijaUsluga = (ArrayList<KategorijaUsluga>) kategorijaUslugaDBInterface.vratiSve();
         return listaKategorijaUsluga;
+    }
+
+    public boolean prijavljivanje(String korisnickoIme, String sifra) {
+        for (KorisnikSistema korisnikSistema : listaKorisnikaSistema) {
+            if(korisnikSistema.getKorisnickoIme().equals(korisnickoIme) && korisnikSistema.getSifra().equals(sifra))
+                return true;
+            
+        }
+        return false;
     }
 
     
