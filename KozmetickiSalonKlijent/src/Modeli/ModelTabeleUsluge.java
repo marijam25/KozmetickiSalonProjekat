@@ -5,7 +5,7 @@
  */
 package Modeli;
 
-import Beans.Usluga;
+import Domen.Usluga;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 

@@ -5,10 +5,10 @@
  */
 package Forme;
 
-import Beans.Kozmeticar;
-import ClientRequests.RequestTypes;
-import ClientRequests.UpdateCosmeticRequest;
-import ServerReplies.UpdateCosmeticReply;
+import Domen.Kozmeticar;
+import KlijentskiZahtev.TipoviZahteva;
+import KlijentskiZahtev.IzmeniKozmeticaraZahtev;
+import ServerskiOdgovor.IzmeniKozmeticaraOdgovor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,14 +95,14 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             kozmeticar.setIme(ime);
             kozmeticar.setPrezime(prezime);
             
-            UpdateCosmeticRequest zahtev = new UpdateCosmeticRequest(kozmeticar);
+            IzmeniKozmeticaraZahtev zahtev = new IzmeniKozmeticaraZahtev(kozmeticar);
             
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(RequestTypes.UPDATE_COSMETIC_REQUEST);
+            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.IZMENI_KOZMETICARA_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            UpdateCosmeticReply odgovor = (UpdateCosmeticReply) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            if(odgovor.isSuccess()){
+            IzmeniKozmeticaraOdgovor odgovor = (IzmeniKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            if(odgovor.isUspeo()){
                 JOptionPane.showMessageDialog(this, "Kozmeticar uspesno izmenjen!");
             }
             else{

@@ -5,10 +5,10 @@
  */
 package Forme;
 
-import Beans.Kozmeticar;
-import ClientRequests.RequestTypes;
+import Domen.Kozmeticar;
+import KlijentskiZahtev.TipoviZahteva;
 import Modeli.ModelTabeleKozmeticara;
-import ServerReplies.GetAllCosmeticReply;
+import ServerskiOdgovor.VratiSveKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -123,11 +123,11 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(RequestTypes.GET_ALL_COSMETIC_REQUEST);
+            oos.writeInt(TipoviZahteva.VRATI_SVE_KOZMETICARE_ZAHTEV);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
-            GetAllCosmeticReply odgovor = (GetAllCosmeticReply) ois.readObject();
+            VratiSveKozmeticareOdgovor odgovor = (VratiSveKozmeticareOdgovor) ois.readObject();
 
             for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
                 if (kozmeticar.getPrezime().toLowerCase().contains(pretraga.toLowerCase())) {

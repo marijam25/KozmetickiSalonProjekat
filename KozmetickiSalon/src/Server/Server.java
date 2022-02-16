@@ -5,7 +5,7 @@
  */
 package Server;
 
-import Threads.ListenerThread;
+import Niti.OsluskivacNit;
 
 /**
  *
@@ -13,6 +13,6 @@ import Threads.ListenerThread;
  */
 public class Server {
     public static void main(String[] args) {
-        new ListenerThread(9000);
+        new OsluskivacNit(9000);
     }
 }

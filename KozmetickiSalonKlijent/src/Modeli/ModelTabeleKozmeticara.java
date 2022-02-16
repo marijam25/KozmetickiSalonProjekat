@@ -5,7 +5,7 @@
  */
 package Modeli;
 
-import Beans.Kozmeticar;
+import Domen.Kozmeticar;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 

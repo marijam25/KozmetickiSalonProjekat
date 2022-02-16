@@ -5,11 +5,11 @@
  */
 package Forme;
 
-import Beans.Usluga;
-import ClientRequests.RequestTypes;
-import ClientRequests.SearchServiceRequest;
+import Domen.Usluga;
+import KlijentskiZahtev.TipoviZahteva;
+import KlijentskiZahtev.PretraziUslugeZahtev;
 import Modeli.ModelTabeleUsluge;
-import ServerReplies.SearchServiceReply;
+import ServerskiOdgovor.PretraziUslugeOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -123,11 +123,11 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
             
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(RequestTypes.SEARCH_SERVICE_REQUEST);
+            oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
-            SearchServiceReply odgovor =  (SearchServiceReply) ois.readObject();
+            PretraziUslugeOdgovor odgovor =  (PretraziUslugeOdgovor) ois.readObject();
 
             for (Usluga usluga : odgovor.getNizUsluga()) {
                 if (usluga.getNazivUsluge().toLowerCase().contains(pretraga.toLowerCase())) {

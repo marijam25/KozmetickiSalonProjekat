@@ -5,10 +5,10 @@
  */
 package Forme;
 
-import Beans.Kozmeticar;
-import ClientRequests.AddNewCosmeticRequest;
-import ClientRequests.RequestTypes;
-import ServerReplies.AddNewCosmeticReply;
+import Domen.Kozmeticar;
+import KlijentskiZahtev.DodajNovogKozmeticaraZahtev;
+import KlijentskiZahtev.TipoviZahteva;
+import ServerskiOdgovor.DodajNovogKozmeticaraOdgovor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,14 +98,14 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
             }
             
-            AddNewCosmeticRequest request = new AddNewCosmeticRequest(kozmeticar);
+            DodajNovogKozmeticaraZahtev zahtev = new DodajNovogKozmeticaraZahtev(kozmeticar);
         
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(RequestTypes.ADD_NEW_COSMETIC_REQUEST);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(request);
+            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVOG_KOZMETICARA_ZAHTEV);
+            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            AddNewCosmeticReply odgovor = (AddNewCosmeticReply) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            if(odgovor.isSuccess()){
+            DodajNovogKozmeticaraOdgovor odgovor = (DodajNovogKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            if(odgovor.isUspeo()){
                 JOptionPane.showMessageDialog(this, "Kozmeticar uspesno unet!");
             }
             else{

@@ -5,12 +5,12 @@
  */
 package Forme;
 
-import Beans.Kozmeticar;
-import ClientRequests.DeleteCosmeticRequest;
-import ClientRequests.RequestTypes;
+import Domen.Kozmeticar;
+import KlijentskiZahtev.ObrisiKozmeticaraZahtev;
+import KlijentskiZahtev.TipoviZahteva;
 import Modeli.ModelTabeleKozmeticara;
-import ServerReplies.DeleteCosmeticReply;
-import ServerReplies.GetAllCosmeticReply;
+import ServerskiOdgovor.ObrisiKozmeticaraOdgovor;
+import ServerskiOdgovor.VratiSveKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -122,11 +122,11 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(RequestTypes.GET_ALL_COSMETIC_REQUEST);
+            oos.writeInt(TipoviZahteva.VRATI_SVE_KOZMETICARE_ZAHTEV);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
-            GetAllCosmeticReply odgovor = (GetAllCosmeticReply) ois.readObject();
+            VratiSveKozmeticareOdgovor odgovor = (VratiSveKozmeticareOdgovor) ois.readObject();
 
             for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
                 if (kozmeticar.getPrezime().toLowerCase().contains(pretraga.toLowerCase())) {
@@ -149,15 +149,15 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             int izabraniRed = tblKozmeticar.getSelectedRow();
             Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
             
-            DeleteCosmeticRequest zahtev = new DeleteCosmeticRequest(kozmeticar);
+            ObrisiKozmeticaraZahtev zahtev = new ObrisiKozmeticaraZahtev(kozmeticar);
             
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(RequestTypes.DELETE_COSMETIC_REQUEST);
+            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            DeleteCosmeticReply odgovor = (DeleteCosmeticReply) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            ObrisiKozmeticaraOdgovor odgovor = (ObrisiKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
             
-            if(odgovor.isSuccess()){
+            if(odgovor.isUspeo()){
                 JOptionPane.showMessageDialog(this, "Kozmeticar uspesno obrisan!");
                 listaTabela.remove(kozmeticar);
             }

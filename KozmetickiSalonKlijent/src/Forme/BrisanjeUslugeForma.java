@@ -5,12 +5,12 @@
  */
 package Forme;
 
-import Beans.Usluga;
-import ClientRequests.DeleteServiceRequest;
-import ClientRequests.RequestTypes;
+import Domen.Usluga;
+import KlijentskiZahtev.ObrisiUsluguZahtev;
+import KlijentskiZahtev.TipoviZahteva;
 import Modeli.ModelTabeleUsluge;
-import ServerReplies.DeleteServiceReply;
-import ServerReplies.SearchServiceReply;
+import ServerskiOdgovor.ObrisiUsluguOdgovor;
+import ServerskiOdgovor.PretraziUslugeOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -124,11 +124,11 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(RequestTypes.SEARCH_SERVICE_REQUEST);
+            oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
             oos.flush();
             
             int tipOdgovora = ois.readInt();
-            SearchServiceReply odgovor = (SearchServiceReply) ois.readObject();
+            PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
             
             for (Usluga usluga : odgovor.getNizUsluga()) {
                 if (usluga.getNazivUsluge().toLowerCase().contains(pretraga.toLowerCase())) {
@@ -151,15 +151,15 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             int izabraniRed = tblUsluge.getSelectedRow();
             Usluga usluga = listaTabela.get(izabraniRed);
             
-            DeleteServiceRequest zahtev = new DeleteServiceRequest(usluga);
+            ObrisiUsluguZahtev zahtev = new ObrisiUsluguZahtev(usluga);
             
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(RequestTypes.DELETE_SERVICE_REQUEST);
+            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            DeleteServiceReply odgovor = (DeleteServiceReply) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
             
-            if(odgovor.isSuccess()){
+            if(odgovor.isUspeo()){
                 JOptionPane.showMessageDialog(this, "Usluga uspesno obrisana!");
                 listaTabela.remove(usluga);
             }

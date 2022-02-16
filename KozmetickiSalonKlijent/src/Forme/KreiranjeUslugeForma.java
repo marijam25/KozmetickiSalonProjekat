@@ -5,12 +5,12 @@
  */
 package Forme;
 
-import Beans.KategorijaUsluga;
-import Beans.Usluga;
-import ClientRequests.AddNewServiceRequest;
-import ClientRequests.RequestTypes;
-import ServerReplies.AddNewServiceReply;
-import ServerReplies.VratiSveKategorijeUslugaOdgovor;
+import Domen.KategorijaUsluga;
+import Domen.Usluga;
+import KlijentskiZahtev.DodajNovuUsluguZahtev;
+import KlijentskiZahtev.TipoviZahteva;
+import ServerskiOdgovor.DodajNovuUsluguOdgovor;
+import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -99,14 +99,14 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
             }
             
-            AddNewServiceRequest zahtev = new AddNewServiceRequest(usluga);
+            DodajNovuUsluguZahtev zahtev = new DodajNovuUsluguZahtev(usluga);
             
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(RequestTypes.ADD_NEW_SERVICE_REQUEST);
+            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVU_USLUGU_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            AddNewServiceReply odgovor = (AddNewServiceReply) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            if(odgovor.isSuccess()){
+            DodajNovuUsluguOdgovor odgovor = (DodajNovuUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            if(odgovor.isUspeo()){
                 JOptionPane.showMessageDialog(this, "Usluga uspesno uneta!");
             }
             else{
@@ -164,7 +164,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
         try {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(RequestTypes.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
+            oos.writeInt(TipoviZahteva.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
