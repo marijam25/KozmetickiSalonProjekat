@@ -38,6 +38,7 @@ public class ModelTabeleKozmeticara extends AbstractTableModel {
         switch(columnIndex){
             case 0: return k.getIme(); 
             case 1: return k.getPrezime();
+            case 2: return k.getGodine();
             
             default: return "Ne postoji";
         }
@@ -48,6 +49,7 @@ public class ModelTabeleKozmeticara extends AbstractTableModel {
         switch(column){
             case 0: return "Ime";
             case 1: return "Prezime";
+            case 2: return "Godine";
             
             default: return "Ne postoji";
         }

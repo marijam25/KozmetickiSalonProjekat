@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.runtime.JSType;
 import komunikacija.KomunikacijaSaServerom;
 
 /**
@@ -44,6 +45,8 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtGodine = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +70,8 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
 
         jLabel3.setText("Prezime");
 
+        jLabel4.setText("Godine");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,15 +85,17 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(159, 159, 159)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtImeKozmeticara, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                            .addComponent(txtPrezimeKozmeticara)))
-                    .addComponent(jLabel1))
+                            .addComponent(txtPrezimeKozmeticara)
+                            .addComponent(txtGodine))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -104,11 +111,15 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrezimeKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(67, 67, 67)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(btnSacuvaj)
-                .addGap(40, 40, 40)
+                .addGap(59, 59, 59)
                 .addComponent(btnNazad)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(104, 104, 104))
         );
 
         pack();
@@ -119,32 +130,34 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
             // TODO add your handling code here:
             String ime = txtImeKozmeticara.getText();
             String prezime = txtPrezimeKozmeticara.getText();
-            Kozmeticar kozmeticar = new Kozmeticar(0, ime, prezime);
-            
-            if(ime.isEmpty() || prezime.isEmpty()){
+            int godine = Integer.parseInt(txtGodine.getText());
+
+            Kozmeticar kozmeticar = new Kozmeticar(0, ime, prezime, godine);
+            if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
             }
-            
+
             DodajNovogKozmeticaraZahtev zahtev = new DodajNovogKozmeticaraZahtev(kozmeticar);
-        
+
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVOG_KOZMETICARA_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            
+
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             DodajNovogKozmeticaraOdgovor odgovor = (DodajNovogKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            if(odgovor.isUspeo()){
+            if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Kozmeticar uspesno unet!");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Neuspesno unosenje kozmeticara!");
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(KreirajKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(KreirajKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Godine moraju biti broj");
         }
-        
+
     }//GEN-LAST:event_btnSacuvajActionPerformed
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
@@ -195,6 +208,8 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtGodine;
     private javax.swing.JTextField txtImeKozmeticara;
     private javax.swing.JTextField txtPrezimeKozmeticara;
     // End of variables declaration//GEN-END:variables

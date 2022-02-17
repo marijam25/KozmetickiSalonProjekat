@@ -47,7 +47,8 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
                 int id = rs.getInt("KozmeticarID");
                 String ime = rs.getString("Ime");
                 String prezime = rs.getString("Prezime");
-                Kozmeticar k = new Kozmeticar(id, ime, prezime);
+                int godine = rs.getInt("Godine");
+                Kozmeticar k = new Kozmeticar(id, ime, prezime, godine);
                 listaKozmeticar.add(k);
             }
             rs.close();
@@ -63,10 +64,11 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
     @Override
     public boolean dodaj(Kozmeticar k) {
         try {
-            String upit = "insert into Kozmeticar(ime, prezime) values (?, ?)";
+            String upit = "insert into Kozmeticar(ime, prezime, godine) values (?, ?, ?)";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             ps.setString(1, k.getIme());
             ps.setString(2, k.getPrezime());
+            ps.setInt(3, k.getGodine());
             return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,11 +80,12 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
     @Override
     public boolean izmeni(Kozmeticar t) {
         try {
-            String upit = "update Kozmeticar set ime=?, prezime=? where KOzmeticarID=?";
+            String upit = "update Kozmeticar set ime=?, prezime=?, godine=? where KOzmeticarID=?";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             ps.setString(1, t.getIme());
             ps.setString(2, t.getPrezime());
-            ps.setInt(3, t.getKozmeticarId());
+            ps.setInt(3, t.getGodine());
+            ps.setInt(4, t.getKozmeticarId());
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(KozmeticarDBInterface.class.getName()).log(Level.SEVERE, null, ex);
