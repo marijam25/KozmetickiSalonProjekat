@@ -12,19 +12,15 @@ import java.io.Serializable;
  * @author milic
  */
 public class PretraziUslugeZahtev implements Serializable {
-    private String nazivUsluge;
-    private int kategorijaID;
+    private String uslov;
 
-    public PretraziUslugeZahtev(String nazivUsluge, int kategorijaID) {
-        this.nazivUsluge = nazivUsluge;
-        this.kategorijaID = kategorijaID;
+    public PretraziUslugeZahtev(String uslov) {
+        this.uslov = uslov;
     }
 
-    public String getNazivUsluge() {
-        return nazivUsluge;
+    public String getUslov() {
+        return uslov;
     }
-
-    public int getKategorijaID() {
-        return kategorijaID;
-    }
+    
+    
 }

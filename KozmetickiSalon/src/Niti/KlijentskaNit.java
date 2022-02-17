@@ -6,6 +6,7 @@
 package Niti;
 
 import Domen.KategorijaUsluga;
+import Domen.Klijent;
 import Domen.Kozmeticar;
 import Domen.Usluga;
 import KlijentskiZahtev.DodajNoviTerminZahtev;
@@ -18,6 +19,7 @@ import KlijentskiZahtev.ObrisiUsluguZahtev;
 import KlijentskiZahtev.TipoviZahteva;
 import KlijentskiZahtev.IzmeniTerminZahtev;
 import KlijentskiZahtev.IzmeniKozmeticaraZahtev;
+import KlijentskiZahtev.PretraziUslugeZahtev;
 import KlijentskiZahtev.PrijavljivanjeZahtev;
 import Kontroler.Kontroler;
 import ServerskiOdgovor.DodajNoviTerminOdgovor;
@@ -34,6 +36,7 @@ import ServerskiOdgovor.IzmeniTerminOdgovor;
 import ServerskiOdgovor.IzmeniKozmeticaraOdgovor;
 import ServerskiOdgovor.PrijavljivanjeOdgovor;
 import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
+import ServerskiOdgovor.VratiSveKlijenteOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -130,7 +133,7 @@ public class KlijentskaNit extends Thread {
                     case TipoviZahteva.DODAJ_NOVI_TERMIN_ZAHTEV: {
                         DodajNoviTerminZahtev zahtev = (DodajNoviTerminZahtev) ois.readObject();
 
-                        boolean uspeo = c.dodajNoviTermin(zahtev.getTermin());
+                        boolean uspeo = c.dodajNoviTermin(zahtev.getTermin(),zahtev.getStavkaZakazivanja(),zahtev.getZakazivanjeTermina());
 
                         DodajNoviTerminOdgovor odgovor = new DodajNoviTerminOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.DODAJ_NOVI_TERMIN_ODGOVOR);
@@ -161,9 +164,9 @@ public class KlijentskaNit extends Thread {
                     }
 
                     case TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV: {
-                        //SearchServiceRequest request = (SearchServiceRequest) ois.readObject();
+                        PretraziUslugeZahtev zahtev = (PretraziUslugeZahtev) ois.readObject();
 
-                        ArrayList<Usluga> nizUsluga = c.pretraziUsluge();
+                        ArrayList<Usluga> nizUsluga = c.pretraziUsluge(zahtev.getUslov());
 
                         PretraziUslugeOdgovor odgovor = new PretraziUslugeOdgovor(nizUsluga);
                         oos.writeInt(TipoviOdgovora.PRETRAZI_USLUGE_ODGOVOR);
@@ -209,6 +212,14 @@ public class KlijentskaNit extends Thread {
                         oos.writeInt(TipoviOdgovora.PRIJAVLJIVANJE_ODGOVOR);
                         oos.writeObject(odgovor);
                         
+                        break;
+                    }
+                    case TipoviZahteva.VRATI_SVE_KLIJENTE_ZAHTEV:{
+                        ArrayList<Klijent> listaKlijenata = c.vratiSveKlijente();
+                        
+                        VratiSveKlijenteOdgovor odgovor = new VratiSveKlijenteOdgovor(listaKlijenata);
+                        oos.writeInt(TipoviOdgovora.VRATI_SVE_KLIJENTE_ODGOVOR);
+                        oos.writeObject(odgovor);
                         break;
                     }
                 }

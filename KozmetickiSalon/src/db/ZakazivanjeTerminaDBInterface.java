@@ -36,7 +36,7 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
     public List<ZakazivanjeTermina> vratiSve(String uslov) {
         List<ZakazivanjeTermina> listaZakazivanja = new ArrayList<>();
         try {
-            String upit = "select * from ZakazivanjeTermin";
+            String upit = "select * from ZakazivanjeTermina";
             if(!uslov.isEmpty()){
                 upit += " where " + uslov;
             }
@@ -64,7 +64,7 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
     public boolean dodaj(ZakazivanjeTermina zt) {
         try {
             //zakazivanjeid, kozmeticarid, klijentid
-            String upit = "insert into ZakazivanjeTermin(KozmeticarId, KlijentId) values (?,?)";
+            String upit = "insert into ZakazivanjeTermina(KozmeticarId, KlijentId) values (?,?)";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             
             ps.setInt(1, zt.getKozmeticarId());

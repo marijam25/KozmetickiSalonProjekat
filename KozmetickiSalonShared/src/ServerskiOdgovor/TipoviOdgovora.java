@@ -25,4 +25,5 @@ public class TipoviOdgovora implements Serializable {
     public static final int VRATI_SVE_KOZMETICARE_ODGOVOR = 11;
     public static final int VRATI_SVE_KATEGORIJE_USLUGA_ODGOVOR = 12;
     public static final int PRIJAVLJIVANJE_ODGOVOR = 13;
+    public static final int VRATI_SVE_KLIJENTE_ODGOVOR = 14;
 }

@@ -5,6 +5,7 @@
  */
 package Forme;
 
+import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
 /**
@@ -38,8 +39,12 @@ public class GlavnaForma extends javax.swing.JFrame {
         btnPretragaUsluga = new javax.swing.JButton();
         btnObrisiUslugu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnKreiranjeTermina = new javax.swing.JButton();
+        btnIzmenaTermina = new javax.swing.JButton();
+        btnBrisanjeTermina = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikacija kozmetickog salona");
 
         btnKreirajKozmeticara.setText("Kreiraj kozmeticara");
         btnKreirajKozmeticara.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +81,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             }
         });
 
-        btnObrisiUslugu.setText("Obrisi uslugu");
+        btnObrisiUslugu.setText("Brisanje usluge");
         btnObrisiUslugu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiUsluguActionPerformed(evt);
@@ -85,25 +90,50 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         jLabel1.setText("Dobrodosli!");
 
+        btnKreiranjeTermina.setText("Kreiranje termina");
+        btnKreiranjeTermina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKreiranjeTerminaActionPerformed(evt);
+            }
+        });
+
+        btnIzmenaTermina.setText("Izmena termina");
+
+        btnBrisanjeTermina.setText("Brisanje termina");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPretragaUsluga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnKreiranjeUsluge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(21, 21, 21)
+                        .addComponent(btnKreiranjeTermina)
+                        .addGap(112, 112, 112)
+                        .addComponent(btnIzmenaTermina))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnKreiranjeUsluge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnKreirajKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))))
+                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnKreirajKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnIzmenaKozmeticara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addComponent(txtBrisanjeKozmeticara, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(95, 95, 95)
-                .addComponent(btnObrisiUslugu, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                            .addComponent(btnIzmenaKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPretragaUsluga, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBrisanjeKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBrisanjeTermina)
+                                    .addComponent(btnObrisiUslugu, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,16 +143,19 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKreirajKozmeticara)
+                    .addComponent(btnIzmenaKozmeticara)
+                    .addComponent(txtBrisanjeKozmeticara))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnKreiranjeUsluge)
+                    .addComponent(btnPretragaUsluga)
                     .addComponent(btnObrisiUslugu))
-                .addGap(34, 34, 34)
-                .addComponent(btnIzmenaKozmeticara)
-                .addGap(37, 37, 37)
-                .addComponent(txtBrisanjeKozmeticara)
-                .addGap(41, 41, 41)
-                .addComponent(btnKreiranjeUsluge)
-                .addGap(44, 44, 44)
-                .addComponent(btnPretragaUsluga)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnKreiranjeTermina)
+                    .addComponent(btnIzmenaTermina)
+                    .addComponent(btnBrisanjeTermina))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,9 +163,11 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreirajKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajKozmeticaraActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
         KreirajKozmeticaraForma kkf = new KreirajKozmeticaraForma();
         this.setVisible(false);
         kkf.setVisible(true);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
     }//GEN-LAST:event_btnKreirajKozmeticaraActionPerformed
 
     private void txtBrisanjeKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrisanjeKozmeticaraActionPerformed
@@ -151,9 +186,11 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreiranjeUslugeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeUslugeActionPerformed
         // TODO add your handling code here:
+        
         KreiranjeUslugeForma kuf = new KreiranjeUslugeForma();
         this.setVisible(false);
         kuf.setVisible(true);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao novu uslugu");
     }//GEN-LAST:event_btnKreiranjeUslugeActionPerformed
 
     private void btnPretragaUslugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretragaUslugaActionPerformed
@@ -169,6 +206,13 @@ public class GlavnaForma extends javax.swing.JFrame {
         this.setVisible(false);
         buf.setVisible(true);
     }//GEN-LAST:event_btnObrisiUsluguActionPerformed
+
+    private void btnKreiranjeTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeTerminaActionPerformed
+        // TODO add your handling code here:
+        KreiranjeTerminaForma ktf = new KreiranjeTerminaForma();
+        this.setVisible(false);
+        ktf.setVisible(true);
+    }//GEN-LAST:event_btnKreiranjeTerminaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,8 +250,11 @@ public class GlavnaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBrisanjeTermina;
     private javax.swing.JButton btnIzmenaKozmeticara;
+    private javax.swing.JButton btnIzmenaTermina;
     private javax.swing.JButton btnKreirajKozmeticara;
+    private javax.swing.JButton btnKreiranjeTermina;
     private javax.swing.JButton btnKreiranjeUsluge;
     private javax.swing.JButton btnObrisiUslugu;
     private javax.swing.JButton btnPretragaUsluga;

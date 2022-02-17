@@ -26,4 +26,5 @@ public class TipoviZahteva implements Serializable{
     public static final int VRATI_SVE_KOZMETICARE_ZAHTEV = 11;
     public static final int VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV = 12;
     public static final int PRIJAVLJIVANJE_ZAHTEV = 13;
+    public static final int VRATI_SVE_KLIJENTE_ZAHTEV = 14;
 }

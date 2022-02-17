@@ -128,23 +128,23 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             String naziv = txtNazivUsluge.getText();
             KategorijaUsluga kategorija = (KategorijaUsluga) cmbKategorijaUsluga.getSelectedItem();
             Usluga usluga = new Usluga(0, naziv, kategorija.getKategorijaId());
-            
-            if(naziv.isEmpty() || cmbKategorijaUsluga.getSelectedIndex()==-1){
-                JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
-            }
-            
-            DodajNovuUsluguZahtev zahtev = new DodajNovuUsluguZahtev(usluga);
-            
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVU_USLUGU_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            DodajNovuUsluguOdgovor odgovor = (DodajNovuUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            if(odgovor.isUspeo()){
-                JOptionPane.showMessageDialog(this, "Usluga uspesno uneta!");
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Neuspesno unosenje usluge!");
+
+            if (naziv.isEmpty() || cmbKategorijaUsluga.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti uslugu");
+            } else {
+
+                DodajNovuUsluguZahtev zahtev = new DodajNovuUsluguZahtev(usluga);
+
+                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVU_USLUGU_ZAHTEV);
+                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                DodajNovuUsluguOdgovor odgovor = (DodajNovuUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+                if (odgovor.isUspeo()) {
+                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio uslugu");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti uslugu");
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(KreiranjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,7 +213,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             oos.flush();
 
             int tipOdgovora = ois.readInt();
-            VratiSveKategorijeUslugaOdgovor odgovor =  (VratiSveKategorijeUslugaOdgovor) ois.readObject();
+            VratiSveKategorijeUslugaOdgovor odgovor = (VratiSveKategorijeUslugaOdgovor) ois.readObject();
             cmbKategorijaUsluga.removeAllItems();
 
             for (KategorijaUsluga kategorija : odgovor.getListaKategorijaUsluga()) {;

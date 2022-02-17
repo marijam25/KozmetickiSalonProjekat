@@ -66,7 +66,7 @@ public class TerminDBInterface implements DBInterface<Termin> {
     @Override
     public boolean dodaj(Termin t) {
         try {
-            String upit = "insert into Termin(Datum, Vreme) values (?,?)";
+            String upit = "insert into Termin(DatumTermina, VremeTermina) values (?,?)";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             java.sql.Date sqlDate = new java.sql.Date(t.getDatumTermina().getTime());
             java.sql.Time sqlTime = new java.sql.Time(t.getVremeTermina().getTime());

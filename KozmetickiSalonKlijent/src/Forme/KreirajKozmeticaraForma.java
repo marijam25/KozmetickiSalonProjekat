@@ -42,13 +42,13 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
         txtPrezimeKozmeticara = new javax.swing.JTextField();
         btnSacuvaj = new javax.swing.JButton();
         btnNazad = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtGodine = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kreiranje kozmeticara");
 
         btnSacuvaj.setText("Sacuvaj");
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
@@ -64,8 +64,6 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Unos kozmeticara");
-
         jLabel2.setText("Ime");
 
         jLabel3.setText("Prezime");
@@ -77,49 +75,43 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(311, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNazad)
-                    .addComponent(btnSacuvaj))
-                .addGap(302, 302, 302))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(159, 159, 159)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtImeKozmeticara, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                            .addComponent(txtPrezimeKozmeticara)
-                            .addComponent(txtGodine))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnNazad)
+                        .addGap(139, 139, 139)
+                        .addComponent(btnSacuvaj))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPrezimeKozmeticara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtImeKozmeticara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtGodine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(165, 165, 165))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(79, 79, 79)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtImeKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(40, 40, 40)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrezimeKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(44, 44, 44)
+                    .addComponent(jLabel2)
+                    .addComponent(txtImeKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPrezimeKozmeticara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(btnSacuvaj)
-                .addGap(59, 59, 59)
-                .addComponent(btnNazad)
-                .addGap(104, 104, 104))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNazad)
+                    .addComponent(btnSacuvaj))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         pack();
@@ -145,9 +137,9 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             DodajNovogKozmeticaraOdgovor odgovor = (DodajNovogKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
             if (odgovor.isUspeo()) {
-                JOptionPane.showMessageDialog(this, "Kozmeticar uspesno unet!");
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio kozmeticara");
             } else {
-                JOptionPane.showMessageDialog(this, "Neuspesno unosenje kozmeticara!");
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
             }
 
         } catch (IOException ex) {
@@ -155,7 +147,7 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(KreirajKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Godine moraju biti broj");
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
         }
 
     }//GEN-LAST:event_btnSacuvajActionPerformed
@@ -205,7 +197,6 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

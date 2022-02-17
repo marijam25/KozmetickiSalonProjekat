@@ -151,18 +151,24 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
+            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev(pretraga);
             oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
+            oos.writeObject(zahtev);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
             PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
 
-            for (Usluga usluga : odgovor.getNizUsluga()) {
-                if (usluga.getNazivUsluge().toLowerCase().contains(pretraga.toLowerCase())) {
-                    listaTabela.add(usluga);
-                }
+            listaTabela = odgovor.getNizUsluga();
+            if(!listaTabela.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Sistem je nasao usluge po zadatoj vrednosti");
+                podesiModelTabele();
             }
-            podesiModelTabele();
+            else{
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje usluge po zadatoj vrednosti");
+            }
+            
+            
 
         } catch (IOException ex) {
             Logger.getLogger(PretrazivanjeUsluge.class.getName()).log(Level.SEVERE, null, ex);

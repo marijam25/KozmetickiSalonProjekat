@@ -9,8 +9,10 @@ import Domen.KategorijaUsluga;
 import Domen.Klijent;
 import Domen.KorisnikSistema;
 import Domen.Kozmeticar;
+import Domen.StavkaZakazivanja;
 import Domen.Termin;
 import Domen.Usluga;
+import Domen.ZakazivanjeTermina;
 import db.DBBroker;
 import db.KategorijaUslugaDBInterface;
 import db.KlijentDBInterface;
@@ -18,6 +20,8 @@ import db.KozmeticarDBInterface;
 import db.TerminDBInterface;
 import db.UslugaDBInterface;
 import Niti.ServerskaNit;
+import db.StavkaZakazivanjaDBInterface;
+import db.ZakazivanjeTerminaDBInterface;
 import java.sql.Array;
 import java.util.ArrayList;
 
@@ -34,7 +38,10 @@ public class Kontroler {
     private UslugaDBInterface uslugaDBInterface;
     private TerminDBInterface terminDBInterface;
     private KategorijaUslugaDBInterface kategorijaUslugaDBInterface;
+    private ZakazivanjeTerminaDBInterface zakazivanjeTerminaDBInterface;
+    private StavkaZakazivanjaDBInterface stavkaZakazivanjaDBInterface;
     private ArrayList<KorisnikSistema> listaKorisnikaSistema;
+    private KlijentDBInterface klijentDBInterface;
 
     private Kontroler() {
         broker = new DBBroker();
@@ -43,6 +50,9 @@ public class Kontroler {
         uslugaDBInterface = new UslugaDBInterface(broker);
         terminDBInterface = new TerminDBInterface(broker);
         kategorijaUslugaDBInterface = new KategorijaUslugaDBInterface(broker);
+        zakazivanjeTerminaDBInterface = new ZakazivanjeTerminaDBInterface(broker);
+        stavkaZakazivanjaDBInterface = new StavkaZakazivanjaDBInterface(broker);
+        klijentDBInterface = new KlijentDBInterface(broker);
         listaKorisnikaSistema = new ArrayList<>();
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik1", "sifra1"));
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik2", "sifra2"));
@@ -83,10 +93,6 @@ public class Kontroler {
         return uspeo;
     }
 
-    public boolean dodajNoviTermin(Termin termin) {
-        boolean uspeo = terminDBInterface.dodaj(termin);
-        return uspeo;
-    }
 
     public boolean obrisiTermin(Termin termin) {
         boolean uspeo = terminDBInterface.obrisi(termin);
@@ -98,21 +104,6 @@ public class Kontroler {
         return uspeo;
     }
 
-    public ArrayList<Usluga> pretraziUsluge() {
-        /*String condString = "";
-        if(!nazivUsluge.equals("")){
-            condString+="nazivUsluge=" + nazivUsluge;
-        }
-        if(kategorijaID != -1){
-            if(!condString.equals("")){
-                condString+=" and ";
-            }
-            condString+=" KategorijaId = " + Integer.toString(kategorijaID);
-        }*/
-        
-        ArrayList<Usluga> nizUsluga = (ArrayList<Usluga>) uslugaDBInterface.vratiSve();
-        return nizUsluga;
-    }
 
     public boolean azurirajTermin(Termin termin) {
         boolean uspeo = terminDBInterface.izmeni(termin);
@@ -136,6 +127,37 @@ public class Kontroler {
             
         }
         return false;
+    }
+
+    public ArrayList<Usluga> pretraziUsluge(String uslov) {
+        String whereUslov = "";
+        if(!uslov.equals("")){
+            whereUslov+=" NazivUsluge like '" + uslov+"%'";
+        }
+        
+        ArrayList<Usluga> nizUsluga = (ArrayList<Usluga>) uslugaDBInterface.vratiSve(whereUslov);
+        return nizUsluga;
+    }
+
+    public ArrayList<Klijent> vratiSveKlijente() {
+        ArrayList<Klijent> listaKlijenata  = (ArrayList<Klijent>) klijentDBInterface.vratiSve();
+        return listaKlijenata;
+    }
+
+    public boolean dodajNoviTermin(Termin termin, StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina) {
+        boolean uspeoTermin = terminDBInterface.dodaj(termin);
+        if(!uspeoTermin)
+            return false;
+        
+        boolean uspeloZakazivanje = zakazivanjeTerminaDBInterface.dodaj(zakazivanjeTermina);
+        if(!uspeloZakazivanje)
+            return false;
+        
+        boolean uspelaStavka = stavkaZakazivanjaDBInterface.dodaj(stavkaZakazivanja);
+        if(!uspelaStavka)
+            return false;
+        
+        return true;
     }
 
     

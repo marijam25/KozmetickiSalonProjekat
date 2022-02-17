@@ -6,6 +6,7 @@
 package Forme;
 
 import Niti.ServerskaNit;
+import java.awt.Color;
 
 /**
  *
@@ -20,6 +21,8 @@ public class ServerskaForma extends javax.swing.JFrame {
     public ServerskaForma() {
         initComponents();
         lblStatus.setText("Server nije pokrenut");
+        lblStatus.setForeground(Color.red);
+        btnZaustavi.setEnabled(false);
     }
 
     /**
@@ -34,8 +37,12 @@ public class ServerskaForma extends javax.swing.JFrame {
         lblStatus = new javax.swing.JLabel();
         btnPokreni = new javax.swing.JButton();
         btnZaustavi = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Serverska forma");
+
+        lblStatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         btnPokreni.setText("Pokreni");
         btnPokreni.addActionListener(new java.awt.event.ActionListener() {
@@ -51,31 +58,38 @@ public class ServerskaForma extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Status");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(35, 35, 35)
                 .addComponent(btnPokreni)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(btnZaustavi)
-                .addGap(66, 66, 66))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
-                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(84, 84, 84))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(45, 45, 45)
+                .addComponent(lblStatus)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPokreni)
                     .addComponent(btnZaustavi))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
 
         pack();
@@ -84,14 +98,18 @@ public class ServerskaForma extends javax.swing.JFrame {
     private void btnPokreniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokreniActionPerformed
         // TODO add your handling code here:
         if(sn!=null){
-            //System.out.println("Server je vec pokrenut");
-            lblStatus.setText("Server je vec pokrenut");
+            System.out.println("Server je vec pokrenut");
+            //lblStatus.setText("Server je vec pokrenut");
+            //btnPokreni.setEnabled(false);
         }
         else{
             sn = new ServerskaNit(9000);
             sn.start();
             //System.out.println("Server je pokrenut");
             lblStatus.setText("Server je pokrenut");
+            lblStatus.setForeground(Color.GREEN);
+            btnPokreni.setEnabled(false);
+            btnZaustavi.setEnabled(true);
         }
     }//GEN-LAST:event_btnPokreniActionPerformed
 
@@ -99,13 +117,16 @@ public class ServerskaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(sn==null){
             System.out.println("Server nije ni pokrenut");
-            lblStatus.setText("Server nije ni pokrenut");
+            //lblStatus.setText("Server nije ni pokrenut");
         } 
         else{
             sn.zaustaviSlusanje();
             sn=null;
             //System.out.println("Server je zaustavljen");
             lblStatus.setText("Server je zaustavljen");
+            lblStatus.setForeground(Color.red);
+            btnZaustavi.setEnabled(false);
+            btnPokreni.setEnabled(true);
         }
     }//GEN-LAST:event_btnZaustaviActionPerformed
 
@@ -147,6 +168,7 @@ public class ServerskaForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPokreni;
     private javax.swing.JButton btnZaustavi;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblStatus;
     // End of variables declaration//GEN-END:variables
 }

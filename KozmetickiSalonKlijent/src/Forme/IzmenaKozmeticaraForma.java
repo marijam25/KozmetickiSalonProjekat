@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
 /**
@@ -149,6 +150,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             int tipOdgovora = ois.readInt();
             VratiSveKozmeticareOdgovor odgovor = (VratiSveKozmeticareOdgovor) ois.readObject();
 
+            listaTabela = new ArrayList<>();
             for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
                 if (kozmeticar.getPrezime().toLowerCase().contains(pretraga.toLowerCase())) {
                     listaTabela.add(kozmeticar);
@@ -156,22 +158,34 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             }
             podesiModelTabele();
 
+            if (!listaTabela.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Sistem je nasao kozmeticare po zadatoj vrednosti");
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");
         }
     }//GEN-LAST:event_btnPretraziActionPerformed
 
     private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
         // TODO add your handling code here:
         int izabraniRed = tblKozmeticar.getSelectedRow();
-        Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
-        KozmeticarIzmenaForma kif = new KozmeticarIzmenaForma(kozmeticar);
-        this.setVisible(false);
-        kif.setVisible(true);
-        podesiModelTabele();
-
+        if (izabraniRed == -1) {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita kozmeticara");
+        } else {
+            Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
+            KozmeticarIzmenaForma kif = new KozmeticarIzmenaForma(kozmeticar);
+            this.setVisible(false);
+            kif.setVisible(true);
+            podesiModelTabele();
+        }
     }//GEN-LAST:event_btnIzmeniActionPerformed
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed

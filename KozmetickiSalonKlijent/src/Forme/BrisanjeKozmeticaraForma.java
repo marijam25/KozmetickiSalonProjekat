@@ -27,6 +27,7 @@ import komunikacija.KomunikacijaSaServerom;
 public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
 
     private ArrayList<Kozmeticar> listaTabela;
+
     /**
      * Creates new form BrisanjeKozmeticaraForma
      */
@@ -34,7 +35,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         initComponents();
         listaTabela = new ArrayList<>();
         podesiModelTabele();
-        
+
     }
 
     /**
@@ -145,7 +146,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String pretraga = txtPrezime.getText();
-            
+
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
             oos.writeInt(TipoviZahteva.VRATI_SVE_KOZMETICARE_ZAHTEV);
@@ -160,7 +161,14 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                 }
             }
             podesiModelTabele();
-            
+
+            if (!listaTabela.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Sistem je nasao kozmeticare po zadatoj vrednosti");
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -172,25 +180,28 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             int izabraniRed = tblKozmeticar.getSelectedRow();
-            Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
-            
-            ObrisiKozmeticaraZahtev zahtev = new ObrisiKozmeticaraZahtev(kozmeticar);
-            
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            ObrisiKozmeticaraOdgovor odgovor = (ObrisiKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            
-            if(odgovor.isUspeo()){
-                JOptionPane.showMessageDialog(this, "Kozmeticar uspesno obrisan!");
-                listaTabela.remove(kozmeticar);
+            if (izabraniRed == -1) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
+            } else {
+                Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
+
+                ObrisiKozmeticaraZahtev zahtev = new ObrisiKozmeticaraZahtev(kozmeticar);
+
+                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV);
+                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                ObrisiKozmeticaraOdgovor odgovor = (ObrisiKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                if (odgovor.isUspeo()) {
+                    JOptionPane.showMessageDialog(this, "Sistem je obrisao kozmeticara");
+                    listaTabela.remove(kozmeticar);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
+                }
+                podesiModelTabele();
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Neuspesno brisanje kozmeticara!");
-            }
-            podesiModelTabele();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

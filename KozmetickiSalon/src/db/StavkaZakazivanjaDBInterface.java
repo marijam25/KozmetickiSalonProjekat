@@ -64,11 +64,9 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
     @Override
     public boolean dodaj(StavkaZakazivanja sz) {
         try {
-            String upit = "insert into StavkaZakazivanja(zakazivanjeId, terminId, uslugaId) values (?,?,?)";
+            String upit = "insert into StavkaZakazivanja(ZakazivanjeID,TerminID,UslugaID) VALUES ((select max(ZakazivanjeID) from zakazivanjetermina), (SELECT max(TerminID) from termin), ?)";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
-            ps.setInt(1, sz.getZakazivanjeId());
-            ps.setInt(2, sz.getTerminId());
-            ps.setInt(3, sz.getUslugaId());
+            ps.setInt(1, sz.getUslugaId());
             return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);

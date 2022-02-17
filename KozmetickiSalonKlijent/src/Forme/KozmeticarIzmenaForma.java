@@ -28,10 +28,11 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
      */
     public KozmeticarIzmenaForma(Kozmeticar kozmeticar) {
         initComponents();
+        JOptionPane.showMessageDialog(this, "Sistem je ucitao kozmeticara");
         this.kozmeticar = kozmeticar;
         txtIme.setText(kozmeticar.getIme());
         txtPrezime.setText(kozmeticar.getPrezime());
-        txtGodine.setText(kozmeticar.getGodine()+"");
+        txtGodine.setText(kozmeticar.getGodine() + "");
     }
 
     /**
@@ -82,12 +83,11 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -113,9 +113,9 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(55, 55, 55)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -160,9 +160,9 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             IzmeniKozmeticaraOdgovor odgovor = (IzmeniKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
             if (odgovor.isUspeo()) {
-                JOptionPane.showMessageDialog(this, "Kozmeticar uspesno izmenjen!");
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio kozmeticara");
             } else {
-                JOptionPane.showMessageDialog(this, "Neuspesna izmena kozmeticara!");
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
             }
 
             this.setVisible(false);
@@ -173,6 +173,8 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             Logger.getLogger(KozmeticarIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(KozmeticarIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
 
