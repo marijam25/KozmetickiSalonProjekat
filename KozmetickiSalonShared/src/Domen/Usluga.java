@@ -36,7 +36,7 @@ public class Usluga implements Serializable{
 
     @Override
     public String toString() {
-        return "Usluga{" + "uslugaId=" + uslugaId + ", nazivUsluge=" + nazivUsluge + ", kategorijaId=" + kategorijaId + '}';
+        return nazivUsluge;
     }
     
     

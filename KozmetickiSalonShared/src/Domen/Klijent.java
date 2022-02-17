@@ -36,7 +36,7 @@ public class Klijent implements Serializable{
 
     @Override
     public String toString() {
-        return "Klijent{" + "klijentId=" + klijentId + ", ime=" + ime + ", prezime=" + prezime + '}';
+        return ime + " " + prezime;
     }
     
     

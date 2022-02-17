@@ -36,7 +36,7 @@ public class Kozmeticar implements Serializable{
 
     @Override
     public String toString() {
-        return "Kozmeticar{" + "ime=" + ime + ", prezime=" + prezime + '}';
+        return ime + " " + prezime;
     }
 
     public void setIme(String ime) {
