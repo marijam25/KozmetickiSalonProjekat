@@ -110,10 +110,7 @@ public class Kontroler {
         return uspeo;
     }
 
-    public ArrayList<Kozmeticar> vratiSveKozmeticare() {
-        ArrayList<Kozmeticar> listaKozmeticara = (ArrayList<Kozmeticar>) kozmeticarDBInterface.vratiSve();
-        return listaKozmeticara;
-    }
+    
 
     public ArrayList<KategorijaUsluga> vratiSveKategorijeUsluga() {
         ArrayList<KategorijaUsluga> listaKategorijaUsluga = (ArrayList<KategorijaUsluga>) kategorijaUslugaDBInterface.vratiSve();
@@ -158,6 +155,16 @@ public class Kontroler {
             return false;
         
         return true;
+    }
+
+    public ArrayList<Kozmeticar> vratiKozmeticare(String uslov) {
+        String whereUslov = "";
+        if(!uslov.equals("")){
+            whereUslov+=" Prezime like '" + uslov+"%'";
+        }
+        
+        ArrayList<Kozmeticar> listaKozmeticara = (ArrayList<Kozmeticar>) kozmeticarDBInterface.vratiSve(whereUslov);
+        return listaKozmeticara;
     }
 
     

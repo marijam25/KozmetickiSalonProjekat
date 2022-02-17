@@ -8,9 +8,10 @@ package Forme;
 import Domen.Kozmeticar;
 import KlijentskiZahtev.ObrisiKozmeticaraZahtev;
 import KlijentskiZahtev.TipoviZahteva;
+import KlijentskiZahtev.VratiKozmeticareZahtev;
 import Modeli.ModelTabeleKozmeticara;
 import ServerskiOdgovor.ObrisiKozmeticaraOdgovor;
-import ServerskiOdgovor.VratiSveKozmeticareOdgovor;
+import ServerskiOdgovor.VratiKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -149,21 +150,19 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(TipoviZahteva.VRATI_SVE_KOZMETICARE_ZAHTEV);
+            VratiKozmeticareZahtev zahtev = new VratiKozmeticareZahtev(pretraga);
+            oos.writeInt(TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV);
+            oos.writeObject(zahtev);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
-            VratiSveKozmeticareOdgovor odgovor = (VratiSveKozmeticareOdgovor) ois.readObject();
+            VratiKozmeticareOdgovor odgovor = (VratiKozmeticareOdgovor) ois.readObject();
 
-            for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
-                if (kozmeticar.getPrezime().toLowerCase().contains(pretraga.toLowerCase())) {
-                    listaTabela.add(kozmeticar);
-                }
-            }
-            podesiModelTabele();
+            listaTabela = odgovor.getListaKozmeticara();
 
             if (!listaTabela.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Sistem je nasao kozmeticare po zadatoj vrednosti");
+                podesiModelTabele();
             } else {
 
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");

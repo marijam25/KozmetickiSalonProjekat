@@ -13,10 +13,10 @@ import java.util.ArrayList;
  *
  * @author milic
  */
-public class VratiSveKozmeticareOdgovor implements Serializable{
+public class VratiKozmeticareOdgovor implements Serializable{
     private ArrayList<Kozmeticar> listaKozmeticara;
 
-    public VratiSveKozmeticareOdgovor(ArrayList<Kozmeticar> listaKozmeticara) {
+    public VratiKozmeticareOdgovor(ArrayList<Kozmeticar> listaKozmeticara) {
         this.listaKozmeticara = listaKozmeticara;
     }
 

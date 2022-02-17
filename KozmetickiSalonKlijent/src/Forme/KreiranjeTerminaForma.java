@@ -17,7 +17,7 @@ import KlijentskiZahtev.TipoviZahteva;
 import ServerskiOdgovor.DodajNoviTerminOdgovor;
 import ServerskiOdgovor.PretraziUslugeOdgovor;
 import ServerskiOdgovor.VratiSveKlijenteOdgovor;
-import ServerskiOdgovor.VratiSveKozmeticareOdgovor;
+import ServerskiOdgovor.VratiKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -224,11 +224,11 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
         try {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(TipoviZahteva.VRATI_SVE_KOZMETICARE_ZAHTEV);
+            oos.writeInt(TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV);
             oos.flush();
 
             int tipOdgovora = ois.readInt();
-            VratiSveKozmeticareOdgovor odgovor = (VratiSveKozmeticareOdgovor) ois.readObject();
+            VratiKozmeticareOdgovor odgovor = (VratiKozmeticareOdgovor) ois.readObject();
             cmbKozmeticar.removeAllItems();
 
             for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {

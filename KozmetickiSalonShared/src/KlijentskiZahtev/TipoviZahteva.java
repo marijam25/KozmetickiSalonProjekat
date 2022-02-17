@@ -23,7 +23,7 @@ public class TipoviZahteva implements Serializable{
     public static final int IZMENI_KOZMETICARA_ZAHTEV = 8;
     public static final int PRETRAZI_USLUGE_ZAHTEV = 9;
     public static final int IZMENI_TERMIN_ZAHTEV = 10;
-    public static final int VRATI_SVE_KOZMETICARE_ZAHTEV = 11;
+    public static final int VRATI_KOZMETICARE_ZAHTEV = 11;
     public static final int VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV = 12;
     public static final int PRIJAVLJIVANJE_ZAHTEV = 13;
     public static final int VRATI_SVE_KLIJENTE_ZAHTEV = 14;

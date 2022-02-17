@@ -21,6 +21,7 @@ import KlijentskiZahtev.IzmeniTerminZahtev;
 import KlijentskiZahtev.IzmeniKozmeticaraZahtev;
 import KlijentskiZahtev.PretraziUslugeZahtev;
 import KlijentskiZahtev.PrijavljivanjeZahtev;
+import KlijentskiZahtev.VratiKozmeticareZahtev;
 import Kontroler.Kontroler;
 import ServerskiOdgovor.DodajNoviTerminOdgovor;
 import ServerskiOdgovor.DodajNovogKlijentaOdgovor;
@@ -29,7 +30,7 @@ import ServerskiOdgovor.DodajNovuUsluguOdgovor;
 import ServerskiOdgovor.ObrisiTerminOdgovor;
 import ServerskiOdgovor.ObrisiKozmeticaraOdgovor;
 import ServerskiOdgovor.ObrisiUsluguOdgovor;
-import ServerskiOdgovor.VratiSveKozmeticareOdgovor;
+import ServerskiOdgovor.VratiKozmeticareOdgovor;
 import ServerskiOdgovor.TipoviOdgovora;
 import ServerskiOdgovor.PretraziUslugeOdgovor;
 import ServerskiOdgovor.IzmeniTerminOdgovor;
@@ -185,11 +186,13 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.VRATI_SVE_KOZMETICARE_ZAHTEV: {
-                        ArrayList<Kozmeticar> listaKozmeticara = c.vratiSveKozmeticare();
+                    case TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV: {
+                        VratiKozmeticareZahtev zahtev = (VratiKozmeticareZahtev) ois.readObject();
+                        
+                        ArrayList<Kozmeticar> listaKozmeticara = c.vratiKozmeticare(zahtev.getUslov());
 
-                        VratiSveKozmeticareOdgovor odgovor = new VratiSveKozmeticareOdgovor(listaKozmeticara);
-                        oos.writeInt(TipoviOdgovora.VRATI_SVE_KOZMETICARE_ODGOVOR);
+                        VratiKozmeticareOdgovor odgovor = new VratiKozmeticareOdgovor(listaKozmeticara);
+                        oos.writeInt(TipoviOdgovora.VRATI_KOZMETICARE_ODGOVOR);
                         oos.writeObject(odgovor);
                         break;
                     }
