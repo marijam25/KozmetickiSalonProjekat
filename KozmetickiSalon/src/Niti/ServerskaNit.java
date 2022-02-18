@@ -1,22 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Niti;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
 public class ServerskaNit extends Thread {
 
     private ServerSocket ss;
@@ -29,22 +19,20 @@ public class ServerskaNit extends Thread {
             Logger.getLogger(ServerskaNit.class.getName()).log(Level.SEVERE, null, ex);
         }
         klijenti = new ArrayList<KlijentskaNit>();
-        //this.run();
     }
 
     @Override
     public void run() {
         try {
-            while(true){
+            while (true) {
                 Socket klijentskiSocket = ss.accept();
                 KlijentskaNit kNit = new KlijentskaNit(klijentskiSocket);
                 klijenti.add(kNit);
                 kNit.start();
-            } 
-        } 
-        catch (IOException ex) {
+            }
+        } catch (IOException ex) {
             System.out.println("Server zaustavljen");
-        } 
+        }
     }
 
     public void raskiniKonekcijuSaSvimKlijentima() {
@@ -52,7 +40,7 @@ public class ServerskaNit extends Thread {
             ct.prekiniKonekciju();
         }
     }
-    
+
     public void zaustaviSlusanje() {
         try {
             ss.close();

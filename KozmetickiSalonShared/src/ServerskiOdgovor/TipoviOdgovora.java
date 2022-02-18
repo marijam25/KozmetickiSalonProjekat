@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServerskiOdgovor;
 
 import java.io.Serializable;
 
-/**
- *
- * @author milic
- */
 public class TipoviOdgovora implements Serializable {
+
     public static final int DODAJ_NOVOG_KLIJENTA_ODGOVOR = 1;
     public static final int DODAJ_NOVOG_KOZMETICARA_ODGOVOR = 2;
     public static final int OBRISI_KOZMETICARA_ODGOVOR = 3;
@@ -26,4 +18,5 @@ public class TipoviOdgovora implements Serializable {
     public static final int VRATI_SVE_KATEGORIJE_USLUGA_ODGOVOR = 12;
     public static final int PRIJAVLJIVANJE_ODGOVOR = 13;
     public static final int VRATI_SVE_KLIJENTE_ODGOVOR = 14;
+    public static final int VRATI_SVE_TERMINE_ODGOVOR = 15;
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import Domen.StavkaZakazivanja;
@@ -15,11 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
-public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivanja>{
+public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivanja> {
 
     public DBBroker broker;
 
@@ -37,7 +28,7 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
         List<StavkaZakazivanja> listaStavkiZakazivanja = new ArrayList<>();
         try {
             String upit = "select * from StavkaZakazivanja";
-            if(!uslov.isEmpty()){
+            if (!uslov.isEmpty()) {
                 upit += " where " + uslov;
             }
             Statement statement = broker.getKonekcija().createStatement();
@@ -53,7 +44,7 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
             }
             rs.close();
             statement.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,7 +58,7 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
             String upit = "insert into StavkaZakazivanja(ZakazivanjeID,TerminID,UslugaID) VALUES ((select max(ZakazivanjeID) from zakazivanjetermina), (SELECT max(TerminID) from termin), ?)";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             ps.setInt(1, sz.getUslugaId());
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,7 +68,16 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
 
     @Override
     public boolean izmeni(StavkaZakazivanja t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String upit = "update StavkaZakazivanja set UslugaId=? where StavkaId=?";
+            PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
+            ps.setInt(1, t.getUslugaId());
+            ps.setInt(2, t.getStavkaId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(StavkaZakazivanjaDBInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -89,5 +89,5 @@ public class StavkaZakazivanjaDBInterface implements DBInterface<StavkaZakazivan
     public StavkaZakazivanja vratiPoIdu(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

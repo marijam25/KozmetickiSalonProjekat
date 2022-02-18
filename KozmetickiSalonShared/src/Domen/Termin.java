@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Domen;
 
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-/**
- *
- * @author milic
- */
-public class Termin implements Serializable{
+public class Termin implements Serializable {
+
     private int terminId;
     private Date datumTermina;
     private Time vremeTermina;
@@ -40,6 +32,5 @@ public class Termin implements Serializable{
     public String toString() {
         return "Termin{" + "terminId=" + terminId + ", datumTermina=" + datumTermina + ", vremeTermina=" + vremeTermina + '}';
     }
-    
-    
+
 }

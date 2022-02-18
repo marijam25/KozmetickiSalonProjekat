@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import Domen.Usluga;
@@ -15,10 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
 public class UslugaDBInterface implements DBInterface<Usluga> {
 
     public DBBroker broker;
@@ -37,7 +28,7 @@ public class UslugaDBInterface implements DBInterface<Usluga> {
         List<Usluga> listaUsluga = new ArrayList<>();
         try {
             String upit = "select * from Usluga";
-            if(!uslov.isEmpty()){
+            if (!uslov.isEmpty()) {
                 upit += " where " + uslov;
             }
             Statement statement = broker.getKonekcija().createStatement();
@@ -67,7 +58,7 @@ public class UslugaDBInterface implements DBInterface<Usluga> {
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             ps.setString(1, u.getNazivUsluge());
             ps.setInt(2, u.getKategorijaId());
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

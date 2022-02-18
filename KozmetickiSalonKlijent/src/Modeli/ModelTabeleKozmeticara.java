@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modeli;
 
 import Domen.Kozmeticar;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author milic
- */
+
 public class ModelTabeleKozmeticara extends AbstractTableModel {
 
     ArrayList<Kozmeticar> listaKozmeticara;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import java.io.FileInputStream;
@@ -12,31 +7,30 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
 public class DBPropertiesLoader {
-    public class Constants{
-        public static final String URL="url";
-        public static final String DRIVER="driver";
-        public static final String USER="user";
-        public static final String PASS="pass";
+
+    public class Constants {
+
+        public static final String URL = "url";
+        public static final String DRIVER = "driver";
+        public static final String USER = "user";
+        public static final String PASS = "pass";
     }
-    
+
     private static DBPropertiesLoader instance;
 
     public static DBPropertiesLoader getInstance() {
         try {
-            if(instance==null)
-                instance=new DBPropertiesLoader();
-            
+            if (instance == null) {
+                instance = new DBPropertiesLoader();
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(DBPropertiesLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return instance;
     }
-    
+
     Properties property;
 
     private DBPropertiesLoader() throws FileNotFoundException, IOException {
@@ -44,8 +38,8 @@ public class DBPropertiesLoader {
         FileInputStream fis = new FileInputStream("db.properties");
         property.load(fis);
     }
-    
-    public String getValue(String key){
+
+    public String getValue(String key) {
         return property.getProperty(key);
     }
 }

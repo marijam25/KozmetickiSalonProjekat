@@ -2,17 +2,8 @@ package KlijentskiZahtev;
 
 import java.io.Serializable;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+public class TipoviZahteva implements Serializable {
 
-/**
- *
- * @author milic
- */
-public class TipoviZahteva implements Serializable{
     public static final int DODAJ_NOVOG_KLIJENTA_ZAHTEV = 1;
     public static final int DODAJ_NOVOG_KOZMETICARA_ZAHTEV = 2;
     public static final int OBRISI_KOZMETICARA_ZAHTEV = 3;
@@ -27,4 +18,5 @@ public class TipoviZahteva implements Serializable{
     public static final int VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV = 12;
     public static final int PRIJAVLJIVANJE_ZAHTEV = 13;
     public static final int VRATI_SVE_KLIJENTE_ZAHTEV = 14;
+    public static final int VRATI_SVE_TERMINE_ZAHTEV = 15;
 }

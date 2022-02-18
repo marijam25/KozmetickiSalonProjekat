@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Kontroler;
 
 import Domen.KategorijaUsluga;
@@ -19,16 +14,11 @@ import db.KlijentDBInterface;
 import db.KozmeticarDBInterface;
 import db.TerminDBInterface;
 import db.UslugaDBInterface;
-import Niti.ServerskaNit;
 import db.StavkaZakazivanjaDBInterface;
 import db.ZakazivanjeTerminaDBInterface;
-import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Date;
 
-/**
- *
- * @author milic
- */
 public class Kontroler {
 
     private static Kontroler instance;
@@ -58,7 +48,7 @@ public class Kontroler {
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik2", "sifra2"));
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik3", "sifra3"));
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik4", "sifra4"));
-                
+
     }
 
     public static Kontroler getInstance() {
@@ -93,7 +83,6 @@ public class Kontroler {
         return uspeo;
     }
 
-
     public boolean obrisiTermin(Termin termin) {
         boolean uspeo = terminDBInterface.obrisi(termin);
         return uspeo;
@@ -104,14 +93,6 @@ public class Kontroler {
         return uspeo;
     }
 
-
-    public boolean azurirajTermin(Termin termin) {
-        boolean uspeo = terminDBInterface.izmeni(termin);
-        return uspeo;
-    }
-
-    
-
     public ArrayList<KategorijaUsluga> vratiSveKategorijeUsluga() {
         ArrayList<KategorijaUsluga> listaKategorijaUsluga = (ArrayList<KategorijaUsluga>) kategorijaUslugaDBInterface.vratiSve();
         return listaKategorijaUsluga;
@@ -119,54 +100,86 @@ public class Kontroler {
 
     public boolean prijavljivanje(String korisnickoIme, String sifra) {
         for (KorisnikSistema korisnikSistema : listaKorisnikaSistema) {
-            if(korisnikSistema.getKorisnickoIme().equals(korisnickoIme) && korisnikSistema.getSifra().equals(sifra))
+            if (korisnikSistema.getKorisnickoIme().equals(korisnickoIme) && korisnikSistema.getSifra().equals(sifra)) {
                 return true;
-            
+            }
         }
         return false;
     }
 
     public ArrayList<Usluga> pretraziUsluge(String uslov) {
         String whereUslov = "";
-        if(!uslov.equals("")){
-            whereUslov+=" NazivUsluge like '" + uslov+"%'";
+        if (!uslov.equals("")) {
+            whereUslov += " NazivUsluge like '" + uslov + "%'";
         }
-        
+
         ArrayList<Usluga> nizUsluga = (ArrayList<Usluga>) uslugaDBInterface.vratiSve(whereUslov);
         return nizUsluga;
     }
 
     public ArrayList<Klijent> vratiSveKlijente() {
-        ArrayList<Klijent> listaKlijenata  = (ArrayList<Klijent>) klijentDBInterface.vratiSve();
+        ArrayList<Klijent> listaKlijenata = (ArrayList<Klijent>) klijentDBInterface.vratiSve();
         return listaKlijenata;
     }
 
     public boolean dodajNoviTermin(Termin termin, StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina) {
         boolean uspeoTermin = terminDBInterface.dodaj(termin);
-        if(!uspeoTermin)
+        if (!uspeoTermin) {
             return false;
-        
+        }
+
         boolean uspeloZakazivanje = zakazivanjeTerminaDBInterface.dodaj(zakazivanjeTermina);
-        if(!uspeloZakazivanje)
+        if (!uspeloZakazivanje) {
             return false;
-        
+        }
+
         boolean uspelaStavka = stavkaZakazivanjaDBInterface.dodaj(stavkaZakazivanja);
-        if(!uspelaStavka)
+        if (!uspelaStavka) {
             return false;
-        
+        }
+
         return true;
     }
 
     public ArrayList<Kozmeticar> vratiKozmeticare(String uslov) {
         String whereUslov = "";
-        if(!uslov.equals("")){
-            whereUslov+=" Prezime like '" + uslov+"%'";
+        if (!uslov.equals("")) {
+            whereUslov += " Prezime like '" + uslov + "%'";
         }
-        
+
         ArrayList<Kozmeticar> listaKozmeticara = (ArrayList<Kozmeticar>) kozmeticarDBInterface.vratiSve(whereUslov);
         return listaKozmeticara;
     }
 
-    
+    public ArrayList<Termin> vratiTermine(Date datum) {
+        String whereUslov = "";
+        if (datum != null) {
+            java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
+            String datum1 = sqlDate.toString();
+            whereUslov += " datumTermina = " + "'" + datum1 + "'";
+        }
+
+        ArrayList<Termin> listaTermina = (ArrayList<Termin>) terminDBInterface.vratiSve(whereUslov);
+        return listaTermina;
+    }
+
+    public boolean azurirajTermin(Termin termin, StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina) {
+        boolean uspeoTermin = terminDBInterface.izmeni(termin);
+        if (!uspeoTermin) {
+            return false;
+        }
+
+        boolean uspeloZakazivanje = zakazivanjeTerminaDBInterface.izmeni(zakazivanjeTermina);
+        if (!uspeloZakazivanje) {
+            return false;
+        }
+
+        boolean uspelaStavka = stavkaZakazivanjaDBInterface.izmeni(stavkaZakazivanja);
+        if (!uspelaStavka) {
+            return false;
+        }
+
+        return true;
+    }
 
 }

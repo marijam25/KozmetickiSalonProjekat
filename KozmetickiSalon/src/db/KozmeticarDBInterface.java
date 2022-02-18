@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import Domen.Kozmeticar;
@@ -15,10 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
 public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
 
     public DBBroker broker;
@@ -37,7 +28,7 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
         List<Kozmeticar> listaKozmeticar = new ArrayList<>();
         try {
             String upit = "select * from Kozmeticar";
-            if(!uslov.isEmpty()){
+            if (!uslov.isEmpty()) {
                 upit += " where " + uslov;
             }
             Statement statement = broker.getKonekcija().createStatement();
@@ -53,7 +44,7 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
             }
             rs.close();
             statement.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,7 +60,7 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
             ps.setString(1, k.getIme());
             ps.setString(2, k.getPrezime());
             ps.setInt(3, k.getGodine());
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,14 +81,14 @@ public class KozmeticarDBInterface implements DBInterface<Kozmeticar> {
         } catch (SQLException ex) {
             Logger.getLogger(KozmeticarDBInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
 
     @Override
     public boolean obrisi(Kozmeticar t) {
         try {
-            String upit = "delete from Kozmeticar where KozmeticarID= "+t.getKozmeticarId();
+            String upit = "delete from Kozmeticar where KozmeticarID= " + t.getKozmeticarId();
             Statement statement = broker.getKonekcija().createStatement();
             statement.executeUpdate(upit);
             return true;

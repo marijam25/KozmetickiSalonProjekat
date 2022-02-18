@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Niti;
 
 import Domen.KategorijaUsluga;
 import Domen.Klijent;
 import Domen.Kozmeticar;
+import Domen.Termin;
 import Domen.Usluga;
 import KlijentskiZahtev.DodajNoviTerminZahtev;
 import KlijentskiZahtev.DodajNovogKlijentaZahtev;
@@ -22,6 +18,7 @@ import KlijentskiZahtev.IzmeniKozmeticaraZahtev;
 import KlijentskiZahtev.PretraziUslugeZahtev;
 import KlijentskiZahtev.PrijavljivanjeZahtev;
 import KlijentskiZahtev.VratiKozmeticareZahtev;
+import KlijentskiZahtev.VratiTermineZahtev;
 import Kontroler.Kontroler;
 import ServerskiOdgovor.DodajNoviTerminOdgovor;
 import ServerskiOdgovor.DodajNovogKlijentaOdgovor;
@@ -38,6 +35,7 @@ import ServerskiOdgovor.IzmeniKozmeticaraOdgovor;
 import ServerskiOdgovor.PrijavljivanjeOdgovor;
 import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
 import ServerskiOdgovor.VratiSveKlijenteOdgovor;
+import ServerskiOdgovor.VratiTermineOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -46,10 +44,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
 public class KlijentskaNit extends Thread {
 
     private Socket s;
@@ -134,7 +128,7 @@ public class KlijentskaNit extends Thread {
                     case TipoviZahteva.DODAJ_NOVI_TERMIN_ZAHTEV: {
                         DodajNoviTerminZahtev zahtev = (DodajNoviTerminZahtev) ois.readObject();
 
-                        boolean uspeo = c.dodajNoviTermin(zahtev.getTermin(),zahtev.getStavkaZakazivanja(),zahtev.getZakazivanjeTermina());
+                        boolean uspeo = c.dodajNoviTermin(zahtev.getTermin(), zahtev.getStavkaZakazivanja(), zahtev.getZakazivanjeTermina());
 
                         DodajNoviTerminOdgovor odgovor = new DodajNoviTerminOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.DODAJ_NOVI_TERMIN_ODGOVOR);
@@ -178,7 +172,7 @@ public class KlijentskaNit extends Thread {
                     case TipoviZahteva.IZMENI_TERMIN_ZAHTEV: {
                         IzmeniTerminZahtev zahtev = (IzmeniTerminZahtev) ois.readObject();
 
-                        boolean uspeo = c.azurirajTermin(zahtev.getTermin());
+                        boolean uspeo = c.azurirajTermin(zahtev.getTermin(), zahtev.getStavkaZakazivanja(), zahtev.getZakazivanjeTermina());
 
                         IzmeniTerminOdgovor odgovor = new IzmeniTerminOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.IZMENI_TERMIN_ODGOVOR);
@@ -188,7 +182,7 @@ public class KlijentskaNit extends Thread {
 
                     case TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV: {
                         VratiKozmeticareZahtev zahtev = (VratiKozmeticareZahtev) ois.readObject();
-                        
+
                         ArrayList<Kozmeticar> listaKozmeticara = c.vratiKozmeticare(zahtev.getUslov());
 
                         VratiKozmeticareOdgovor odgovor = new VratiKozmeticareOdgovor(listaKozmeticara);
@@ -196,32 +190,43 @@ public class KlijentskaNit extends Thread {
                         oos.writeObject(odgovor);
                         break;
                     }
-                    
-                    case TipoviZahteva.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV:{
+
+                    case TipoviZahteva.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV: {
                         ArrayList<KategorijaUsluga> listaKategorijaUsluga = c.vratiSveKategorijeUsluga();
-                        
+
                         VratiSveKategorijeUslugaOdgovor odgovor = new VratiSveKategorijeUslugaOdgovor(listaKategorijaUsluga);
                         oos.writeInt(TipoviOdgovora.VRATI_SVE_KATEGORIJE_USLUGA_ODGOVOR);
                         oos.writeObject(odgovor);
                         break;
                     }
-                    
-                    case TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV:{
+
+                    case TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV: {
                         PrijavljivanjeZahtev zahtev = (PrijavljivanjeZahtev) ois.readObject();
-                        
-                        boolean uspesno = c.prijavljivanje(zahtev.getKorisnickoIme(),zahtev.getSifra());
-                        
+
+                        boolean uspesno = c.prijavljivanje(zahtev.getKorisnickoIme(), zahtev.getSifra());
+
                         PrijavljivanjeOdgovor odgovor = new PrijavljivanjeOdgovor(uspesno);
                         oos.writeInt(TipoviOdgovora.PRIJAVLJIVANJE_ODGOVOR);
                         oos.writeObject(odgovor);
-                        
+
                         break;
                     }
-                    case TipoviZahteva.VRATI_SVE_KLIJENTE_ZAHTEV:{
+                    case TipoviZahteva.VRATI_SVE_KLIJENTE_ZAHTEV: {
                         ArrayList<Klijent> listaKlijenata = c.vratiSveKlijente();
-                        
+
                         VratiSveKlijenteOdgovor odgovor = new VratiSveKlijenteOdgovor(listaKlijenata);
                         oos.writeInt(TipoviOdgovora.VRATI_SVE_KLIJENTE_ODGOVOR);
+                        oos.writeObject(odgovor);
+                        break;
+                    }
+
+                    case TipoviZahteva.VRATI_SVE_TERMINE_ZAHTEV: {
+                        VratiTermineZahtev zahtev = (VratiTermineZahtev) ois.readObject();
+
+                        ArrayList<Termin> listaTermina = c.vratiTermine(zahtev.getDatum());
+
+                        VratiTermineOdgovor odgovor = new VratiTermineOdgovor(listaTermina);
+                        oos.writeInt(TipoviOdgovora.VRATI_SVE_TERMINE_ODGOVOR);
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -234,9 +239,8 @@ public class KlijentskaNit extends Thread {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(KlijentskaNit.class.getName()).log(Level.SEVERE, null, ex);
                 return;
-            } catch(Exception ex){
-                //Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Klijent disconectovan");
+            } catch (Exception ex) {
+                Logger.getLogger(KlijentskaNit.class.getName()).log(Level.SEVERE, null, ex);
                 return;
             }
         }

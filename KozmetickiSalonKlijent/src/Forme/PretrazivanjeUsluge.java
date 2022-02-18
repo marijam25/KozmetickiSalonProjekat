@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Forme;
 
+import Domen.KategorijaUsluga;
 import Domen.Usluga;
 import KlijentskiZahtev.TipoviZahteva;
 import KlijentskiZahtev.PretraziUslugeZahtev;
 import Modeli.ModelTabeleUsluge;
 import ServerskiOdgovor.PretraziUslugeOdgovor;
+import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,20 +16,16 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
-/**
- *
- * @author milic
- */
 public class PretrazivanjeUsluge extends javax.swing.JFrame {
 
     private ArrayList<Usluga> listaTabela;
+    private ArrayList<KategorijaUsluga> listaKategorija;
 
-    /**
-     * Creates new form PretrazivanjeUsluge
-     */
     public PretrazivanjeUsluge() {
         initComponents();
         listaTabela = new ArrayList<>();
+        listaKategorija = new ArrayList<>();
+        vratiKategorijeUsluga();
         podesiModelTabele();
     }
 
@@ -160,15 +153,12 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
             PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
 
             listaTabela = odgovor.getNizUsluga();
-            if(!listaTabela.isEmpty()){
+            if (!listaTabela.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Sistem je nasao usluge po zadatoj vrednosti");
                 podesiModelTabele();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje usluge po zadatoj vrednosti");
             }
-            
-            
 
         } catch (IOException ex) {
             Logger.getLogger(PretrazivanjeUsluge.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,10 +170,16 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
     private void btnPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrikaziActionPerformed
         // TODO add your handling code here:
         int izabraniRed = tblUsluge.getSelectedRow();
-        Usluga usluga = listaTabela.get(izabraniRed);
 
-        JOptionPane.showMessageDialog(this, "Naziv usluge: " + usluga.getNazivUsluge() + "\n" + "Kategorija usluge: " + usluga.getKategorijaId() + "\n");
-
+        if (izabraniRed == -1) {
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita uslugu");
+        } else {
+            Usluga usluga = listaTabela.get(izabraniRed);
+            PrikazUslugeForma puf = new PrikazUslugeForma(usluga, listaKategorija);
+            this.setVisible(false);
+            puf.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Sistem je ucitao uslugu");
+        }
     }//GEN-LAST:event_btnPrikaziActionPerformed
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
@@ -241,7 +237,30 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
 
     private void podesiModelTabele() {
         ModelTabeleUsluge mtu = new ModelTabeleUsluge(listaTabela);
+        mtu.setListaKategorija(listaKategorija);
         tblUsluge.setModel(mtu);
         mtu.osveziTabelu();
+    }
+
+    private void vratiKategorijeUsluga() {
+        try {
+            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
+            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
+
+            oos.writeInt(TipoviZahteva.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
+            oos.flush();
+
+            int tipOdgovora = ois.readInt();
+            VratiSveKategorijeUslugaOdgovor odgovor = (VratiSveKategorijeUslugaOdgovor) ois.readObject();
+
+            listaKategorija = odgovor.getListaKategorijaUsluga();
+
+            podesiModelTabele();
+
+        } catch (IOException ex) {
+            Logger.getLogger(PretrazivanjeUsluge.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PretrazivanjeUsluge.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

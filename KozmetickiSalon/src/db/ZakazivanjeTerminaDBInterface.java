@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import Domen.ZakazivanjeTermina;
@@ -15,11 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
-public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTermina>{
+public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTermina> {
 
     public DBBroker broker;
 
@@ -37,12 +28,12 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
         List<ZakazivanjeTermina> listaZakazivanja = new ArrayList<>();
         try {
             String upit = "select * from ZakazivanjeTermina";
-            if(!uslov.isEmpty()){
+            if (!uslov.isEmpty()) {
                 upit += " where " + uslov;
             }
             Statement statement = broker.getKonekcija().createStatement();
             ResultSet rs = statement.executeQuery(upit);
-            
+
             while (rs.next()) {
                 int zakazivanjeId = rs.getInt("ZakazivanjeID");
                 int kozmeticarId = rs.getInt("KozmeticarID");
@@ -52,7 +43,7 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
             }
             rs.close();
             statement.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,10 +57,10 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
             //zakazivanjeid, kozmeticarid, klijentid
             String upit = "insert into ZakazivanjeTermina(KozmeticarId, KlijentId) values (?,?)";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
-            
+
             ps.setInt(1, zt.getKozmeticarId());
             ps.setInt(2, zt.getKlijentId());
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +70,17 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
 
     @Override
     public boolean izmeni(ZakazivanjeTermina t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String upit = "update ZakazivanjeTermina set KozmeticarId=?, KlijentId=? where TerminId=?";
+            PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
+            ps.setInt(1, t.getKozmeticarId());
+            ps.setInt(2, t.getKlijentId());
+            ps.setInt(3, t.getZakazivanjeId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(ZakazivanjeTerminaDBInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -91,5 +92,5 @@ public class ZakazivanjeTerminaDBInterface implements DBInterface<ZakazivanjeTer
     public ZakazivanjeTermina vratiPoIdu(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

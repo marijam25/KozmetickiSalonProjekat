@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import Domen.Termin;
@@ -16,10 +11,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author milic
- */
 public class TerminDBInterface implements DBInterface<Termin> {
 
     public DBBroker broker;
@@ -38,7 +29,7 @@ public class TerminDBInterface implements DBInterface<Termin> {
         List<Termin> listaTermina = new ArrayList<>();
         try {
             String upit = "select * from Termin";
-            if(!uslov.isEmpty()){
+            if (!uslov.isEmpty()) {
                 upit += " where " + uslov;
             }
             Statement statement = broker.getKonekcija().createStatement();
@@ -46,10 +37,10 @@ public class TerminDBInterface implements DBInterface<Termin> {
 
             while (rs.next()) {
                 int id = rs.getInt("TerminID");
-                java.sql.Date sqlDate = rs.getDate("Datum");
-                java.sql.Time sqlTime = rs.getTime("Vreme");
+                java.sql.Date sqlDate = rs.getDate("DatumTermina");
+                java.sql.Time sqlTime = rs.getTime("VremeTermina");
                 java.util.Date datum = new java.util.Date(sqlDate.getTime());
-                java.util.Date vreme = new java.util.Date(sqlTime.getTime());
+                Time vreme = new Time(sqlTime.getTime());
                 Termin t = new Termin(id, datum, (Time) vreme);
                 listaTermina.add(t);
             }
@@ -72,7 +63,7 @@ public class TerminDBInterface implements DBInterface<Termin> {
             java.sql.Time sqlTime = new java.sql.Time(t.getVremeTermina().getTime());
             ps.setDate(1, sqlDate);
             ps.setTime(2, sqlTime);
-            return ps.executeUpdate()>0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,9 +73,9 @@ public class TerminDBInterface implements DBInterface<Termin> {
 
     @Override
     public boolean izmeni(Termin t) {
-        
+
         try {
-            String upit = "update Kozmeticar set Datum=?, Vreme=? where TerminId=?";
+            String upit = "update Termin set DatumTermina=?, VremeTermina=? where TerminId=?";
             PreparedStatement ps = broker.getKonekcija().prepareStatement(upit);
             ps.setDate(1, new java.sql.Date(t.getDatumTermina().getTime()));
             ps.setTime(2, new java.sql.Time(t.getVremeTermina().getTime()));

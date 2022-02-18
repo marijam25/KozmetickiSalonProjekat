@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Forme;
 
+import Domen.KategorijaUsluga;
 import Domen.Usluga;
 import KlijentskiZahtev.ObrisiUsluguZahtev;
 import KlijentskiZahtev.PretraziUslugeZahtev;
@@ -12,6 +8,7 @@ import KlijentskiZahtev.TipoviZahteva;
 import Modeli.ModelTabeleUsluge;
 import ServerskiOdgovor.ObrisiUsluguOdgovor;
 import ServerskiOdgovor.PretraziUslugeOdgovor;
+import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,13 +18,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
-/**
- *
- * @author milic
- */
+
 public class BrisanjeUslugeForma extends javax.swing.JFrame {
 
     private ArrayList<Usluga> listaTabela;
+    private ArrayList<KategorijaUsluga> listaKategorija;
 
     /**
      * Creates new form BrisanjeUslugeForma
@@ -35,6 +30,8 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
     public BrisanjeUslugeForma() {
         initComponents();
         listaTabela = new ArrayList<>();
+        listaKategorija = new ArrayList<>();
+        vratiKategorijeUsluga();
         podesiModelTabele();
     }
 
@@ -163,11 +160,10 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
 
             listaTabela = odgovor.getNizUsluga();
-            if(!listaTabela.isEmpty()){
+            if (!listaTabela.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Sistem je nasao usluge po zadatoj vrednosti");
                 podesiModelTabele();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje usluge po zadatoj vrednosti");
             }
         } catch (IOException ex) {
@@ -181,24 +177,30 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             int izabraniRed = tblUsluge.getSelectedRow();
-            Usluga usluga = listaTabela.get(izabraniRed);
 
-            ObrisiUsluguZahtev zahtev = new ObrisiUsluguZahtev(usluga);
-
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-
-            if (odgovor.isUspeo()) {
-                JOptionPane.showMessageDialog(this, "Usluga uspesno obrisana!");
-                listaTabela.remove(usluga);
+            if (izabraniRed == -1) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
             } else {
-                JOptionPane.showMessageDialog(this, "Neuspesno brisanje usluge!");
-            }
 
-            podesiModelTabele();
+                Usluga usluga = listaTabela.get(izabraniRed);
+
+                ObrisiUsluguZahtev zahtev = new ObrisiUsluguZahtev(usluga);
+
+                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
+                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                if (odgovor.isUspeo()) {
+                    JOptionPane.showMessageDialog(this, "Sistem je obrisao uslugu");
+                    listaTabela.remove(usluga);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
+                }
+
+                podesiModelTabele();
+            }
         } catch (IOException ex) {
             Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -262,6 +264,29 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
     private void podesiModelTabele() {
         ModelTabeleUsluge mtu = new ModelTabeleUsluge(listaTabela);
         tblUsluge.setModel(mtu);
+        mtu.setListaKategorija(listaKategorija);
         mtu.osveziTabelu();
+    }
+
+    private void vratiKategorijeUsluga() {
+        try {
+            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
+            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
+
+            oos.writeInt(TipoviZahteva.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
+            oos.flush();
+
+            int tipOdgovora = ois.readInt();
+            VratiSveKategorijeUslugaOdgovor odgovor = (VratiSveKategorijeUslugaOdgovor) ois.readObject();
+
+            listaKategorija = odgovor.getListaKategorijaUsluga();
+
+            podesiModelTabele();
+
+        } catch (IOException ex) {
+            Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

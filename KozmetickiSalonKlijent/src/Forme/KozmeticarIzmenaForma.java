@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Forme;
 
 import Domen.Kozmeticar;
@@ -15,17 +10,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
-/**
- *
- * @author milic
- */
 public class KozmeticarIzmenaForma extends javax.swing.JFrame {
 
     private Kozmeticar kozmeticar;
 
-    /**
-     * Creates new form KozmeticarIzmenaForma
-     */
     public KozmeticarIzmenaForma(Kozmeticar kozmeticar) {
         initComponents();
         JOptionPane.showMessageDialog(this, "Sistem je ucitao kozmeticara");

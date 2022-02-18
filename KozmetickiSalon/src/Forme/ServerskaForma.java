@@ -1,23 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Forme;
 
 import Niti.ServerskaNit;
 import java.awt.Color;
 
-/**
- *
- * @author milic
- */
 public class ServerskaForma extends javax.swing.JFrame {
 
     private ServerskaNit sn;
-    /**
-     * Creates new form ServerskaForma
-     */
+
     public ServerskaForma() {
         initComponents();
         lblStatus.setText("Server nije pokrenut");
@@ -97,12 +86,11 @@ public class ServerskaForma extends javax.swing.JFrame {
 
     private void btnPokreniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokreniActionPerformed
         // TODO add your handling code here:
-        if(sn!=null){
+        if (sn != null) {
             System.out.println("Server je vec pokrenut");
             //lblStatus.setText("Server je vec pokrenut");
             //btnPokreni.setEnabled(false);
-        }
-        else{
+        } else {
             sn = new ServerskaNit(9000);
             sn.start();
             //System.out.println("Server je pokrenut");
@@ -115,13 +103,12 @@ public class ServerskaForma extends javax.swing.JFrame {
 
     private void btnZaustaviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZaustaviActionPerformed
         // TODO add your handling code here:
-        if(sn==null){
+        if (sn == null) {
             System.out.println("Server nije ni pokrenut");
             //lblStatus.setText("Server nije ni pokrenut");
-        } 
-        else{
+        } else {
             sn.zaustaviSlusanje();
-            sn=null;
+            sn = null;
             //System.out.println("Server je zaustavljen");
             lblStatus.setText("Server je zaustavljen");
             lblStatus.setForeground(Color.red);

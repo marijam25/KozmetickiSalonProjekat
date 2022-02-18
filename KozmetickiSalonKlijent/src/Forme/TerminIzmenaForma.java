@@ -6,14 +6,14 @@ import Domen.StavkaZakazivanja;
 import Domen.Termin;
 import Domen.Usluga;
 import Domen.ZakazivanjeTermina;
-import KlijentskiZahtev.DodajNoviTerminZahtev;
+import KlijentskiZahtev.IzmeniTerminZahtev;
 import KlijentskiZahtev.PretraziUslugeZahtev;
 import KlijentskiZahtev.TipoviZahteva;
 import KlijentskiZahtev.VratiKozmeticareZahtev;
-import ServerskiOdgovor.DodajNoviTerminOdgovor;
+import ServerskiOdgovor.IzmeniTerminOdgovor;
 import ServerskiOdgovor.PretraziUslugeOdgovor;
-import ServerskiOdgovor.VratiSveKlijenteOdgovor;
 import ServerskiOdgovor.VratiKozmeticareOdgovor;
+import ServerskiOdgovor.VratiSveKlijenteOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,10 +25,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
-public class KreiranjeTerminaForma extends javax.swing.JFrame {
+public class TerminIzmenaForma extends javax.swing.JFrame {
 
-    public KreiranjeTerminaForma() {
+    private Termin t;
+
+    public TerminIzmenaForma(Termin t) {
         initComponents();
+        this.t = t;
+
         popuniCmbKozmeticar();
         popuniCmbKlijent();
         popuniCmbUsluge();
@@ -43,34 +47,39 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtDatum = new javax.swing.JTextField();
-        txtVreme = new javax.swing.JTextField();
-        cmbKozmeticar = new javax.swing.JComboBox();
-        cmbKlijent = new javax.swing.JComboBox();
-        cmbUsluga = new javax.swing.JComboBox();
-        btnSacuvaj = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtDatum = new javax.swing.JTextField();
+        txtVreme = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cmbKozmeticari = new javax.swing.JComboBox();
+        cmbKlijenti = new javax.swing.JComboBox();
+        cmbUsluge = new javax.swing.JComboBox();
+        btnNazad = new javax.swing.JButton();
+        btnSacuvaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cmbKozmeticar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel1.setText("Izmena termina");
 
-        cmbKlijent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel2.setText("Datum \"dd.MM.yyyy\"");
 
-        cmbUsluga.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel3.setText("Vreme \"hh:mm\"");
 
-        btnSacuvaj.setText("Sacuvaj");
-        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSacuvajActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("Kozmeticar");
+
+        jLabel5.setText("Klijent");
+
+        jLabel6.setText("Usluga");
+
+        cmbKozmeticari.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbKlijenti.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbUsluge.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnNazad.setText("Nazad");
         btnNazad.addActionListener(new java.awt.event.ActionListener() {
@@ -79,82 +88,83 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Kreiranje termina");
-
-        jLabel2.setText("Datum u formatu \"dd.MM.yyyy\"");
-
-        jLabel3.setText("Vreme u formatu \"hh:mm\"");
-
-        jLabel4.setText("Kozmeticar");
-
-        jLabel5.setText("Klijent");
-
-        jLabel6.setText("Usluga");
+        btnSacuvaj.setText("Sacuvaj");
+        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSacuvajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnNazad)
-                            .addGap(194, 194, 194)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSacuvaj))
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel6))
-                            .addGap(90, 90, 90)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(78, 78, 78)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtDatum)
                                 .addComponent(txtVreme)
-                                .addComponent(cmbKozmeticar, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmbKlijent, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbUsluga, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(111, 111, 111))
+                                .addComponent(cmbKozmeticari, 0, 356, Short.MAX_VALUE)
+                                .addComponent(cmbKlijenti, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbUsluge, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtVreme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbKozmeticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbKlijent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(37, 37, 37)
-                        .addComponent(cmbUsluga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6))
-                .addGap(60, 60, 60)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSacuvaj)
-                    .addComponent(btnNazad))
-                .addContainerGap(111, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(txtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtVreme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbKozmeticari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbKlijenti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cmbUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(89, 89, 89)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNazad)
+                    .addComponent(btnSacuvaj))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        IzmenaTerminaForma itf = new IzmenaTerminaForma();
+        this.setVisible(false);
+        itf.setVisible(true);
+    }//GEN-LAST:event_btnNazadActionPerformed
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         try {
@@ -168,48 +178,37 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
             java.util.Date datumUtil = null;
             java.sql.Time vremeSql = null;
 
-            try {
-                datumUtil = datumFormat.parse(dat);
-                vremeSql = new Time(vremeFormat.parse(vr).getTime());
-            } catch (ParseException ex) {
-                Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            datumUtil = datumFormat.parse(dat);
+            vremeSql = new Time(vremeFormat.parse(vr).getTime());
 
-            Termin termin = new Termin(0, datumUtil, (Time) vremeSql);
-            Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticar.getSelectedItem();
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
-            Usluga usluga = (Usluga) cmbUsluga.getSelectedItem();
+            Termin termin = new Termin(t.getTerminId(), datumUtil, (Time) vremeSql);
+            Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticari.getSelectedItem();
+            Klijent klijent = (Klijent) cmbKlijenti.getSelectedItem();
+            Usluga usluga = (Usluga) cmbUsluge.getSelectedItem();
             ZakazivanjeTermina zakazivanjeTermina = new ZakazivanjeTermina(0, kozmeticar.getKozmeticarId(), klijent.getKlijentId());
             StavkaZakazivanja stavkaZakazivanja = new StavkaZakazivanja(0, 0, 0, usluga.getUslugaId());
 
-            DodajNoviTerminZahtev zahtev = new DodajNoviTerminZahtev(termin, stavkaZakazivanja, zakazivanjeTermina);
+            IzmeniTerminZahtev zahtev = new IzmeniTerminZahtev(termin, stavkaZakazivanja, zakazivanjeTermina);
 
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVI_TERMIN_ZAHTEV);
+            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.IZMENI_TERMIN_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            DodajNoviTerminOdgovor odgovor = (DodajNoviTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            IzmeniTerminOdgovor odgovor = (IzmeniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
             if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
             }
-
+        } catch (ParseException ex) {
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnSacuvajActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,20 +227,20 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TerminIzmenaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TerminIzmenaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TerminIzmenaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TerminIzmenaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new KreiranjeTerminaForma().setVisible(true);
+                //new TerminIzmenaForma().setVisible(true);
             }
         });
     }
@@ -249,9 +248,9 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
-    private javax.swing.JComboBox cmbKlijent;
-    private javax.swing.JComboBox cmbKozmeticar;
-    private javax.swing.JComboBox cmbUsluga;
+    private javax.swing.JComboBox cmbKlijenti;
+    private javax.swing.JComboBox cmbKozmeticari;
+    private javax.swing.JComboBox cmbUsluge;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -273,15 +272,15 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
 
             int tipOdgovora = ois.readInt();
             VratiKozmeticareOdgovor odgovor = (VratiKozmeticareOdgovor) ois.readObject();
-            cmbKozmeticar.removeAllItems();
+            cmbKozmeticari.removeAllItems();
 
             for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
-                cmbKozmeticar.addItem(kozmeticar);
+                cmbKozmeticari.addItem(kozmeticar);
             }
         } catch (IOException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -294,15 +293,15 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
 
             int tipOdgovora = ois.readInt();
             VratiSveKlijenteOdgovor odgovor = (VratiSveKlijenteOdgovor) ois.readObject();
-            cmbKlijent.removeAllItems();
+            cmbKlijenti.removeAllItems();
 
             for (Klijent klijent : odgovor.getListaKlijenata()) {
-                cmbKlijent.addItem(klijent);
+                cmbKlijenti.addItem(klijent);
             }
         } catch (IOException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -318,15 +317,16 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
 
             int tipOdgovora = ois.readInt();
             PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
-            cmbUsluga.removeAllItems();
+            cmbUsluge.removeAllItems();
 
             for (Usluga usluga : odgovor.getNizUsluga()) {
-                cmbUsluga.addItem(usluga);
+                cmbUsluge.addItem(usluga);
             }
         } catch (IOException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }

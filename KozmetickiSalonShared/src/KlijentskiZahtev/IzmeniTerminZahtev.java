@@ -1,25 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package KlijentskiZahtev;
 
+import Domen.StavkaZakazivanja;
 import Domen.Termin;
+import Domen.ZakazivanjeTermina;
 import java.io.Serializable;
 
-/**
- *
- * @author milic
- */
 public class IzmeniTerminZahtev implements Serializable {
-    private Termin termin;
 
-    public IzmeniTerminZahtev(Termin termin) {
+    private Termin termin;
+    private StavkaZakazivanja stavkaZakazivanja;
+    private ZakazivanjeTermina zakazivanjeTermina;
+
+    public IzmeniTerminZahtev(Termin termin, StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina) {
         this.termin = termin;
+        this.stavkaZakazivanja = stavkaZakazivanja;
+        this.zakazivanjeTermina = zakazivanjeTermina;
     }
 
     public Termin getTermin() {
         return termin;
     }
+
+    public StavkaZakazivanja getStavkaZakazivanja() {
+        return stavkaZakazivanja;
+    }
+
+    public ZakazivanjeTermina getZakazivanjeTermina() {
+        return zakazivanjeTermina;
+    }
+
 }

@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Domen;
 
 import java.io.Serializable;
 
-/**
- *
- * @author milic
- */
-public class Usluga implements Serializable{
+public class Usluga implements Serializable {
+
     private int uslugaId;
     private String nazivUsluge;
     private int kategorijaId;
@@ -38,6 +30,5 @@ public class Usluga implements Serializable{
     public String toString() {
         return nazivUsluge;
     }
-    
-    
+
 }

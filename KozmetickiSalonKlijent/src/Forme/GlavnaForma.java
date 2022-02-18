@@ -1,26 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Forme;
 
 import javax.swing.JOptionPane;
-import komunikacija.KomunikacijaSaServerom;
 
-/**
- *
- * @author milic
- */
 public class GlavnaForma extends javax.swing.JFrame {
 
-    
-    /**
-     * Creates new form GlavnaForma
-     */
     public GlavnaForma() {
         initComponents();
-        
+
     }
 
     /**
@@ -98,6 +84,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
 
         btnIzmenaTermina.setText("Izmena termina");
+        btnIzmenaTermina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzmenaTerminaActionPerformed(evt);
+            }
+        });
 
         btnBrisanjeTermina.setText("Brisanje termina");
 
@@ -186,7 +177,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreiranjeUslugeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeUslugeActionPerformed
         // TODO add your handling code here:
-        
+
         KreiranjeUslugeForma kuf = new KreiranjeUslugeForma();
         this.setVisible(false);
         kuf.setVisible(true);
@@ -213,6 +204,13 @@ public class GlavnaForma extends javax.swing.JFrame {
         this.setVisible(false);
         ktf.setVisible(true);
     }//GEN-LAST:event_btnKreiranjeTerminaActionPerformed
+
+    private void btnIzmenaTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmenaTerminaActionPerformed
+        // TODO add your handling code here:
+        IzmenaTerminaForma itf = new IzmenaTerminaForma();
+        this.setVisible(false);
+        itf.setVisible(true);
+    }//GEN-LAST:event_btnIzmenaTerminaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,5 +260,4 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JButton txtBrisanjeKozmeticara;
     // End of variables declaration//GEN-END:variables
 
-   
 }

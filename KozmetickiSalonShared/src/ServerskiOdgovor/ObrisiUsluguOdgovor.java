@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServerskiOdgovor;
 
 import java.io.Serializable;
 
-/**
- *
- * @author milic
- */
-public class ObrisiUsluguOdgovor implements Serializable{
+public class ObrisiUsluguOdgovor implements Serializable {
+
     boolean uspeo;
 
     public ObrisiUsluguOdgovor(boolean success) {
@@ -21,6 +13,5 @@ public class ObrisiUsluguOdgovor implements Serializable{
     public boolean isUspeo() {
         return uspeo;
     }
-    
-    
+
 }
