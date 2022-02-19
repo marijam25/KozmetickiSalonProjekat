@@ -113,7 +113,7 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
 
             Kozmeticar kozmeticar = new Kozmeticar(0, ime, prezime, godine);
             if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
             }
 
             DodajNovogKozmeticaraZahtev zahtev = new DodajNovogKozmeticaraZahtev(kozmeticar);

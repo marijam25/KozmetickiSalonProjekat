@@ -33,7 +33,6 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         initComponents();
         this.t = t;
 
-        
     }
 
     /**
@@ -130,36 +129,42 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         try {
-            // TODO add your handling code here:
-            SimpleDateFormat datumFormat = new SimpleDateFormat("dd.MM.yyyy");
-            SimpleDateFormat vremeFormat = new SimpleDateFormat("hh:mm");
 
-            String dat = txtDatum.getText();
-            String vr = txtVreme.getText();
-
-            java.util.Date datumUtil = null;
-            java.sql.Time vremeSql = null;
-
-            datumUtil = datumFormat.parse(dat);
-            vremeSql = new Time(vremeFormat.parse(vr).getTime());
-
-            Termin termin = new Termin(t.getTerminId(), datumUtil, (Time) vremeSql);
-            
-            IzmeniTerminZahtev zahtev = new IzmeniTerminZahtev(termin);
-
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.IZMENI_TERMIN_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            IzmeniTerminOdgovor odgovor = (IzmeniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-
-            if (odgovor.isUspeo()) {
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
-            } else {
+            if (txtDatum.getText().isEmpty() || txtVreme.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
+            } else {
+                
+                SimpleDateFormat datumFormat = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat vremeFormat = new SimpleDateFormat("hh:mm");
+
+                String dat = txtDatum.getText();
+                String vr = txtVreme.getText();
+
+                java.util.Date datumUtil = null;
+                java.sql.Time vremeSql = null;
+
+                datumUtil = datumFormat.parse(dat);
+                vremeSql = new Time(vremeFormat.parse(vr).getTime());
+
+                Termin termin = new Termin(t.getTerminId(), datumUtil, (Time) vremeSql);
+
+                IzmeniTerminZahtev zahtev = new IzmeniTerminZahtev(termin);
+
+                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.IZMENI_TERMIN_ZAHTEV);
+                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                IzmeniTerminOdgovor odgovor = (IzmeniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                if (odgovor.isUspeo()) {
+                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
+                }
             }
         } catch (ParseException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Sistem ne da zapamti termin");
         } catch (IOException ex) {
             Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -211,73 +216,5 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
     private javax.swing.JTextField txtDatum;
     private javax.swing.JTextField txtVreme;
     // End of variables declaration//GEN-END:variables
-
-    /*private void popuniCmbKozmeticar() {
-        try {
-            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
-            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            VratiKozmeticareZahtev zahtev = new VratiKozmeticareZahtev("");
-            oos.writeInt(TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV);
-            oos.writeObject(zahtev);
-            oos.flush();
-
-            int tipOdgovora = ois.readInt();
-            VratiKozmeticareOdgovor odgovor = (VratiKozmeticareOdgovor) ois.readObject();
-            cmbKozmeticari.removeAllItems();
-
-            for (Kozmeticar kozmeticar : odgovor.getListaKozmeticara()) {
-                cmbKozmeticari.addItem(kozmeticar);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void popuniCmbKlijent() {
-        try {
-            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
-            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            oos.writeInt(TipoviZahteva.VRATI_SVE_KLIJENTE_ZAHTEV);
-            oos.flush();
-
-            int tipOdgovora = ois.readInt();
-            VratiSveKlijenteOdgovor odgovor = (VratiSveKlijenteOdgovor) ois.readObject();
-            cmbKlijenti.removeAllItems();
-
-            for (Klijent klijent : odgovor.getListaKlijenata()) {
-                cmbKlijenti.addItem(klijent);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void popuniCmbUsluge() {
-        try {
-            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
-            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-
-            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev("");
-            oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
-            oos.writeObject(zahtev);
-            oos.flush();
-
-            int tipOdgovora = ois.readInt();
-            PretraziUslugeOdgovor odgovor = (PretraziUslugeOdgovor) ois.readObject();
-            cmbUsluge.removeAllItems();
-
-            for (Usluga usluga : odgovor.getNizUsluga()) {
-                cmbUsluge.addItem(usluga);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
 
 }

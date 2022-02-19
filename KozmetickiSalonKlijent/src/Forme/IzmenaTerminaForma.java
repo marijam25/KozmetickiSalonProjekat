@@ -176,7 +176,7 @@ public class IzmenaTerminaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
             }
         } catch (ParseException ex) {
-            Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
         } catch (IOException ex) {
             Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);

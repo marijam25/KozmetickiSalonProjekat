@@ -159,47 +159,50 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         try {
             // TODO add your handling code here:
-            SimpleDateFormat datumFormat = new SimpleDateFormat("dd.MM.yyyy");
-            SimpleDateFormat vremeFormat = new SimpleDateFormat("hh:mm");
+            if (txtDatum.getText().isEmpty() || txtVreme.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
+            } else {
 
-            String dat = txtDatum.getText();
-            String vr = txtVreme.getText();
+                SimpleDateFormat datumFormat = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat vremeFormat = new SimpleDateFormat("hh:mm");
 
-            java.util.Date datumUtil = null;
-            java.sql.Time vremeSql = null;
+                String dat = txtDatum.getText();
+                String vr = txtVreme.getText();
 
-            try {
+                java.util.Date datumUtil = null;
+                java.sql.Time vremeSql = null;
+
                 datumUtil = datumFormat.parse(dat);
                 vremeSql = new Time(vremeFormat.parse(vr).getTime());
-            } catch (ParseException ex) {
-                Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+
+                Termin termin = new Termin(0, datumUtil, (Time) vremeSql);
+                Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticar.getSelectedItem();
+                Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
+                Usluga usluga = (Usluga) cmbUsluga.getSelectedItem();
+                ZakazivanjeTermina zakazivanjeTermina = new ZakazivanjeTermina(0, kozmeticar.getKozmeticarId(), klijent.getKlijentId());
+                StavkaZakazivanja stavkaZakazivanja = new StavkaZakazivanja(0, 0, 0, usluga.getUslugaId());
+
+                DodajNoviTerminZahtev zahtev = new DodajNoviTerminZahtev(termin, stavkaZakazivanja, zakazivanjeTermina);
+
+                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVI_TERMIN_ZAHTEV);
+                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                DodajNoviTerminOdgovor odgovor = (DodajNoviTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                if (odgovor.isUspeo()) {
+                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
+                }
             }
-
-            Termin termin = new Termin(0, datumUtil, (Time) vremeSql);
-            Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticar.getSelectedItem();
-            Klijent klijent = (Klijent) cmbKlijent.getSelectedItem();
-            Usluga usluga = (Usluga) cmbUsluga.getSelectedItem();
-            ZakazivanjeTermina zakazivanjeTermina = new ZakazivanjeTermina(0, kozmeticar.getKozmeticarId(), klijent.getKlijentId());
-            StavkaZakazivanja stavkaZakazivanja = new StavkaZakazivanja(0, 0, 0, usluga.getUslugaId());
-
-            DodajNoviTerminZahtev zahtev = new DodajNoviTerminZahtev(termin, stavkaZakazivanja, zakazivanjeTermina);
-
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_NOVI_TERMIN_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-            DodajNoviTerminOdgovor odgovor = (DodajNoviTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-
-            if (odgovor.isUspeo()) {
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
-            } else {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
-            }
-
         } catch (IOException ex) {
             Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            //Logger.getLogger(KreiranjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
         }
 
     }//GEN-LAST:event_btnSacuvajActionPerformed

@@ -159,7 +159,6 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreirajKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajKozmeticaraActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
         KreirajKozmeticaraForma kkf = new KreirajKozmeticaraForma();
         this.setVisible(false);
         kkf.setVisible(true);
@@ -171,6 +170,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         BrisanjeKozmeticaraForma bkf = new BrisanjeKozmeticaraForma();
         this.setVisible(false);
         bkf.setVisible(true);
+        
     }//GEN-LAST:event_txtBrisanjeKozmeticaraActionPerformed
 
     private void btnIzmenaKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmenaKozmeticaraActionPerformed
@@ -182,7 +182,6 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreiranjeUslugeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeUslugeActionPerformed
         // TODO add your handling code here:
-
         KreiranjeUslugeForma kuf = new KreiranjeUslugeForma();
         this.setVisible(false);
         kuf.setVisible(true);
@@ -208,6 +207,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         KreiranjeTerminaForma ktf = new KreiranjeTerminaForma();
         this.setVisible(false);
         ktf.setVisible(true);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao novi termin");
     }//GEN-LAST:event_btnKreiranjeTerminaActionPerformed
 
     private void btnIzmenaTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmenaTerminaActionPerformed

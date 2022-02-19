@@ -133,7 +133,7 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             int godine = Integer.parseInt(txtGodine.getText());
 
             if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna");
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
             }
 
             kozmeticar.setIme(ime);
