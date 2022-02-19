@@ -91,6 +91,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
 
         btnBrisanjeTermina.setText("Brisanje termina");
+        btnBrisanjeTermina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrisanjeTerminaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,6 +216,13 @@ public class GlavnaForma extends javax.swing.JFrame {
         this.setVisible(false);
         itf.setVisible(true);
     }//GEN-LAST:event_btnIzmenaTerminaActionPerformed
+
+    private void btnBrisanjeTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrisanjeTerminaActionPerformed
+        // TODO add your handling code here:
+        BrisanjeTerminaForma btf = new BrisanjeTerminaForma();
+        this.setVisible(false);
+        btf.setVisible(true);
+    }//GEN-LAST:event_btnBrisanjeTerminaActionPerformed
 
     /**
      * @param args the command line arguments

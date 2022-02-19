@@ -1,9 +1,11 @@
 package Forme;
 
 import Domen.Termin;
+import KlijentskiZahtev.ObrisiTerminZahtev;
 import KlijentskiZahtev.TipoviZahteva;
 import KlijentskiZahtev.VratiTermineZahtev;
 import Modeli.ModelTabeleTermina;
+import ServerskiOdgovor.ObrisiTerminOdgovor;
 import ServerskiOdgovor.VratiTermineOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -79,6 +81,11 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
         });
 
         btnObrisi.setText("Obrisi");
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +172,37 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
         this.setVisible(false);
         gf.setVisible(true);
     }//GEN-LAST:event_btnNazadActionPerformed
+
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+        // TODO add your handling code here:
+        try {
+        int izabraniRed = tblTermin.getSelectedRow();
+
+            if (izabraniRed == -1) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
+            } else {
+                Termin termin = listaTabela.get(izabraniRed);
+                
+                ObrisiTerminZahtev zahtev = new ObrisiTerminZahtev(termin);
+                
+                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_TERMIN_ZAHTEV);
+                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+                
+                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                ObrisiTerminOdgovor odgovor =  (ObrisiTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+                
+                if (odgovor.isUspeo()) {
+                    JOptionPane.showMessageDialog(this, "Sistem je obrisao termin");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
+                }
+            }
+            } catch (IOException ex) {
+                Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
 
     /**
      * @param args the command line arguments

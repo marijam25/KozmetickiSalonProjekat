@@ -172,7 +172,7 @@ public class KlijentskaNit extends Thread {
                     case TipoviZahteva.IZMENI_TERMIN_ZAHTEV: {
                         IzmeniTerminZahtev zahtev = (IzmeniTerminZahtev) ois.readObject();
 
-                        boolean uspeo = c.azurirajTermin(zahtev.getTermin(), zahtev.getStavkaZakazivanja(), zahtev.getZakazivanjeTermina());
+                        boolean uspeo = c.azurirajTermin(zahtev.getTermin());
 
                         IzmeniTerminOdgovor odgovor = new IzmeniTerminOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.IZMENI_TERMIN_ODGOVOR);

@@ -163,19 +163,9 @@ public class Kontroler {
         return listaTermina;
     }
 
-    public boolean azurirajTermin(Termin termin, StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina) {
+    public boolean azurirajTermin(Termin termin) {
         boolean uspeoTermin = terminDBInterface.izmeni(termin);
         if (!uspeoTermin) {
-            return false;
-        }
-
-        boolean uspeloZakazivanje = zakazivanjeTerminaDBInterface.izmeni(zakazivanjeTermina);
-        if (!uspeloZakazivanje) {
-            return false;
-        }
-
-        boolean uspelaStavka = stavkaZakazivanjaDBInterface.izmeni(stavkaZakazivanja);
-        if (!uspelaStavka) {
             return false;
         }
 

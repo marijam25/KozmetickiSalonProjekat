@@ -33,9 +33,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         initComponents();
         this.t = t;
 
-        popuniCmbKozmeticar();
-        popuniCmbKlijent();
-        popuniCmbUsluge();
+        
     }
 
     /**
@@ -52,12 +50,6 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDatum = new javax.swing.JTextField();
         txtVreme = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        cmbKozmeticari = new javax.swing.JComboBox();
-        cmbKlijenti = new javax.swing.JComboBox();
-        cmbUsluge = new javax.swing.JComboBox();
         btnNazad = new javax.swing.JButton();
         btnSacuvaj = new javax.swing.JButton();
 
@@ -68,18 +60,6 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         jLabel2.setText("Datum \"dd.MM.yyyy\"");
 
         jLabel3.setText("Vreme \"hh:mm\"");
-
-        jLabel4.setText("Kozmeticar");
-
-        jLabel5.setText("Klijent");
-
-        jLabel6.setText("Usluga");
-
-        cmbKozmeticari.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbKlijenti.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbUsluge.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnNazad.setText("Nazad");
         btnNazad.addActionListener(new java.awt.event.ActionListener() {
@@ -111,17 +91,11 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6))
+                                .addComponent(jLabel3))
                             .addGap(78, 78, 78)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDatum)
-                                .addComponent(txtVreme)
-                                .addComponent(cmbKozmeticari, 0, 356, Short.MAX_VALUE)
-                                .addComponent(cmbKlijenti, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbUsluge, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(txtDatum, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                                .addComponent(txtVreme)))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -137,19 +111,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtVreme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cmbKozmeticari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(cmbKlijenti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cmbUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89)
+                .addGap(272, 272, 272)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNazad)
                     .addComponent(btnSacuvaj))
@@ -182,13 +144,8 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             vremeSql = new Time(vremeFormat.parse(vr).getTime());
 
             Termin termin = new Termin(t.getTerminId(), datumUtil, (Time) vremeSql);
-            Kozmeticar kozmeticar = (Kozmeticar) cmbKozmeticari.getSelectedItem();
-            Klijent klijent = (Klijent) cmbKlijenti.getSelectedItem();
-            Usluga usluga = (Usluga) cmbUsluge.getSelectedItem();
-            ZakazivanjeTermina zakazivanjeTermina = new ZakazivanjeTermina(0, kozmeticar.getKozmeticarId(), klijent.getKlijentId());
-            StavkaZakazivanja stavkaZakazivanja = new StavkaZakazivanja(0, 0, 0, usluga.getUslugaId());
-
-            IzmeniTerminZahtev zahtev = new IzmeniTerminZahtev(termin, stavkaZakazivanja, zakazivanjeTermina);
+            
+            IzmeniTerminZahtev zahtev = new IzmeniTerminZahtev(termin);
 
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.IZMENI_TERMIN_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
@@ -248,20 +205,14 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
-    private javax.swing.JComboBox cmbKlijenti;
-    private javax.swing.JComboBox cmbKozmeticari;
-    private javax.swing.JComboBox cmbUsluge;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtDatum;
     private javax.swing.JTextField txtVreme;
     // End of variables declaration//GEN-END:variables
 
-    private void popuniCmbKozmeticar() {
+    /*private void popuniCmbKozmeticar() {
         try {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
@@ -327,6 +278,6 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
 }
