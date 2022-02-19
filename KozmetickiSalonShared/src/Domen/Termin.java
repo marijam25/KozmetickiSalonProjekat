@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-public class Termin implements Serializable {
+public class Termin implements Serializable, OpstiDomenskiObjekat {
 
     private int terminId;
     private Date datumTermina;

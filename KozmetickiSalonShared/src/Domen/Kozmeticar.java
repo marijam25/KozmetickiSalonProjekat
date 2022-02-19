@@ -2,7 +2,7 @@ package Domen;
 
 import java.io.Serializable;
 
-public class Kozmeticar implements Serializable {
+public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
 
     private int kozmeticarId;
     private String ime;

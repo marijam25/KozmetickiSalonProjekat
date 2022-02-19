@@ -2,7 +2,7 @@ package Domen;
 
 import java.io.Serializable;
 
-public class Usluga implements Serializable {
+public class Usluga implements Serializable, OpstiDomenskiObjekat {
 
     private int uslugaId;
     private String nazivUsluge;
