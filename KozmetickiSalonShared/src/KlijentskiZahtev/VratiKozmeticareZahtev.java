@@ -1,16 +1,21 @@
 package KlijentskiZahtev;
 
 import java.io.Serializable;
+import javafx.util.Pair;
 
 public class VratiKozmeticareZahtev implements Serializable {
 
-    private String uslov;
+    private Pair<String, String> uslov;
 
-    public VratiKozmeticareZahtev(String uslov) {
-        this.uslov = uslov;
+    public VratiKozmeticareZahtev(){
+        uslov = null;
+    }
+    
+    public VratiKozmeticareZahtev(String kolona, String vrednost) {
+        uslov = new Pair<>(kolona, vrednost);
     }
 
-    public String getUslov() {
+    public Pair<String, String> getUslov() {
         return uslov;
     }
 

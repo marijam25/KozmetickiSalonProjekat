@@ -2,22 +2,17 @@ package So;
 
 import Domen.Termin;
 import db.DBBroker;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.util.Pair;
 
 public class SOPretraziTermine extends OpstaSistemskaOperacija {
 
-    private Date d;
+    //private Date d;
+    private Pair<String, String> uslov;
     private ArrayList<Termin> listaTermina;
 
-    public SOPretraziTermine(Date d) {
-        this.d = d;
+    public SOPretraziTermine(Pair<String, String> uslov) {
+        this.uslov = uslov;
     }
 
     @Override
@@ -27,7 +22,7 @@ public class SOPretraziTermine extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        listaTermina = new ArrayList<>();
+        /*listaTermina = new ArrayList<>();
         try {
             String upit = "select * from Termin";
             if (d != null) {
@@ -53,7 +48,10 @@ public class SOPretraziTermine extends OpstaSistemskaOperacija {
         } catch (SQLException ex) {
             operacijaUspesnoIzvrsena = false;
             Logger.getLogger(SOPretraziTermine.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        
+        Termin odo = new Termin();
+        listaTermina = (ArrayList<Termin>) DBBroker.getInstance().pronadjiUBazi(odo, uslov);
     }
 
     public ArrayList<Termin> getListaTermina() {

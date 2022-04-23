@@ -22,19 +22,7 @@ public class SODodajNovogKlijenta extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-
-        try {
-            String upit = "insert into Klijent(ime, prezime) values (?, ?)";
-            PreparedStatement ps = DBBroker.getInstance().getKonekcija().prepareStatement(upit);
-            ps.setString(1, k.getIme());
-            ps.setString(2, k.getPrezime());
-            ps.executeUpdate();
-            operacijaUspesnoIzvrsena = true;
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SODodajNovogKlijenta.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DBBroker.getInstance().upisiUBazu(k);
     }
 
 }

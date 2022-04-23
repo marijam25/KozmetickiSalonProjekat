@@ -22,16 +22,7 @@ public class SOObrisiUslugu extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        try {
-            String upit = "delete from Usluga where UslugaID= " + u.getUslugaId();
-            Statement statement = DBBroker.getInstance().getKonekcija().createStatement();
-            statement.executeUpdate(upit);
-            operacijaUspesnoIzvrsena = true;
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SOObrisiUslugu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DBBroker.getInstance().izbrisiIzBaze(u);
     }
 
 }

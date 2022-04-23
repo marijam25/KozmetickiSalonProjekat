@@ -3,7 +3,6 @@ package Niti;
 import Domen.KategorijaUsluga;
 import Domen.Klijent;
 import Domen.Kozmeticar;
-import Domen.OpstiDomenskiObjekat;
 import Domen.Termin;
 import Domen.Usluga;
 import KlijentskiZahtev.DodajNoviTerminZahtev;

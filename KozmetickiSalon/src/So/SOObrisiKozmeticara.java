@@ -22,16 +22,7 @@ public class SOObrisiKozmeticara extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        try {
-            String upit = "delete from Kozmeticar where KozmeticarID= " + k.getKozmeticarId();
-            Statement statement = DBBroker.getInstance().getKonekcija().createStatement();
-            statement.executeUpdate(upit);
-            operacijaUspesnoIzvrsena = true;
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SOObrisiKozmeticara.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DBBroker.getInstance().izbrisiIzBaze(k);
     }
 
 }

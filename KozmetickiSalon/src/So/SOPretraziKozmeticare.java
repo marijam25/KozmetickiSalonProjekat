@@ -8,13 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 
 public class SOPretraziKozmeticare extends OpstaSistemskaOperacija {
 
-    private String uslov;
+    private Pair<String, String> uslov;
     private ArrayList<Kozmeticar> listaKozmeticara;
 
-    public SOPretraziKozmeticare(String uslov) {
+    public SOPretraziKozmeticare(Pair<String, String> uslov) {
         this.uslov = uslov;
     }
 
@@ -25,31 +26,8 @@ public class SOPretraziKozmeticare extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        listaKozmeticara = new ArrayList<>();
-        try {
-            String upit = "select * from Kozmeticar";
-            if (!uslov.isEmpty()) {
-                upit += " where prezime like '" + uslov + "%'";
-            }
-            Statement statement = DBBroker.getInstance().getKonekcija().createStatement();
-            ResultSet rs = statement.executeQuery(upit);
-
-            while (rs.next()) {
-                int id = rs.getInt("KozmeticarID");
-                String ime = rs.getString("Ime");
-                String prezime = rs.getString("Prezime");
-                int godine = rs.getInt("Godine");
-                Kozmeticar k = new Kozmeticar(id, ime, prezime, godine);
-                listaKozmeticara.add(k);
-            }
-            rs.close();
-            statement.close();
-            operacijaUspesnoIzvrsena = true;
-
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SOPretraziKozmeticare.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Kozmeticar odo = new Kozmeticar();
+        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().pronadjiUBazi(odo, uslov);
     }
 
     public ArrayList<Kozmeticar> getListaKozmeticara() {

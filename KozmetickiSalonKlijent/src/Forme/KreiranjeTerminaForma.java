@@ -269,7 +269,7 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
         try {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            VratiKozmeticareZahtev zahtev = new VratiKozmeticareZahtev("");
+            VratiKozmeticareZahtev zahtev = new VratiKozmeticareZahtev();
             oos.writeInt(TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();
@@ -314,7 +314,7 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
 
-            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev("");
+            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev();
             oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();

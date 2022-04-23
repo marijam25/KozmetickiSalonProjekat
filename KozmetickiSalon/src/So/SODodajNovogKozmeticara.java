@@ -22,19 +22,7 @@ public class SODodajNovogKozmeticara extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        try {
-            String upit = "insert into Kozmeticar(ime, prezime, godine) values (?, ?, ?)";
-            PreparedStatement ps = DBBroker.getInstance().getKonekcija().prepareStatement(upit);
-            ps.setString(1, k.getIme());
-            ps.setString(2, k.getPrezime());
-            ps.setInt(3, k.getGodine());
-            ps.executeUpdate();
-            operacijaUspesnoIzvrsena = true;
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SODodajNovogKozmeticara.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DBBroker.getInstance().upisiUBazu(k);
     }
 
 }

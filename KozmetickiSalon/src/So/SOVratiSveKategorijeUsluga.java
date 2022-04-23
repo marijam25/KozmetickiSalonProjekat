@@ -20,29 +20,8 @@ public class SOVratiSveKategorijeUsluga extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        listaKategorijaUsluga = new ArrayList<>();
-        try {
-            String upit = "select * from KategorijaUsluga";
-
-            Statement statement = DBBroker.getInstance().getKonekcija().createStatement();
-            ResultSet rs = statement.executeQuery(upit);
-
-            while (rs.next()) {
-                int id = rs.getInt("KategorijaID");
-                String naziv = rs.getString("NazivKategorije");
-
-                KategorijaUsluga ku = new KategorijaUsluga(id, naziv);
-                listaKategorijaUsluga.add(ku);
-            }
-            rs.close();
-            statement.close();
-            operacijaUspesnoIzvrsena = true;
-
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SOVratiSveKategorijeUsluga.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        KategorijaUsluga odo = new KategorijaUsluga();
+        listaKategorijaUsluga = (ArrayList<KategorijaUsluga>) DBBroker.getInstance().pronadjiUBazi(odo);
     }
 
     public ArrayList<KategorijaUsluga> getListaKategorijaUsluga() {

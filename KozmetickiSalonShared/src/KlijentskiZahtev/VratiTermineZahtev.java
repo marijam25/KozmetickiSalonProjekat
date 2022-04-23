@@ -1,18 +1,23 @@
 package KlijentskiZahtev;
 
 import java.io.Serializable;
-import java.util.Date;
+import javafx.util.Pair;
 
 public class VratiTermineZahtev implements Serializable {
 
-    private Date datum;
+    private Pair<String, String> uslov;
 
-    public VratiTermineZahtev(Date datum) {
-        this.datum = datum;
+    public VratiTermineZahtev() {
+        uslov = null;
+    }
+    
+
+    public VratiTermineZahtev(String kolona, String vrednost) {
+        uslov = new Pair<>(kolona, vrednost);
     }
 
-    public Date getDatum() {
-        return datum;
+    public Pair<String, String> getDatum() {
+        return uslov;
     }
 
 }

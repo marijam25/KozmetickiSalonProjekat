@@ -133,7 +133,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            VratiKozmeticareZahtev zahtev = new VratiKozmeticareZahtev(pretraga);
+            VratiKozmeticareZahtev zahtev = new VratiKozmeticareZahtev("prezime", pretraga);
             oos.writeInt(TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();

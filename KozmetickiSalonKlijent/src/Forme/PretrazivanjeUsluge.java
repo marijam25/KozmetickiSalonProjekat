@@ -144,7 +144,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev(pretraga);
+            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev("naziv", pretraga);
             oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();

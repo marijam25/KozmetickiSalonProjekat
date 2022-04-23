@@ -22,18 +22,7 @@ public class SODodajNovuUslugu extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        try {
-            String upit = "insert into Usluga(nazivUsluge, kategorijaId) values (?, ?)";
-            PreparedStatement ps = DBBroker.getInstance().getKonekcija().prepareStatement(upit);
-            ps.setString(1, u.getNazivUsluge());
-            ps.setInt(2, u.getKategorijaId());
-            ps.executeUpdate();
-            operacijaUspesnoIzvrsena = true;
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SODodajNovuUslugu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DBBroker.getInstance().upisiUBazu(u);
     }
 
 }

@@ -22,18 +22,7 @@ public class SOAzurirajTermin extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        try {
-            String upit = "update Termin set DatumTermina=?, VremeTermina=? where TerminId=?";
-            PreparedStatement ps = DBBroker.getInstance().getKonekcija().prepareStatement(upit);
-            ps.setDate(1, new java.sql.Date(t.getDatumTermina().getTime()));
-            ps.setTime(2, new java.sql.Time(t.getVremeTermina().getTime()));
-            ps.setInt(3, t.getTerminId());
-            ps.executeUpdate();
-            operacijaUspesnoIzvrsena = true;
-        } catch (SQLException ex) {
-            operacijaUspesnoIzvrsena = false;
-            Logger.getLogger(SOAzurirajTermin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DBBroker.getInstance().azurirajUBazi(t);
     }
 
 }

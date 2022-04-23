@@ -140,7 +140,7 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
             datum = sdf.parse(dat);
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            VratiTermineZahtev zahtev = new VratiTermineZahtev(datum);
+            VratiTermineZahtev zahtev = new VratiTermineZahtev("datum",dat);
             oos.writeInt(TipoviZahteva.VRATI_SVE_TERMINE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();

@@ -15,7 +15,6 @@ public class Kontroler {
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik2", "sifra2"));
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik3", "sifra3"));
         listaKorisnikaSistema.add(new KorisnikSistema("korisnik4", "sifra4"));
-
     }
 
     public static Kontroler getInstance() {

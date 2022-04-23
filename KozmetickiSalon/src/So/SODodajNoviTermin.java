@@ -28,7 +28,7 @@ public class SODodajNoviTermin extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        try {
+        /*try {
             String upit = "insert into Termin(DatumTermina, VremeTermina) values (?,?)";
             PreparedStatement ps = DBBroker.getInstance().getKonekcija().prepareStatement(upit);
             java.sql.Date sqlDate = new java.sql.Date(termin.getDatumTermina().getTime());
@@ -52,7 +52,13 @@ public class SODodajNoviTermin extends OpstaSistemskaOperacija {
         } catch (SQLException ex) {
             operacijaUspesnoIzvrsena = false;
             Logger.getLogger(SODodajNoviTermin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        
+        DBBroker.getInstance().upisiUBazu(termin);
+        DBBroker.getInstance().upisiUBazu(zakazivanjeTermina);
+        //???????????????????????????????????????????????????
+        
+        
 
     }
 
