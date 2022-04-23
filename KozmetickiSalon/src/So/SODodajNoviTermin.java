@@ -4,10 +4,6 @@ import Domen.StavkaZakazivanja;
 import Domen.Termin;
 import Domen.ZakazivanjeTermina;
 import db.DBBroker;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SODodajNoviTermin extends OpstaSistemskaOperacija {
 

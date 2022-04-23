@@ -1,22 +1,10 @@
 package Forme;
 
-import Domen.Klijent;
-import Domen.Kozmeticar;
-import Domen.StavkaZakazivanja;
 import Domen.Termin;
-import Domen.Usluga;
-import Domen.ZakazivanjeTermina;
 import KlijentskiZahtev.IzmeniTerminZahtev;
-import KlijentskiZahtev.PretraziUslugeZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.VratiKozmeticareZahtev;
 import ServerskiOdgovor.IzmeniTerminOdgovor;
-import ServerskiOdgovor.PretraziUslugeOdgovor;
-import ServerskiOdgovor.VratiKozmeticareOdgovor;
-import ServerskiOdgovor.VratiSveKlijenteOdgovor;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
