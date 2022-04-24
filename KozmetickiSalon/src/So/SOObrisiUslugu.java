@@ -18,7 +18,7 @@ public class SOObrisiUslugu extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        DBBroker.getInstance().izbrisiIzBaze(u);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().izbrisiIzBaze(u);
     }
 
 }

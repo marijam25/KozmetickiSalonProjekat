@@ -79,7 +79,7 @@ public class Klijent implements Serializable, OpstiDomenskiObjekat {
         ArrayList<Klijent> lista = new ArrayList<Klijent>();
         try {
             while (rs.next()) {
-                int id = rs.getInt("KlijentID");
+                int klijentId = rs.getInt("KlijentID");
                 String ime = rs.getString("Ime");
                 String prezime = rs.getString("Prezime");
 

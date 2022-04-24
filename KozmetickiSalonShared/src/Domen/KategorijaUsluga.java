@@ -37,7 +37,7 @@ public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
 
     @Override
     public String nazivTabele() {
-        return "usluga";
+        return "kategorijaUsluga";
     }
 
     @Override
@@ -72,9 +72,9 @@ public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
         try {
             while (rs.next()) {
                 int id = rs.getInt("KategorijaID");
-                String ime = rs.getString("nazivKategorije");
+                String naziv = rs.getString("NazivKategorije");
                 
-                KategorijaUsluga k = new KategorijaUsluga(kategorijaId, nazivKategorije);
+                KategorijaUsluga k = new KategorijaUsluga(id, naziv);
                 lista.add(k);
             }
         } catch (SQLException ex) {

@@ -18,7 +18,7 @@ public class SOObrisiTermin extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        DBBroker.getInstance().izbrisiIzBaze(t);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().izbrisiIzBaze(t);
 
     }
 

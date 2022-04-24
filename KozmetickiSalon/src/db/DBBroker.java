@@ -98,9 +98,9 @@ public class DBBroker {
 
         for (Map.Entry<String, String> parNazivVrednost : naziviIVrednosti.entrySet()) {
             imenaKolona += parNazivVrednost.getKey();
-            vrednostiKolona += parNazivVrednost.getValue();
+            vrednostiKolona += "'" + parNazivVrednost.getValue() + "'";
 
-            if (i < naziviIVrednosti.size()) {
+            if (i < naziviIVrednosti.size()-1) {
                 imenaKolona += ", ";
                 vrednostiKolona += ", ";
             }
@@ -112,6 +112,19 @@ public class DBBroker {
         upit += imenaKolona + " values " + vrednostiKolona;
         return executeUpdateWrapper(upit);
     }
+    
+    public int vratiMaxId(OpstiDomenskiObjekat odo){
+        try {
+            String upit = "SELECT max("+odo.nazivPrimarnogKljuca() +") FROM " + odo.nazivTabele();
+            Statement st = konekcija.createStatement();
+            ResultSet rs = st.executeQuery(upit);
+            
+            return rs.getInt(odo.nazivPrimarnogKljuca());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 
     public boolean azurirajUBazi(OpstiDomenskiObjekat odo) {
         String upit = "update " + odo.nazivTabele() + " set ";
@@ -120,9 +133,9 @@ public class DBBroker {
         int i = 0;
 
         for (Map.Entry<String, String> parNazivVrednost : naziviIVrednosti.entrySet()) {
-            upit += parNazivVrednost.getKey() + "=" + parNazivVrednost.getValue();
+            upit += parNazivVrednost.getKey() + "=" + "'" + parNazivVrednost.getValue() + "'";
 
-            if (i < naziviIVrednosti.size()) {
+            if (i < naziviIVrednosti.size()-1) {
                 upit += ", ";
             }
             i++;
@@ -145,7 +158,7 @@ public class DBBroker {
     public ArrayList<? extends OpstiDomenskiObjekat> pronadjiUBazi(OpstiDomenskiObjekat odo, Pair<String, String> uslov){
         String upit = "select * from " + odo.nazivTabele();
         if(uslov != null){
-            upit += " where " + uslov.getKey() + "=" + uslov.getValue();
+            upit += " where " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
         }
                 
         try {

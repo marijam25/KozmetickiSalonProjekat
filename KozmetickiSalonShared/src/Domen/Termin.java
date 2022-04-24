@@ -60,14 +60,14 @@ public class Termin implements Serializable, OpstiDomenskiObjekat {
 
     @Override
     public HashMap<String, String> naziviIVrednostiKolona() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        String datum = sdf.format(datumTermina);
-        String vreme = sdf.format(vremeTermina);
+        SimpleDateFormat formatZaDatum = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatZaVreme = new SimpleDateFormat("HH:mm");
+        String datum = formatZaDatum.format(datumTermina);
+        String vreme = formatZaVreme.format(vremeTermina);
         HashMap<String, String> nazivIVrednostiKol = new HashMap<String, String>();
         nazivIVrednostiKol.put("terminId", Integer.toString(terminId));
         nazivIVrednostiKol.put("datumTermina",datum);
         nazivIVrednostiKol.put("vremeTermina",vreme);
-        //?????????????????????????????????????????
         return nazivIVrednostiKol;
     }
 
@@ -86,11 +86,11 @@ public class Termin implements Serializable, OpstiDomenskiObjekat {
         ArrayList<Termin> lista = new ArrayList<Termin>();
         try {
             while (rs.next()) {
-                int terminId = rs.getInt("terminId");
-                Date datumTermina = rs.getDate("datumTermina");
-                Time vremeTermina = rs.getTime("vremeTermina");
+                int Id = rs.getInt("terminId");
+                Date dat = rs.getDate("datumTermina");
+                Time vreme = rs.getTime("vremeTermina");
 
-                Termin t = new Termin(terminId,datumTermina,vremeTermina);
+                Termin t = new Termin(Id,dat,vreme);
                 lista.add(t);
             }
         } catch (SQLException ex) {

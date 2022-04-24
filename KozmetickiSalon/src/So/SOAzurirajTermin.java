@@ -18,7 +18,7 @@ public class SOAzurirajTermin extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        DBBroker.getInstance().azurirajUBazi(t);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().azurirajUBazi(t);
     }
 
 }

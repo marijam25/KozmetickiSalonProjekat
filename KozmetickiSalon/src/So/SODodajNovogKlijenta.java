@@ -18,7 +18,7 @@ public class SODodajNovogKlijenta extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        DBBroker.getInstance().upisiUBazu(k);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(k);
     }
 
 }

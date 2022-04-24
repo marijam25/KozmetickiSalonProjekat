@@ -80,10 +80,10 @@ public class Usluga implements Serializable, OpstiDomenskiObjekat {
         try {
             while (rs.next()) {
                 int id = rs.getInt("UslugaID");
-                String nazivUsluge = rs.getString("nazivUsluge");
-                int kategorijaId = rs.getInt("kategorijaId");
+                String nazivUsluge = rs.getString("NazivUsluge");
+                int kategorijaId = rs.getInt("KategorijaId");
 
-                Usluga u = new Usluga(uslugaId, nazivUsluge, kategorijaId);
+                Usluga u = new Usluga(id, nazivUsluge, kategorijaId);
                 lista.add(u);
             }
         } catch (SQLException ex) {

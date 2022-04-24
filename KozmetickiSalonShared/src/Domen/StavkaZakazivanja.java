@@ -42,6 +42,14 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
         return uslugaId;
     }
 
+    public void setTerminId(int terminId) {
+        this.terminId = terminId;
+    }
+
+    public void setZakazivanjeId(int zakazivanjeId) {
+        this.zakazivanjeId = zakazivanjeId;
+    }
+
     @Override
     public String toString() {
         return "StavkaZakazivanja{" + "stavkaId=" + stavkaId + ", zakazivanjeId=" + zakazivanjeId + ", terminId=" + terminId + ", uslugaId=" + uslugaId + '}';

@@ -18,7 +18,7 @@ public class SOObrisiKozmeticara extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        DBBroker.getInstance().izbrisiIzBaze(k);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().izbrisiIzBaze(k);
     }
 
 }

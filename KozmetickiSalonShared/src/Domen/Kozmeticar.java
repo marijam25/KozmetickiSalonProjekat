@@ -99,12 +99,12 @@ public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
         ArrayList<Kozmeticar> lista = new ArrayList<Kozmeticar>();
         try {
             while (rs.next()) {
-                int id = rs.getInt("KozmeticarID");
+                int kozmeticarid = rs.getInt("KozmeticarID");
                 String ime = rs.getString("Ime");
                 String prezime = rs.getString("Prezime");
                 int godine = rs.getInt("Godine");
 
-                Kozmeticar k = new Kozmeticar(kozmeticarId, ime, prezime, godine);
+                Kozmeticar k = new Kozmeticar(kozmeticarid, ime, prezime, godine);
                 lista.add(k);
             }
         } catch (SQLException ex) {

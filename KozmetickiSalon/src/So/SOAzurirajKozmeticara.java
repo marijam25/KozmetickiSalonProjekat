@@ -18,6 +18,6 @@ public class SOAzurirajKozmeticara extends OpstaSistemskaOperacija {
 
     @Override
     public void izvrsi() {
-        DBBroker.getInstance().azurirajUBazi(k);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().azurirajUBazi(k);
     }
 }

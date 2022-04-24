@@ -50,12 +50,18 @@ public class SODodajNoviTermin extends OpstaSistemskaOperacija {
             Logger.getLogger(SODodajNoviTermin.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         
-        DBBroker.getInstance().upisiUBazu(termin);
-        DBBroker.getInstance().upisiUBazu(zakazivanjeTermina);
-        //???????????????????????????????????????????????????
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(termin);
+        if(!operacijaUspesnoIzvrsena)
+            return;
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(zakazivanjeTermina);
+        if(!operacijaUspesnoIzvrsena)
+            return;
+        int maxTermin = DBBroker.getInstance().vratiMaxId(termin);
+        int maxZakaz = DBBroker.getInstance().vratiMaxId(zakazivanjeTermina);
+        stavkaZakazivanja.setTerminId(maxTermin);
+        stavkaZakazivanja.setZakazivanjeId(maxZakaz);
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(stavkaZakazivanja);
         
-        
-
     }
 
 }
