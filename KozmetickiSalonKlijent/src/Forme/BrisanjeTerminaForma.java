@@ -23,7 +23,7 @@ import komunikacija.KomunikacijaSaServerom;
 public class BrisanjeTerminaForma extends javax.swing.JFrame {
 
     private ArrayList<Termin> listaTabela;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    //private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private Date datum;
     
     public BrisanjeTerminaForma() {
@@ -135,12 +135,12 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
         // TODO add your handling code here:
         String dat = txtDatum.getText();
-        datum = null;
+        //datum = null;
         try {
-            datum = sdf.parse(dat);
+            //datum = sdf.parse(dat);
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            VratiTermineZahtev zahtev = new VratiTermineZahtev("datum",dat);
+            VratiTermineZahtev zahtev = new VratiTermineZahtev("datumTermina",dat);
             oos.writeInt(TipoviZahteva.VRATI_SVE_TERMINE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();
@@ -156,10 +156,10 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
             }
-        } catch (ParseException ex) {
+        } //catch (ParseException ex) {
             //Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
-        } catch (IOException ex) {
+            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
+         catch (IOException ex) {
             Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);

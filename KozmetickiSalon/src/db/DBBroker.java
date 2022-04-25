@@ -115,11 +115,14 @@ public class DBBroker {
     
     public int vratiMaxId(OpstiDomenskiObjekat odo){
         try {
-            String upit = "SELECT max("+odo.nazivPrimarnogKljuca() +") FROM " + odo.nazivTabele();
+            String upit = "SELECT max("+odo.nazivPrimarnogKljuca() +") as maxid FROM " + odo.nazivTabele();
             Statement st = konekcija.createStatement();
             ResultSet rs = st.executeQuery(upit);
+            boolean f = rs.first();
             
-            return rs.getInt(odo.nazivPrimarnogKljuca());
+            //int id = rs.getInt(1);
+            //int id2 = rs.getInt(odo.nazivPrimarnogKljuca());
+            return rs.getInt("maxid");
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

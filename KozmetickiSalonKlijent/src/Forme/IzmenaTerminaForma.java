@@ -20,7 +20,7 @@ import komunikacija.KomunikacijaSaServerom;
 public class IzmenaTerminaForma extends javax.swing.JFrame {
 
     private ArrayList<Termin> listaTabela;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    //private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private Date datum;
 
     public IzmenaTerminaForma() {
@@ -154,9 +154,9 @@ public class IzmenaTerminaForma extends javax.swing.JFrame {
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
         // TODO add your handling code here:
         String dat = txtDatum.getText();
-        datum = null;
+        
         try {
-            datum = sdf.parse(dat);
+            
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
             VratiTermineZahtev zahtev = new VratiTermineZahtev("datumTermina",dat);
@@ -175,10 +175,10 @@ public class IzmenaTerminaForma extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
             }
-        } catch (ParseException ex) {
+        } //catch (ParseException ex) {
             //Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
-        } catch (IOException ex) {
+            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
+         catch (IOException ex) {
             Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);

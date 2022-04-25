@@ -2,7 +2,12 @@ package So;
 
 import Domen.Termin;
 import db.DBBroker;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.util.Pair;
 
 public class SOPretraziTermine extends OpstaSistemskaOperacija {
@@ -51,6 +56,17 @@ public class SOPretraziTermine extends OpstaSistemskaOperacija {
         }*/
         
         Termin odo = new Termin();
+        String datumKorinsikUneoStrng = uslov.getValue();
+        SimpleDateFormat formatKojiKorisnikUnosi = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat formatKojiBazaHoce = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date datum = formatKojiKorisnikUnosi.parse(datumKorinsikUneoStrng);
+            String datumBazaHoceString = formatKojiBazaHoce.format(datum);
+            uslov = new Pair<>(uslov.getKey(), datumBazaHoceString);
+        } catch (ParseException ex) {
+            Logger.getLogger(SOPretraziTermine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         listaTermina = (ArrayList<Termin>) DBBroker.getInstance().pronadjiUBazi(odo, uslov);
     }
 
