@@ -10,13 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.util.Pair;
 
-public class SOPretraziTermine extends OpstaSistemskaOperacija {
+public class SONadjiTermine extends OpstaSistemskaOperacija {
 
     //private Date d;
     private Pair<String, String> uslov;
     private ArrayList<Termin> listaTermina;
 
-    public SOPretraziTermine(Pair<String, String> uslov) {
+    public SONadjiTermine(Pair<String, String> uslov) {
         this.uslov = uslov;
     }
 
@@ -64,7 +64,7 @@ public class SOPretraziTermine extends OpstaSistemskaOperacija {
             String datumBazaHoceString = formatKojiBazaHoce.format(datum);
             uslov = new Pair<>(uslov.getKey(), datumBazaHoceString);
         } catch (ParseException ex) {
-            Logger.getLogger(SOPretraziTermine.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SONadjiTermine.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         listaTermina = (ArrayList<Termin>) DBBroker.getInstance().pronadjiUBazi(odo, uslov);

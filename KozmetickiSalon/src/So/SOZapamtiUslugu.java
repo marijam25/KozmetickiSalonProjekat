@@ -3,11 +3,11 @@ package So;
 import Domen.Usluga;
 import db.DBBroker;
 
-public class SODodajNovuUslugu extends OpstaSistemskaOperacija {
+public class SOZapamtiUslugu extends OpstaSistemskaOperacija {
 
     private Usluga u;
 
-    public SODodajNovuUslugu(Usluga u) {
+    public SOZapamtiUslugu(Usluga u) {
         this.u = u;
     }
 

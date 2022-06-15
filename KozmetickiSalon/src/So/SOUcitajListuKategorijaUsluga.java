@@ -5,7 +5,7 @@ import db.DBBroker;
 import java.util.ArrayList;
 
 
-public class SOVratiSveKategorijeUsluga extends OpstaSistemskaOperacija {
+public class SOUcitajListuKategorijaUsluga extends OpstaSistemskaOperacija {
 
     private ArrayList<KategorijaUsluga> listaKategorijaUsluga;
 

@@ -3,11 +3,11 @@ package So;
 import Domen.Kozmeticar;
 import db.DBBroker;
 
-public class SODodajNovogKozmeticara extends OpstaSistemskaOperacija {
+public class SOZapamtiKozmeticara extends OpstaSistemskaOperacija {
 
     private Kozmeticar k;
 
-    public SODodajNovogKozmeticara(Kozmeticar k) {
+    public SOZapamtiKozmeticara(Kozmeticar k) {
         this.k = k;
     }
 

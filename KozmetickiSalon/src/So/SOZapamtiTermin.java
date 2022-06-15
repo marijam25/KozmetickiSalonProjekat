@@ -5,13 +5,13 @@ import Domen.Termin;
 import Domen.ZakazivanjeTermina;
 import db.DBBroker;
 
-public class SODodajNoviTermin extends OpstaSistemskaOperacija {
+public class SOZapamtiTermin extends OpstaSistemskaOperacija {
 
     private StavkaZakazivanja stavkaZakazivanja;
     private ZakazivanjeTermina zakazivanjeTermina;
     private Termin termin;
 
-    public SODodajNoviTermin(StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina, Termin termin) {
+    public SOZapamtiTermin(StavkaZakazivanja stavkaZakazivanja, ZakazivanjeTermina zakazivanjeTermina, Termin termin) {
         this.stavkaZakazivanja = stavkaZakazivanja;
         this.zakazivanjeTermina = zakazivanjeTermina;
         this.termin = termin;

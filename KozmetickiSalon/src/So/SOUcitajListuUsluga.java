@@ -1,19 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package So;
 
 import Domen.Usluga;
 import db.DBBroker;
 import java.util.ArrayList;
-import javafx.util.Pair;
 
-public class SOPretraziUsluge extends OpstaSistemskaOperacija {
+/**
+ *
+ * @author milic
+ */
+public class SOUcitajListuUsluga extends OpstaSistemskaOperacija {
 
-    private Pair<String, String> uslov;
     private ArrayList<Usluga> listaUsluga;
-
-    public SOPretraziUsluge(Pair<String, String> uslov) {
-        this.uslov = uslov;
-    }
-
+    
     @Override
     public boolean proveriPreduslov() {
         return true;
@@ -22,11 +25,10 @@ public class SOPretraziUsluge extends OpstaSistemskaOperacija {
     @Override
     public void izvrsi() {
         Usluga odo = new Usluga();
-        listaUsluga = (ArrayList<Usluga>) DBBroker.getInstance().pronadjiUBazi(odo, uslov);
+        listaUsluga = (ArrayList<Usluga>) DBBroker.getInstance().pronadjiUBazi(odo);
     }
 
     public ArrayList<Usluga> getListaUsluga() {
         return listaUsluga;
     }
-
 }

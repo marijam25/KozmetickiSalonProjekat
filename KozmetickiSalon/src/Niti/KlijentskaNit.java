@@ -38,18 +38,18 @@ import ServerskiOdgovor.VratiSveKlijenteOdgovor;
 import ServerskiOdgovor.VratiTermineOdgovor;
 import So.SOAzurirajKozmeticara;
 import So.SOAzurirajTermin;
-import So.SODodajNoviTermin;
+import So.SOZapamtiTermin;
 import So.SODodajNovogKlijenta;
-import So.SODodajNovogKozmeticara;
-import So.SODodajNovuUslugu;
+import So.SOZapamtiKozmeticara;
+import So.SOZapamtiUslugu;
 import So.SOObrisiKozmeticara;
 import So.SOObrisiTermin;
 import So.SOObrisiUslugu;
-import So.SOPretraziKozmeticare;
-import So.SOPretraziTermine;
-import So.SOPretraziUsluge;
-import So.SOVratiSveKategorijeUsluga;
-import So.SOVratiSveKlijente;
+import So.SONadjiKozmeticare;
+import So.SONadjiTermine;
+import So.SONadjiUsluge;
+import So.SOUcitajListuKategorijaUsluga;
+import So.SOUcitajListuKlijenata;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -98,7 +98,7 @@ public class KlijentskaNit extends Thread {
                     case TipoviZahteva.DODAJ_NOVOG_KOZMETICARA_ZAHTEV: {
                         DodajNovogKozmeticaraZahtev zahtev = (DodajNovogKozmeticaraZahtev) ois.readObject();
                         
-                        boolean uspeo = c.izvrsiSistemskuOperaciju(new SODodajNovogKozmeticara(zahtev.getKozmeticar()));
+                        boolean uspeo = c.izvrsiSistemskuOperaciju(new SOZapamtiKozmeticara(zahtev.getKozmeticar()));
                         
                         DodajNovogKozmeticaraOdgovor odgovor = new DodajNovogKozmeticaraOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.DODAJ_NOVOG_KOZMETICARA_ODGOVOR);
@@ -120,7 +120,7 @@ public class KlijentskaNit extends Thread {
                     case TipoviZahteva.DODAJ_NOVU_USLUGU_ZAHTEV: {
                         DodajNovuUsluguZahtev zahtev = (DodajNovuUsluguZahtev) ois.readObject();
                         
-                        boolean uspeo = c.izvrsiSistemskuOperaciju(new SODodajNovuUslugu(zahtev.getUsluga()));
+                        boolean uspeo = c.izvrsiSistemskuOperaciju(new SOZapamtiUslugu(zahtev.getUsluga()));
                         
                         DodajNovuUsluguOdgovor odgovor = new DodajNovuUsluguOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.DODAJ_NOVU_USLUGU_ODGOVOR);
@@ -141,7 +141,7 @@ public class KlijentskaNit extends Thread {
                     
                     case TipoviZahteva.DODAJ_NOVI_TERMIN_ZAHTEV: {
                         DodajNoviTerminZahtev zahtev = (DodajNoviTerminZahtev) ois.readObject();
-                        SODodajNoviTermin so = new SODodajNoviTermin(zahtev.getStavkaZakazivanja(), zahtev.getZakazivanjeTermina(), zahtev.getTermin());
+                        SOZapamtiTermin so = new SOZapamtiTermin(zahtev.getStavkaZakazivanja(), zahtev.getZakazivanjeTermina(), zahtev.getTermin());
                         c.izvrsiSistemskuOperaciju(so);
                         boolean uspeo = so.isOperacijaUspesnoIzvrsena();
                         DodajNoviTerminOdgovor odgovor = new DodajNoviTerminOdgovor(uspeo);
@@ -174,7 +174,7 @@ public class KlijentskaNit extends Thread {
                     
                     case TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV: {
                         PretraziUslugeZahtev zahtev = (PretraziUslugeZahtev) ois.readObject();
-                        SOPretraziUsluge so = new SOPretraziUsluge(zahtev.getUslov());
+                        SONadjiUsluge so = new SONadjiUsluge(zahtev.getUslov());
                         c.izvrsiSistemskuOperaciju(so);
                         ArrayList<Usluga> nizUsluga = so.getListaUsluga();
                         
@@ -197,7 +197,7 @@ public class KlijentskaNit extends Thread {
                     
                     case TipoviZahteva.VRATI_KOZMETICARE_ZAHTEV: {
                         VratiKozmeticareZahtev zahtev = (VratiKozmeticareZahtev) ois.readObject();
-                        SOPretraziKozmeticare so = new SOPretraziKozmeticare(zahtev.getUslov());
+                        SONadjiKozmeticare so = new SONadjiKozmeticare(zahtev.getUslov());
                         c.izvrsiSistemskuOperaciju(so);
                         ArrayList<Kozmeticar> listaKozmeticara = so.getListaKozmeticara();
                         
@@ -208,7 +208,7 @@ public class KlijentskaNit extends Thread {
                     }
                     
                     case TipoviZahteva.VRATI_SVE_KATEGORIJE_USLUGA_ZAHTEV: {
-                        SOVratiSveKategorijeUsluga so = new SOVratiSveKategorijeUsluga();
+                        SOUcitajListuKategorijaUsluga so = new SOUcitajListuKategorijaUsluga();
                         
                         c.izvrsiSistemskuOperaciju(so);
                         
@@ -232,7 +232,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
                     case TipoviZahteva.VRATI_SVE_KLIJENTE_ZAHTEV: {
-                        SOVratiSveKlijente so = new SOVratiSveKlijente();
+                        SOUcitajListuKlijenata so = new SOUcitajListuKlijenata();
                         
                         c.izvrsiSistemskuOperaciju(so);
                         
@@ -246,7 +246,7 @@ public class KlijentskaNit extends Thread {
                     
                     case TipoviZahteva.VRATI_SVE_TERMINE_ZAHTEV: {
                         VratiTermineZahtev zahtev = (VratiTermineZahtev) ois.readObject();
-                        SOPretraziTermine so = new SOPretraziTermine(zahtev.getDatum());
+                        SONadjiTermine so = new SONadjiTermine(zahtev.getDatum());
                         
                         c.izvrsiSistemskuOperaciju(so);
                         ArrayList<Termin> listaTermina = so.getListaTermina();

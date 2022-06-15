@@ -1,19 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package So;
 
 import Domen.Kozmeticar;
 import db.DBBroker;
 import java.util.ArrayList;
-import javafx.util.Pair;
 
-public class SOPretraziKozmeticare extends OpstaSistemskaOperacija {
+/**
+ *
+ * @author milic
+ */
+public class SOUcitajListuKozmeticara extends OpstaSistemskaOperacija{
 
-    private Pair<String, String> uslov;
     private ArrayList<Kozmeticar> listaKozmeticara;
-
-    public SOPretraziKozmeticare(Pair<String, String> uslov) {
-        this.uslov = uslov;
-    }
-
+    
     @Override
     public boolean proveriPreduslov() {
         return true;
@@ -22,11 +25,11 @@ public class SOPretraziKozmeticare extends OpstaSistemskaOperacija {
     @Override
     public void izvrsi() {
         Kozmeticar odo = new Kozmeticar();
-        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().pronadjiUBazi(odo, uslov);
+        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().pronadjiUBazi(odo);
     }
 
     public ArrayList<Kozmeticar> getListaKozmeticara() {
         return listaKozmeticara;
     }
-
+    
 }

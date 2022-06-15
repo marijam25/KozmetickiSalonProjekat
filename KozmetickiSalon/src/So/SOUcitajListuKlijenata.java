@@ -4,7 +4,7 @@ import Domen.Klijent;
 import db.DBBroker;
 import java.util.ArrayList;
 
-public class SOVratiSveKlijente extends OpstaSistemskaOperacija {
+public class SOUcitajListuKlijenata extends OpstaSistemskaOperacija {
 
     private ArrayList<Klijent> listaKlijenata;
 

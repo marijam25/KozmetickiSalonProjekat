@@ -53,7 +53,7 @@ public class DBBroker {
         }
     }
 
-    public void closeConnection() {
+    public void zatvoriKonekciju() {
         try {
             konekcija.close();
         } catch (SQLException ex) {
