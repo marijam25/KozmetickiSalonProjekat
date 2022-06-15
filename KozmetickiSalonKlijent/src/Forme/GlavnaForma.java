@@ -1,7 +1,5 @@
 package Forme;
 
-import javax.swing.JOptionPane;
-
 public class GlavnaForma extends javax.swing.JFrame {
 
     public GlavnaForma() {
@@ -162,7 +160,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         KreirajKozmeticaraForma kkf = new KreirajKozmeticaraForma();
         this.setVisible(false);
         kkf.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
+        //JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
     }//GEN-LAST:event_btnKreirajKozmeticaraActionPerformed
 
     private void txtBrisanjeKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrisanjeKozmeticaraActionPerformed
@@ -185,7 +183,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         KreiranjeUslugeForma kuf = new KreiranjeUslugeForma();
         this.setVisible(false);
         kuf.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao novu uslugu");
+        //JOptionPane.showMessageDialog(this, "Sistem je kreirao novu uslugu");
     }//GEN-LAST:event_btnKreiranjeUslugeActionPerformed
 
     private void btnPretragaUslugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretragaUslugaActionPerformed
@@ -207,7 +205,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         KreiranjeTerminaForma ktf = new KreiranjeTerminaForma();
         this.setVisible(false);
         ktf.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao novi termin");
+        //JOptionPane.showMessageDialog(this, "Sistem je kreirao novi termin");
     }//GEN-LAST:event_btnKreiranjeTerminaActionPerformed
 
     private void btnIzmenaTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmenaTerminaActionPerformed
