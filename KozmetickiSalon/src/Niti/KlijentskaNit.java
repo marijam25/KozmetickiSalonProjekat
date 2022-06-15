@@ -6,7 +6,6 @@ import Domen.Kozmeticar;
 import Domen.Termin;
 import Domen.Usluga;
 import KlijentskiZahtev.DodajNoviTerminZahtev;
-import KlijentskiZahtev.DodajNovogKlijentaZahtev;
 import KlijentskiZahtev.DodajNovogKozmeticaraZahtev;
 import KlijentskiZahtev.DodajNovuUsluguZahtev;
 import KlijentskiZahtev.ObrisiTerminZahtev;
@@ -21,7 +20,6 @@ import KlijentskiZahtev.VratiKozmeticareZahtev;
 import KlijentskiZahtev.VratiTermineZahtev;
 import Kontroler.Kontroler;
 import ServerskiOdgovor.DodajNoviTerminOdgovor;
-import ServerskiOdgovor.DodajNovogKlijentaOdgovor;
 import ServerskiOdgovor.DodajNovogKozmeticaraOdgovor;
 import ServerskiOdgovor.DodajNovuUsluguOdgovor;
 import ServerskiOdgovor.ObrisiTerminOdgovor;
@@ -39,7 +37,6 @@ import ServerskiOdgovor.VratiTermineOdgovor;
 import So.SOAzurirajKozmeticara;
 import So.SOAzurirajTermin;
 import So.SOZapamtiTermin;
-import So.SODodajNovogKlijenta;
 import So.SOZapamtiKozmeticara;
 import So.SOZapamtiUslugu;
 import So.SOObrisiKozmeticara;
@@ -84,16 +81,6 @@ public class KlijentskaNit extends Thread {
                 int tipZahteva = ois.readInt();
                 
                 switch (tipZahteva) {
-                    case TipoviZahteva.DODAJ_NOVOG_KLIJENTA_ZAHTEV: {
-                        DodajNovogKlijentaZahtev zahtev = (DodajNovogKlijentaZahtev) ois.readObject();
-                        
-                        boolean uspeo = c.izvrsiSistemskuOperaciju(new SODodajNovogKlijenta(zahtev.getKlijent()));
-                        
-                        DodajNovogKlijentaOdgovor odgovor = new DodajNovogKlijentaOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.DODAJ_NOVOG_KLIJENTA_ODGOVOR);
-                        oos.writeObject(odgovor);
-                        break;
-                    }
                     
                     case TipoviZahteva.DODAJ_NOVOG_KOZMETICARA_ZAHTEV: {
                         DodajNovogKozmeticaraZahtev zahtev = (DodajNovogKozmeticaraZahtev) ois.readObject();
