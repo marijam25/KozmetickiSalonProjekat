@@ -1,5 +1,6 @@
 package So;
 
+import Domen.OpstiDomenskiObjekat;
 import db.DBBroker;
 
 public abstract class OpstaSistemskaOperacija {
@@ -10,9 +11,25 @@ public abstract class OpstaSistemskaOperacija {
         operacijaUspesnoIzvrsena = false;
     }
 
-    public abstract boolean proveriPreduslov();
+    protected abstract boolean proveriPreduslov(OpstiDomenskiObjekat odo);
 
-    public abstract void izvrsi();
+    public boolean izvrsi(OpstiDomenskiObjekat odo) {
+        boolean preduslovZadovoljen = proveriPreduslov(odo);
+
+        if (preduslovZadovoljen) {
+
+            boolean operacijaIzvrsena = izvrsiKonkretnuOperaciju(odo);
+            if (operacijaIzvrsena) {
+                potvrdi();
+                return true;
+            } else {
+                ponisti();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     public void potvrdi() {
         DBBroker.getInstance().potvrdiTransakciju();
@@ -26,4 +43,5 @@ public abstract class OpstaSistemskaOperacija {
         return operacijaUspesnoIzvrsena;
     }
 
+    protected abstract boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo);
 }

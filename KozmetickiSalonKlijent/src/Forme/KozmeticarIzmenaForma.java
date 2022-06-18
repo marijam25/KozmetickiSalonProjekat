@@ -2,8 +2,8 @@ package Forme;
 
 import Domen.Kozmeticar;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.IzmeniKozmeticaraZahtev;
-import ServerskiOdgovor.IzmeniKozmeticaraOdgovor;
+import KlijentskiZahtev.kozmeticar.IzmeniKozmeticaraZahtev;
+import ServerskiOdgovor.kozmeticar.IzmeniKozmeticaraOdgovor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,8 +41,6 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtGodine = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnSacuvaj.setText("Sacuvaj");
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
@@ -123,6 +121,7 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed

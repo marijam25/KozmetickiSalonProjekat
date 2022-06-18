@@ -90,8 +90,10 @@ public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public Pair<String, String> nazivIVrednostPrimarnogKljuca() {
-        return new Pair<>("kozmeticarId", Integer.toString(kozmeticarId));
+    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+        HashMap<String, String> mapa = new HashMap<>();
+        mapa.put("kozmeticarId",Integer.toString(kozmeticarId));
+        return mapa;
     }
 
     @Override

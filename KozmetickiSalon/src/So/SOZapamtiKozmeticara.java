@@ -1,24 +1,26 @@
 package So;
 
-import Domen.Kozmeticar;
+
+import Domen.OpstiDomenskiObjekat;
 import db.DBBroker;
 
 public class SOZapamtiKozmeticara extends OpstaSistemskaOperacija {
 
-    private Kozmeticar k;
+    
 
-    public SOZapamtiKozmeticara(Kozmeticar k) {
-        this.k = k;
+    public SOZapamtiKozmeticara() {
+        
     }
 
     @Override
-    public boolean proveriPreduslov() {
+    public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
         return true;
     }
 
     @Override
-    public void izvrsi() {
-        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(k);
+    public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(odo);
+        return operacijaUspesnoIzvrsena;
     }
 
 }

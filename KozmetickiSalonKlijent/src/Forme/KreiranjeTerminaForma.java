@@ -7,13 +7,13 @@ import Domen.Termin;
 import Domen.Usluga;
 import Domen.ZakazivanjeTermina;
 import KlijentskiZahtev.DodajNoviTerminZahtev;
-import KlijentskiZahtev.PretraziUslugeZahtev;
+import KlijentskiZahtev.usluga.PretraziUslugeZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.VratiKozmeticareZahtev;
-import ServerskiOdgovor.DodajNoviTerminOdgovor;
-import ServerskiOdgovor.PretraziUslugeOdgovor;
-import ServerskiOdgovor.VratiSveKlijenteOdgovor;
-import ServerskiOdgovor.VratiKozmeticareOdgovor;
+import KlijentskiZahtev.kozmeticar.VratiKozmeticareZahtev;
+import ServerskiOdgovor.zakazivanjeTermina.DodajNoviTerminOdgovor;
+import ServerskiOdgovor.usluga.PretraziUslugeOdgovor;
+import ServerskiOdgovor.klijent.VratiSveKlijenteOdgovor;
+import ServerskiOdgovor.kozmeticar.VratiKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -56,8 +56,6 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         cmbKozmeticar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -154,6 +152,7 @@ public class KreiranjeTerminaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed

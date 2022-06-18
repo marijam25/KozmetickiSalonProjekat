@@ -1,8 +1,9 @@
 package Forme;
 
-import KlijentskiZahtev.PrijavljivanjeZahtev;
+import Domen.KorisnikSistema;
+import KlijentskiZahtev.korisnikSistema.PrijavljivanjeZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import ServerskiOdgovor.PrijavljivanjeOdgovor;
+import ServerskiOdgovor.korisnik.PrijavljivanjeOdgovor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,6 +86,7 @@ public class LoginForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrijaviSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrijaviSeActionPerformed
@@ -96,8 +98,12 @@ public class LoginForma extends javax.swing.JFrame {
 
             if (korisnickoIme.isEmpty() || sifra.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
+                //da li ovde treba return da se ne bi slao zahtev
             }
-            PrijavljivanjeZahtev zahtev = new PrijavljivanjeZahtev(korisnickoIme, sifra);
+            
+            //NIJE DOBRO
+            
+            PrijavljivanjeZahtev zahtev = new PrijavljivanjeZahtev(new KorisnikSistema(0, korisnickoIme, sifra));
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             KomunikacijaSaServerom.getInstanca().getOos().flush();

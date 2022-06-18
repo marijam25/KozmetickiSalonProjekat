@@ -3,10 +3,10 @@ package Forme;
 import Domen.Termin;
 import KlijentskiZahtev.ObrisiTerminZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.VratiTermineZahtev;
+import KlijentskiZahtev.zakazivanjeTermina.VratiTermineZahtev;
 import Modeli.ModelTabeleTermina;
-import ServerskiOdgovor.ObrisiTerminOdgovor;
-import ServerskiOdgovor.VratiTermineOdgovor;
+import ServerskiOdgovor.zakazivanjeTermina.ObrisiTerminOdgovor;
+import ServerskiOdgovor.zakazivanjeTermina.VratiTermineOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,13 +19,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
 
-
 public class BrisanjeTerminaForma extends javax.swing.JFrame {
 
     private ArrayList<Termin> listaTabela;
     //private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private Date datum;
-    
+
     public BrisanjeTerminaForma() {
         initComponents();
         listaTabela = new ArrayList<>();
@@ -48,8 +47,6 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
         btnPretrazi = new javax.swing.JButton();
         btnNazad = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Filtriraj termine po datumu u formatu \"dd.MM.yyyy\"");
 
@@ -130,6 +127,7 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
@@ -140,7 +138,7 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
             //datum = sdf.parse(dat);
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            VratiTermineZahtev zahtev = new VratiTermineZahtev("datumTermina",dat);
+            VratiTermineZahtev zahtev = new VratiTermineZahtev("datumTermina", dat);
             oos.writeInt(TipoviZahteva.VRATI_SVE_TERMINE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();
@@ -157,9 +155,9 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
             }
         } //catch (ParseException ex) {
-            //Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
-         catch (IOException ex) {
+        //Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+        //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
+        catch (IOException ex) {
             Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,32 +173,35 @@ public class BrisanjeTerminaForma extends javax.swing.JFrame {
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
-        try {
-        int izabraniRed = tblTermin.getSelectedRow();
+        int izbor = JOptionPane.showConfirmDialog(this, "Da li ste sigurni da zelite da obrisete termin?", "Brisanje termina", JOptionPane.YES_NO_OPTION);
+        if (izbor == JOptionPane.YES_OPTION) {
+            try {
+                int izabraniRed = tblTermin.getSelectedRow();
 
-            if (izabraniRed == -1) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
-            } else {
-                Termin termin = listaTabela.get(izabraniRed);
-                
-                ObrisiTerminZahtev zahtev = new ObrisiTerminZahtev(termin);
-                
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_TERMIN_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-                
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-                ObrisiTerminOdgovor odgovor =  (ObrisiTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-                
-                if (odgovor.isUspeo()) {
-                    JOptionPane.showMessageDialog(this, "Sistem je obrisao termin");
-                } else {
+                if (izabraniRed == -1) {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
+                } else {
+                    Termin termin = listaTabela.get(izabraniRed);
+
+                    ObrisiTerminZahtev zahtev = new ObrisiTerminZahtev(termin);
+
+                    KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_TERMIN_ZAHTEV);
+                    KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                    int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                    ObrisiTerminOdgovor odgovor = (ObrisiTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                    if (odgovor.isUspeo()) {
+                        JOptionPane.showMessageDialog(this, "Sistem je obrisao termin");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
+                    }
                 }
-            }
             } catch (IOException ex) {
                 Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BrisanjeTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 

@@ -1,24 +1,26 @@
 package So;
 
+import Domen.OpstiDomenskiObjekat;
 import Domen.Usluga;
 import db.DBBroker;
 
 public class SOObrisiUslugu extends OpstaSistemskaOperacija {
 
-    private Usluga u;
+    
 
-    public SOObrisiUslugu(Usluga u) {
-        this.u = u;
+    public SOObrisiUslugu() {
+        
     }
 
     @Override
-    public boolean proveriPreduslov() {
+    public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
         return true;
     }
 
     @Override
-    public void izvrsi() {
-        operacijaUspesnoIzvrsena = DBBroker.getInstance().izbrisiIzBaze(u);
+    public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().izbrisiIzBaze(odo);
+        return operacijaUspesnoIzvrsena;
     }
 
 }

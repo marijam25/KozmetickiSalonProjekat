@@ -2,9 +2,9 @@ package Forme;
 
 import Domen.Kozmeticar;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.VratiKozmeticareZahtev;
+import KlijentskiZahtev.kozmeticar.VratiKozmeticareZahtev;
 import Modeli.ModelTabeleKozmeticara;
-import ServerskiOdgovor.VratiKozmeticareOdgovor;
+import ServerskiOdgovor.kozmeticar.VratiKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -41,8 +41,6 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
         btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tblKozmeticar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,6 +122,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed

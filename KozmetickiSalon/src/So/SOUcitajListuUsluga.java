@@ -5,6 +5,7 @@
  */
 package So;
 
+import Domen.OpstiDomenskiObjekat;
 import Domen.Usluga;
 import db.DBBroker;
 import java.util.ArrayList;
@@ -18,14 +19,19 @@ public class SOUcitajListuUsluga extends OpstaSistemskaOperacija {
     private ArrayList<Usluga> listaUsluga;
     
     @Override
-    public boolean proveriPreduslov() {
+    public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
         return true;
     }
 
     @Override
-    public void izvrsi() {
-        Usluga odo = new Usluga();
-        listaUsluga = (ArrayList<Usluga>) DBBroker.getInstance().pronadjiUBazi(odo);
+   public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
+        
+        listaUsluga = (ArrayList<Usluga>) DBBroker.getInstance().pronadjiUBazi(odo,null);
+        
+        if(listaUsluga==null)
+            return false;
+        else
+            return true;
     }
 
     public ArrayList<Usluga> getListaUsluga() {

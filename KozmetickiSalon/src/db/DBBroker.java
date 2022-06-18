@@ -1,6 +1,7 @@
 package db;
 
 import Domen.OpstiDomenskiObjekat;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javafx.util.Pair;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,18 +39,18 @@ public class DBBroker {
     public void uspostaviKonekciju() {
         try {
             if (konekcija == null || konekcija.isClosed()) {
-                DBPropertiesLoader dbl = DBPropertiesLoader.getInstance();
-                Class.forName(dbl.getValue(DBPropertiesLoader.Constants.DRIVER));
+                DBPropertiesLoader dbl = new DBPropertiesLoader();
+                //Class.forName(dbl.getValue(DBPropertiesLoader.Constants.DRIVER));
 
-                String url = dbl.getValue(DBPropertiesLoader.Constants.URL);
-                String user = dbl.getValue(DBPropertiesLoader.Constants.USER);
-                String password = dbl.getValue(DBPropertiesLoader.Constants.PASS);
+                String url = dbl.vratiURL();
+                String user = dbl.vratiUsername();
+                String password = dbl.vratiPassword();
                 konekcija = DriverManager.getConnection(url, user, password);
                 konekcija.setAutoCommit(false);
             }
         } catch (SQLException ex) {
             System.out.println("Neuspesno uspostavljanje konekcije!\n" + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -100,7 +102,7 @@ public class DBBroker {
             imenaKolona += parNazivVrednost.getKey();
             vrednostiKolona += "'" + parNazivVrednost.getValue() + "'";
 
-            if (i < naziviIVrednosti.size()-1) {
+            if (i < naziviIVrednosti.size() - 1) {
                 imenaKolona += ", ";
                 vrednostiKolona += ", ";
             }
@@ -112,14 +114,14 @@ public class DBBroker {
         upit += imenaKolona + " values " + vrednostiKolona;
         return executeUpdateWrapper(upit);
     }
-    
-    public int vratiMaxId(OpstiDomenskiObjekat odo){
+
+    public int vratiMaxId(OpstiDomenskiObjekat odo) {
         try {
-            String upit = "SELECT max("+odo.nazivPrimarnogKljuca() +") as maxid FROM " + odo.nazivTabele();
+            String upit = "SELECT max(" + odo.nazivPrimarnogKljuca() + ") as maxid FROM " + odo.nazivTabele();
             Statement st = konekcija.createStatement();
             ResultSet rs = st.executeQuery(upit);
             boolean f = rs.first();
-            
+
             //int id = rs.getInt(1);
             //int id2 = rs.getInt(odo.nazivPrimarnogKljuca());
             return rs.getInt("maxid");
@@ -138,44 +140,57 @@ public class DBBroker {
         for (Map.Entry<String, String> parNazivVrednost : naziviIVrednosti.entrySet()) {
             upit += parNazivVrednost.getKey() + "=" + "'" + parNazivVrednost.getValue() + "'";
 
-            if (i < naziviIVrednosti.size()-1) {
+            if (i < naziviIVrednosti.size() - 1) {
                 upit += ", ";
             }
             i++;
         }
 
-        Pair<String, String> nazivIVrednostPrimarnogKljuca = odo.nazivIVrednostPrimarnogKljuca();
-        upit += " where " + nazivIVrednostPrimarnogKljuca.getKey() + "=" + nazivIVrednostPrimarnogKljuca.getValue();
-
+        upit += " where";
+            HashMap<String, String> uslovi = odo.nazivIVrednostPrimarnogKljuca();
+            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
+                upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
+                
+            }
+        
         return executeUpdateWrapper(upit);
     }
 
     public boolean izbrisiIzBaze(OpstiDomenskiObjekat odo) {
-        String upit = "delete from " + odo.nazivTabele() + " where ";
-        Pair<String, String> nazivIVrednostPrimarnogKljuca = odo.nazivIVrednostPrimarnogKljuca();
-        upit += nazivIVrednostPrimarnogKljuca.getKey() + "=" + nazivIVrednostPrimarnogKljuca.getValue();
+        String upit = "delete from " + odo.nazivTabele();
+
+               upit += " where";
+            HashMap<String, String> uslovi = odo.nazivIVrednostPrimarnogKljuca();
+            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
+                upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
+                
+            }
 
         return executeUpdateWrapper(upit);
     }
+
     
-    public ArrayList<? extends OpstiDomenskiObjekat> pronadjiUBazi(OpstiDomenskiObjekat odo, Pair<String, String> uslov){
+
+    public ArrayList<? extends OpstiDomenskiObjekat> pronadjiUBazi(OpstiDomenskiObjekat odo, Set<String> koloneZaPretrazivanje) {
         String upit = "select * from " + odo.nazivTabele();
-        if(uslov != null){
-            upit += " where " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
+        if (koloneZaPretrazivanje!=null && !koloneZaPretrazivanje.isEmpty()) {
+            upit += " where";
+            HashMap<String, String> uslovi = odo.naziviIVrednostiKolona();
+            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
+                if (uslov.getValue() != null && koloneZaPretrazivanje.contains(uslov.getKey())) {
+                    upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
+                }
+            }
         }
-                
+
         try {
             Statement st = konekcija.createStatement();
             ResultSet res = st.executeQuery(upit);
-            
+
             return odo.ucitajIzResultSeta(res);
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
-    
-    public ArrayList<? extends OpstiDomenskiObjekat> pronadjiUBazi(OpstiDomenskiObjekat odo){
-        return pronadjiUBazi(odo, null);
     }
 }

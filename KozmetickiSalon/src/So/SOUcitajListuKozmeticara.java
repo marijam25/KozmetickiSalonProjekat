@@ -6,6 +6,7 @@
 package So;
 
 import Domen.Kozmeticar;
+import Domen.OpstiDomenskiObjekat;
 import db.DBBroker;
 import java.util.ArrayList;
 
@@ -18,14 +19,19 @@ public class SOUcitajListuKozmeticara extends OpstaSistemskaOperacija{
     private ArrayList<Kozmeticar> listaKozmeticara;
     
     @Override
-    public boolean proveriPreduslov() {
+    public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
         return true;
     }
 
     @Override
-    public void izvrsi() {
-        Kozmeticar odo = new Kozmeticar();
-        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().pronadjiUBazi(odo);
+    public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
+        
+        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().pronadjiUBazi(odo,null);
+        
+        if(listaKozmeticara==null)
+            return false;
+        else
+            return true;
     }
 
     public ArrayList<Kozmeticar> getListaKozmeticara() {

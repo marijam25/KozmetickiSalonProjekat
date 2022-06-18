@@ -13,16 +13,14 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
 
     private int stavkaId;
     private int zakazivanjeId;
-    private int terminId;
     private int uslugaId;
 
     public StavkaZakazivanja() {
     }
 
-    public StavkaZakazivanja(int stavkaId, int zakazivanjeId, int terminId, int uslugaId) {
+    public StavkaZakazivanja(int stavkaId, int zakazivanjeId, int uslugaId) {
         this.stavkaId = stavkaId;
         this.zakazivanjeId = zakazivanjeId;
-        this.terminId = terminId;
         this.uslugaId = uslugaId;
     }
 
@@ -34,26 +32,18 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
         return zakazivanjeId;
     }
 
-    public int getTerminId() {
-        return terminId;
-    }
+    
 
     public int getUslugaId() {
         return uslugaId;
     }
 
-    public void setTerminId(int terminId) {
-        this.terminId = terminId;
-    }
+    
 
     public void setZakazivanjeId(int zakazivanjeId) {
         this.zakazivanjeId = zakazivanjeId;
     }
 
-    @Override
-    public String toString() {
-        return "StavkaZakazivanja{" + "stavkaId=" + stavkaId + ", zakazivanjeId=" + zakazivanjeId + ", terminId=" + terminId + ", uslugaId=" + uslugaId + '}';
-    }
 
     @Override
     public String nazivTabele() {
@@ -65,7 +55,6 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
         ArrayList<String> naziviKol = new ArrayList<>();
         naziviKol.add("stavkaId");
         naziviKol.add("zakazivanjeId");
-        naziviKol.add("terminId");
         naziviKol.add("uslugaId");
         return naziviKol;
     }
@@ -75,7 +64,6 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
         HashMap<String, String> nazivIVrednostiKol = new HashMap<String, String>();
         nazivIVrednostiKol.put("stavkaId", Integer.toString(stavkaId));
         nazivIVrednostiKol.put("zakazivanjeId", Integer.toString(zakazivanjeId));
-        nazivIVrednostiKol.put("terminId", Integer.toString(terminId));
         nazivIVrednostiKol.put("uslugaId", Integer.toString(uslugaId));
         return nazivIVrednostiKol;
     }
@@ -86,8 +74,11 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public Pair<String, String> nazivIVrednostPrimarnogKljuca() {
-        return new Pair<>("stavkaId", Integer.toString(stavkaId));
+    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+        HashMap<String, String> mapa = new HashMap<>();
+        mapa.put("stavkaId",Integer.toString(stavkaId));
+        mapa.put("zakazivanjeId", Integer.toString(zakazivanjeId));
+        return mapa;
     }
 
     @Override
@@ -97,10 +88,9 @@ public class StavkaZakazivanja implements Serializable, OpstiDomenskiObjekat {
             while (rs.next()) {
                 int stavkaId = rs.getInt("stavkaID");
                 int zakazivanjeId = rs.getInt("zakazivanjeId");
-                int terminId = rs.getInt("terminId");
                 int uslugaId = rs.getInt("uslugaId");
 
-                StavkaZakazivanja u = new StavkaZakazivanja(stavkaId,zakazivanjeId,terminId,uslugaId);
+                StavkaZakazivanja u = new StavkaZakazivanja(stavkaId,zakazivanjeId,uslugaId);
                 lista.add(u);
             }
         } catch (SQLException ex) {

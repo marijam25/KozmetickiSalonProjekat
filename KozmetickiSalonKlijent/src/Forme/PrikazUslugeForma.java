@@ -31,8 +31,6 @@ public class PrikazUslugeForma extends javax.swing.JFrame {
         txtKategorija = new javax.swing.JTextField();
         btnNazad = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("Naziv usluge");
 
         jLabel2.setText("Kategorija usluge");
@@ -78,6 +76,7 @@ public class PrikazUslugeForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed

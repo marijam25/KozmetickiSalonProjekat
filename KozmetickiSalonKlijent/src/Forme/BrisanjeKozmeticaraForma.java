@@ -1,12 +1,12 @@
 package Forme;
 
 import Domen.Kozmeticar;
-import KlijentskiZahtev.ObrisiKozmeticaraZahtev;
+import KlijentskiZahtev.kozmeticar.ObrisiKozmeticaraZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.VratiKozmeticareZahtev;
+import KlijentskiZahtev.kozmeticar.VratiKozmeticareZahtev;
 import Modeli.ModelTabeleKozmeticara;
-import ServerskiOdgovor.ObrisiKozmeticaraOdgovor;
-import ServerskiOdgovor.VratiKozmeticareOdgovor;
+import ServerskiOdgovor.kozmeticar.ObrisiKozmeticaraOdgovor;
+import ServerskiOdgovor.kozmeticar.VratiKozmeticareOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -44,8 +44,6 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnNazad = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnPretrazi.setText("Pretrazi");
         btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +127,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
@@ -164,35 +163,38 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPretraziActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-        try {
-            // TODO add your handling code here:
-            int izabraniRed = tblKozmeticar.getSelectedRow();
-            if (izabraniRed == -1) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
-            } else {
-                Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
-
-                ObrisiKozmeticaraZahtev zahtev = new ObrisiKozmeticaraZahtev(kozmeticar);
-
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-                ObrisiKozmeticaraOdgovor odgovor = (ObrisiKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-
-                if (odgovor.isUspeo()) {
-                    JOptionPane.showMessageDialog(this, "Sistem je obrisao kozmeticara");
-                    listaTabela.remove(kozmeticar);
-                } else {
+        int izbor = JOptionPane.showConfirmDialog(this, "Da li ste sigurni da zelite da obrisete kozmeticara?", "Brisanje kozmeticara", JOptionPane.YES_NO_OPTION);
+        if (izbor == JOptionPane.YES_OPTION) {
+            try {
+                // TODO add your handling code here:
+                int izabraniRed = tblKozmeticar.getSelectedRow();
+                if (izabraniRed == -1) {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
-                }
-                podesiModelTabele();
-            }
+                } else {
+                    Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
 
-        } catch (IOException ex) {
-            Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                    ObrisiKozmeticaraZahtev zahtev = new ObrisiKozmeticaraZahtev(kozmeticar);
+
+                    KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV);
+                    KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                    int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                    ObrisiKozmeticaraOdgovor odgovor = (ObrisiKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                    if (odgovor.isUspeo()) {
+                        JOptionPane.showMessageDialog(this, "Sistem je obrisao kozmeticara");
+                        listaTabela.remove(kozmeticar);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
+                    }
+                    podesiModelTabele();
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(BrisanjeKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 

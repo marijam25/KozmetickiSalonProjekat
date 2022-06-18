@@ -1,24 +1,26 @@
 package So;
 
+import Domen.OpstiDomenskiObjekat;
 import Domen.Usluga;
 import db.DBBroker;
 
 public class SOZapamtiUslugu extends OpstaSistemskaOperacija {
 
-    private Usluga u;
+    
 
-    public SOZapamtiUslugu(Usluga u) {
-        this.u = u;
+    public SOZapamtiUslugu() {
+        
     }
 
     @Override
-    public boolean proveriPreduslov() {
+    public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
         return true;
     }
 
     @Override
-    public void izvrsi() {
-        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(u);
+    public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
+        operacijaUspesnoIzvrsena = DBBroker.getInstance().upisiUBazu(odo);
+        return operacijaUspesnoIzvrsena;
     }
 
 }

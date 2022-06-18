@@ -2,9 +2,9 @@ package Forme;
 
 import Domen.Termin;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.VratiTermineZahtev;
+import KlijentskiZahtev.zakazivanjeTermina.VratiTermineZahtev;
 import Modeli.ModelTabeleTermina;
-import ServerskiOdgovor.VratiTermineOdgovor;
+import ServerskiOdgovor.zakazivanjeTermina.VratiTermineOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -46,8 +46,6 @@ public class IzmenaTerminaForma extends javax.swing.JFrame {
         btnNazad = new javax.swing.JButton();
         btnIzmeni = new javax.swing.JButton();
         btnPretrazi = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Filtriraj termine po datumu u formatu \"dd.MM.yyyy\"");
 
@@ -127,6 +125,7 @@ public class IzmenaTerminaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed

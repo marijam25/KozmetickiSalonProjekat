@@ -2,10 +2,10 @@ package Forme;
 
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
-import KlijentskiZahtev.DodajNovuUsluguZahtev;
+import KlijentskiZahtev.usluga.DodajNovuUsluguZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import ServerskiOdgovor.DodajNovuUsluguOdgovor;
-import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
+import ServerskiOdgovor.usluga.DodajNovuUsluguOdgovor;
+import ServerskiOdgovor.kategorijaUsluga.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -37,8 +37,6 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         cmbKategorijaUsluga.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -108,6 +106,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed

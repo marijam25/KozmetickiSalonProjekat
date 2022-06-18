@@ -10,6 +10,6 @@ public interface OpstiDomenskiObjekat {
     public abstract ArrayList<String> naziviKolona();
     public abstract HashMap<String, String> naziviIVrednostiKolona();
     public abstract String nazivPrimarnogKljuca();
-    public abstract Pair<String, String> nazivIVrednostPrimarnogKljuca();
+    public abstract HashMap<String, String> nazivIVrednostPrimarnogKljuca();
     public abstract ArrayList<? extends OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs);
 }

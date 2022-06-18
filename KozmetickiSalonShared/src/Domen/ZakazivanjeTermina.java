@@ -1,28 +1,34 @@
 package Domen;
 
+import PomocneFunkcije.DatumPomocneFunkcije;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
+
 
 public class ZakazivanjeTermina implements Serializable, OpstiDomenskiObjekat {
 
     private int zakazivanjeId;
     private int kozmeticarId;
     private int klijentId;
+    private java.util.Date datumIVreme;
 
     public ZakazivanjeTermina() {
     }
 
-    public ZakazivanjeTermina(int zakazivanjeId, int kozmeticarId, int klijentId) {
+    public ZakazivanjeTermina(int zakazivanjeId, int kozmeticarId, int klijentId, Date datumIVreme) {
         this.zakazivanjeId = zakazivanjeId;
         this.kozmeticarId = kozmeticarId;
         this.klijentId = klijentId;
+        this.datumIVreme = datumIVreme;
     }
+
+    
 
     public int getZakazivanjeId() {
         return zakazivanjeId;
@@ -35,6 +41,17 @@ public class ZakazivanjeTermina implements Serializable, OpstiDomenskiObjekat {
     public int getKlijentId() {
         return klijentId;
     }
+
+    public Date getDatumIVreme() {
+        return datumIVreme;
+    }
+
+    public void setZakazivanjeId(int zakazivanjeId) {
+        this.zakazivanjeId = zakazivanjeId;
+    }
+    
+    
+    
 
     @Override
     public String toString() {
@@ -52,6 +69,7 @@ public class ZakazivanjeTermina implements Serializable, OpstiDomenskiObjekat {
         naziviKol.add("zakazivanjeId");
         naziviKol.add("kozmeticarId");
         naziviKol.add("klijentId");
+        naziviKol.add("datumIVreme");
         return naziviKol;
     }
 
@@ -61,6 +79,7 @@ public class ZakazivanjeTermina implements Serializable, OpstiDomenskiObjekat {
         nazivIVrednostiKol.put("zakazivanjeId", Integer.toString(zakazivanjeId));
         nazivIVrednostiKol.put("kozmeticarId", Integer.toString(kozmeticarId));
         nazivIVrednostiKol.put("klijentId", Integer.toString(klijentId));
+        nazivIVrednostiKol.put("datumIVreme", DatumPomocneFunkcije.UtilDateUString(datumIVreme));
         return nazivIVrednostiKol;
     }
 
@@ -70,8 +89,10 @@ public class ZakazivanjeTermina implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public Pair<String, String> nazivIVrednostPrimarnogKljuca() {
-        return new Pair<>("zakazivanjeId", Integer.toString(zakazivanjeId));
+    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+        HashMap<String, String> mapa = new HashMap<>();
+        mapa.put("zakazivanjeId",Integer.toString(zakazivanjeId));
+        return mapa;
     }
 
     @Override
@@ -79,11 +100,12 @@ public class ZakazivanjeTermina implements Serializable, OpstiDomenskiObjekat {
         ArrayList<ZakazivanjeTermina> lista = new ArrayList<ZakazivanjeTermina>();
         try {
             while (rs.next()) {
-                int zakazivanjeId = rs.getInt("zakazivanjeId");
-                int kozmeticarId = rs.getInt("kozmeticarId");
-                int klijentId = rs.getInt("klijentId");
-
-                ZakazivanjeTermina z = new ZakazivanjeTermina(zakazivanjeId,kozmeticarId,klijentId);
+                int zakazId = rs.getInt("zakazivanjeId");
+                int kozmId = rs.getInt("kozmeticarId");
+                int klijId = rs.getInt("klijentId");
+                java.sql.Date datSql = rs.getDate("datumIVreme");
+                java.util.Date datUtil = new java.util.Date(datSql.getTime());
+                ZakazivanjeTermina z = new ZakazivanjeTermina(zakazId,kozmId,klijId,datUtil);
                 lista.add(z);
             }
         } catch (SQLException ex) {

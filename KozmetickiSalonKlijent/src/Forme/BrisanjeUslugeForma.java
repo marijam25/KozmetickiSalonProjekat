@@ -2,13 +2,13 @@ package Forme;
 
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
-import KlijentskiZahtev.ObrisiUsluguZahtev;
-import KlijentskiZahtev.PretraziUslugeZahtev;
+import KlijentskiZahtev.usluga.ObrisiUsluguZahtev;
+import KlijentskiZahtev.usluga.PretraziUslugeZahtev;
 import KlijentskiZahtev.TipoviZahteva;
 import Modeli.ModelTabeleUsluge;
-import ServerskiOdgovor.ObrisiUsluguOdgovor;
-import ServerskiOdgovor.PretraziUslugeOdgovor;
-import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
+import ServerskiOdgovor.usluga.ObrisiUsluguOdgovor;
+import ServerskiOdgovor.usluga.PretraziUslugeOdgovor;
+import ServerskiOdgovor.kategorijaUsluga.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import komunikacija.KomunikacijaSaServerom;
-
 
 public class BrisanjeUslugeForma extends javax.swing.JFrame {
 
@@ -52,8 +51,6 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnNazad = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnPretrazi.setText("Pretrazi");
         btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +139,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
@@ -151,7 +149,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev("nazivUsluge",pretraga);
+            PretraziUslugeZahtev zahtev = new PretraziUslugeZahtev("nazivUsluge", pretraga);
             oos.writeInt(TipoviZahteva.PRETRAZI_USLUGE_ZAHTEV);
             oos.writeObject(zahtev);
             oos.flush();
@@ -174,37 +172,41 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPretraziActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-        try {
-            // TODO add your handling code here:
-            int izabraniRed = tblUsluge.getSelectedRow();
+        int izbor = JOptionPane.showConfirmDialog(this, "Da li ste sigurni da zelite da obrisete uslugu?", "Brisanje usluge", JOptionPane.YES_NO_OPTION);
+        if (izbor == JOptionPane.YES_OPTION) {
 
-            if (izabraniRed == -1) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
-            } else {
+            try {
+                // TODO add your handling code here:
+                int izabraniRed = tblUsluge.getSelectedRow();
 
-                Usluga usluga = listaTabela.get(izabraniRed);
-
-                ObrisiUsluguZahtev zahtev = new ObrisiUsluguZahtev(usluga);
-
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-                ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-
-                if (odgovor.isUspeo()) {
-                    JOptionPane.showMessageDialog(this, "Sistem je obrisao uslugu");
-                    listaTabela.remove(usluga);
-                } else {
+                if (izabraniRed == -1) {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
-                }
+                } else {
 
-                podesiModelTabele();
+                    Usluga usluga = listaTabela.get(izabraniRed);
+
+                    ObrisiUsluguZahtev zahtev = new ObrisiUsluguZahtev(usluga);
+
+                    KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
+                    KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                    int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                    ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                    if (odgovor.isUspeo()) {
+                        JOptionPane.showMessageDialog(this, "Sistem je obrisao uslugu");
+                        listaTabela.remove(usluga);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
+                    }
+
+                    podesiModelTabele();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BrisanjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 

@@ -3,10 +3,10 @@ package Forme;
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
 import KlijentskiZahtev.TipoviZahteva;
-import KlijentskiZahtev.PretraziUslugeZahtev;
+import KlijentskiZahtev.usluga.PretraziUslugeZahtev;
 import Modeli.ModelTabeleUsluge;
-import ServerskiOdgovor.PretraziUslugeOdgovor;
-import ServerskiOdgovor.VratiSveKategorijeUslugaOdgovor;
+import ServerskiOdgovor.usluga.PretraziUslugeOdgovor;
+import ServerskiOdgovor.kategorijaUsluga.VratiSveKategorijeUslugaOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -46,8 +46,6 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
         btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnPretrazi.setText("Pretrazi");
         btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
@@ -135,6 +133,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed

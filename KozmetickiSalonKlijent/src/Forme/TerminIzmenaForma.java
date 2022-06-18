@@ -3,7 +3,7 @@ package Forme;
 import Domen.Termin;
 import KlijentskiZahtev.IzmeniTerminZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import ServerskiOdgovor.IzmeniTerminOdgovor;
+import ServerskiOdgovor.zakazivanjeTermina.IzmeniTerminOdgovor;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.ParseException;
@@ -39,8 +39,6 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         txtVreme = new javax.swing.JTextField();
         btnNazad = new javax.swing.JButton();
         btnSacuvaj = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Izmena termina");
 
@@ -106,6 +104,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed

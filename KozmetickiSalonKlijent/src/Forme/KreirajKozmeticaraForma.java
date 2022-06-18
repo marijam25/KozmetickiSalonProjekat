@@ -1,9 +1,9 @@
 package Forme;
 
 import Domen.Kozmeticar;
-import KlijentskiZahtev.DodajNovogKozmeticaraZahtev;
+import KlijentskiZahtev.kozmeticar.DodajNovogKozmeticaraZahtev;
 import KlijentskiZahtev.TipoviZahteva;
-import ServerskiOdgovor.DodajNovogKozmeticaraOdgovor;
+import ServerskiOdgovor.kozmeticar.DodajNovogKozmeticaraOdgovor;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +34,6 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtGodine = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kreiranje kozmeticara");
 
         btnSacuvaj.setText("Sacuvaj");
@@ -102,6 +101,7 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
@@ -112,7 +112,7 @@ public class KreirajKozmeticaraForma extends javax.swing.JFrame {
             int godine = Integer.parseInt(txtGodine.getText());
 
             Kozmeticar kozmeticar = new Kozmeticar(0, ime, prezime, godine);
-            if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty()) {
+            if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty() || godine<=0) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
             }
 

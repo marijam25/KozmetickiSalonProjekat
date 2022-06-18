@@ -70,8 +70,10 @@ public class Usluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public Pair<String, String> nazivIVrednostPrimarnogKljuca() {
-        return new Pair<>("uslugaId", Integer.toString(uslugaId));
+    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+        HashMap<String, String> mapa = new HashMap<>();
+        mapa.put("uslugaId",Integer.toString(uslugaId));
+        return mapa;
     }
 
     @Override

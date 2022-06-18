@@ -62,8 +62,10 @@ public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public Pair<String, String> nazivIVrednostPrimarnogKljuca() {
-        return new Pair<>("kategorijaId", Integer.toString(kategorijaId));
+    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+        HashMap<String, String> mapa = new HashMap<>();
+        mapa.put("kategorijaId",Integer.toString(kategorijaId));
+        return mapa;
     }
 
     @Override
