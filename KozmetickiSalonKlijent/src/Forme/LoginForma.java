@@ -1,13 +1,13 @@
 package Forme;
 
 import Domen.KorisnikSistema;
-import KlijentskiZahtev.korisnikSistema.PrijavljivanjeZahtev;
-import KlijentskiZahtev.TipoviZahteva;
-import ServerskiOdgovor.korisnik.PrijavljivanjeOdgovor;
+import KlijentskiZahtevi.TipoviZahteva;
+import KlijentskiZahtevi.ZahteviZaPrijavljivanje.PrijavljivanjeZahtev;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import ServerskiOdgovori.OdgovoriPrijavljivanje.PrijavljivanjeOdgovor;
 import komunikacija.KomunikacijaSaServerom;
 
 public class LoginForma extends javax.swing.JFrame {
@@ -111,9 +111,10 @@ public class LoginForma extends javax.swing.JFrame {
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             PrijavljivanjeOdgovor odgovor = (PrijavljivanjeOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
-            if (odgovor.isUspesno()) {
+            if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Uspesno prijavljivanje na sistem!");
                 GlavnaForma gf = new GlavnaForma();
+                //da l uopste ovo treba
                 this.setVisible(false);
                 gf.setVisible(true);
             } else {
@@ -143,13 +144,13 @@ public class LoginForma extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForma.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

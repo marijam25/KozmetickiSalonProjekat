@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
 
 public class Usluga implements Serializable, OpstiDomenskiObjekat {
 
@@ -47,7 +48,7 @@ public class Usluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public ArrayList<String> naziviKolona() {
+    public List<String> naziviKolona() {
         ArrayList<String> naziviKol = new ArrayList<>();
         naziviKol.add("uslugaId");
         naziviKol.add("nazivUsluge");
@@ -56,8 +57,8 @@ public class Usluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public HashMap<String, String> naziviIVrednostiKolona() {
-        HashMap<String, String> nazivIVrednostiKol = new HashMap<String, String>();
+    public Map<String, String> naziviIVrednostiKolona() {
+        HashMap<String, String> nazivIVrednostiKol = new HashMap<>();
         nazivIVrednostiKol.put("uslugaId", Integer.toString(uslugaId));
         nazivIVrednostiKol.put("nazivUsluge", nazivUsluge);
         nazivIVrednostiKol.put("kategorijaId", Integer.toString(kategorijaId));
@@ -65,27 +66,29 @@ public class Usluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public String nazivPrimarnogKljuca() {
-        return "uslugaId";
+    public List<String> naziviKolonaPrimarnogKljuca() {
+        ArrayList<String> naziviKol = new ArrayList<>();
+        naziviKol.add("uslugaId");
+        return naziviKol;
     }
 
     @Override
-    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+    public Map<String, String> nazivIVrednostPrimarnogKljuca() {
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("uslugaId",Integer.toString(uslugaId));
         return mapa;
     }
 
     @Override
-    public ArrayList<Usluga> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<Usluga> lista = new ArrayList<Usluga>();
+    public List<Usluga> ucitajIzResultSeta(ResultSet rs) {
+        List<Usluga> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int id = rs.getInt("UslugaID");
-                String nazivUsluge = rs.getString("NazivUsluge");
-                int kategorijaId = rs.getInt("KategorijaId");
+                String naziv = rs.getString("NazivUsluge");
+                int katId = rs.getInt("KategorijaId");
 
-                Usluga u = new Usluga(id, nazivUsluge, kategorijaId);
+                Usluga u = new Usluga(id, naziv, katId);
                 lista.add(u);
             }
         } catch (SQLException ex) {

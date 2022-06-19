@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PomocneFunkcije;
 
 import java.text.SimpleDateFormat;
 
-/**
- *
- * @author milic
- */
 public class DatumPomocneFunkcije {
-
     public static String format = "dd.MM.yyyy hh:mm";
     public static SimpleDateFormat sdf = new SimpleDateFormat(format);
     
@@ -29,5 +19,10 @@ public class DatumPomocneFunkcije {
     public static String UtilDateUString(java.util.Date datumUtil){
         String strDate = sdf.format(datumUtil); 
         return strDate;
+    }
+    
+    public static String UtilDateUSQLString(java.util.Date datumUtil){
+        SimpleDateFormat sqlSdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return sqlSdf.format(datumUtil);
     }
 }

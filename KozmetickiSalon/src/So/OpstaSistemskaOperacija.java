@@ -5,14 +5,6 @@ import db.DBBroker;
 
 public abstract class OpstaSistemskaOperacija {
 
-    protected boolean operacijaUspesnoIzvrsena;
-
-    public OpstaSistemskaOperacija() {
-        operacijaUspesnoIzvrsena = false;
-    }
-
-    protected abstract boolean proveriPreduslov(OpstiDomenskiObjekat odo);
-
     public boolean izvrsi(OpstiDomenskiObjekat odo) {
         boolean preduslovZadovoljen = proveriPreduslov(odo);
 
@@ -39,9 +31,7 @@ public abstract class OpstaSistemskaOperacija {
         DBBroker.getInstance().ponistiTransakciju();
     }
 
-    public boolean isOperacijaUspesnoIzvrsena() {
-        return operacijaUspesnoIzvrsena;
-    }
+    protected abstract boolean proveriPreduslov(OpstiDomenskiObjekat odo);
 
     protected abstract boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo);
 }

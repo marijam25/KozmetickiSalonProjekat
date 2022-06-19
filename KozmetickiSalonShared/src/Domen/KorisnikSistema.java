@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
 
 public class KorisnikSistema implements Serializable, OpstiDomenskiObjekat {
 
@@ -15,15 +16,14 @@ public class KorisnikSistema implements Serializable, OpstiDomenskiObjekat {
     private String korisnickoIme;
     private String sifra;
 
+    public KorisnikSistema() {
+    }
+
     public KorisnikSistema(int korisnikId, String korisnickoIme, String sifra) {
         this.korisnikId = korisnikId;
         this.korisnickoIme = korisnickoIme;
         this.sifra = sifra;
     }
-
-    public KorisnikSistema() {
-    }
-    
 
     public String getKorisnickoIme() {
         return korisnickoIme;
@@ -34,12 +34,17 @@ public class KorisnikSistema implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
+    public String toString() {
+        return korisnickoIme;
+    }
+
+    @Override
     public String nazivTabele() {
         return "korisnikSistema";
     }
 
     @Override
-    public ArrayList<String> naziviKolona() {
+    public List<String> naziviKolona() {
         ArrayList<String> naziviKol = new ArrayList<>();
         naziviKol.add("korisnikId");
         naziviKol.add("korisnickoIme");
@@ -48,7 +53,7 @@ public class KorisnikSistema implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public HashMap<String, String> naziviIVrednostiKolona() {
+    public Map<String, String> naziviIVrednostiKolona() {
         HashMap<String, String> nazivIVrednostiKol = new HashMap();
         nazivIVrednostiKol.put("korisnikId", Integer.toString(korisnikId));
         nazivIVrednostiKol.put("korisnickoIme", korisnickoIme);
@@ -57,20 +62,22 @@ public class KorisnikSistema implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public String nazivPrimarnogKljuca() {
-        return "korisnikId";
+    public List<String> naziviKolonaPrimarnogKljuca() {
+        ArrayList<String> naziviKolPrimKljuca = new ArrayList<>();
+        naziviKolPrimKljuca.add("korisnikId");
+        return naziviKolPrimKljuca;
     }
 
     @Override
-    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+    public Map<String, String> nazivIVrednostPrimarnogKljuca() {
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("korisnikId",Integer.toString(korisnikId));
         return mapa;
     }
 
     @Override
-    public ArrayList<? extends OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<KorisnikSistema> lista = new ArrayList<KorisnikSistema>();
+    public List<KorisnikSistema> ucitajIzResultSeta(ResultSet rs) {
+        ArrayList<KorisnikSistema> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int Id = rs.getInt("korisnikId");

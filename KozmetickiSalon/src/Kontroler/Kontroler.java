@@ -1,36 +1,21 @@
 package Kontroler;
 
-import Domen.KorisnikSistema;
-import Domen.OpstiDomenskiObjekat;
+import Domen.*;
+import So.Dohvatanje.*;
+import So.Azuriranje.*;
+import So.Brisanje.*;
+import So.Dodavanje.*;
 import So.OpstaSistemskaOperacija;
-import So.SOAzurirajKozmeticara;
-import So.SOAzurirajZakazivanjeTermina;
-import So.SONadjiKorisnikaSistemaPoKorisnickomImenuISifri;
-import So.SONadjiKozmeticarePoPrezimenu;
-import So.SONadjiUslugePoNazivu;
-import So.SONadjiZakazivanjeTerminaPoDatumu;
-import So.SONadjiZakazivanjeTerminaPoIdu;
-import So.SOObrisiKozmeticara;
-import So.SOObrisiStavkuZakazivanja;
-import So.SOObrisiUslugu;
-import So.SOObrisiZakazivanjeTermina;
-import So.SOUcitajListuKategorijaUsluga;
-import So.SOUcitajListuKlijenata;
-import So.SOUcitajListuKozmeticara;
-import So.SOUcitajListuUsluga;
-import So.SOZapamtiKozmeticara;
-import So.SOZapamtiStavkuZakazivanja;
-import So.SOZapamtiUslugu;
-import So.SOZapamtiZakazivanjeTermina;
-import java.util.ArrayList;
+import So.Prijavljivanje.SOPrijavljivanje;
+
+
+import java.util.List;
 
 public class Kontroler {
 
     private static Kontroler instance;
-   
 
     private Kontroler() {
-       
     }
 
     public static Kontroler getInstance() {
@@ -40,105 +25,167 @@ public class Kontroler {
         return instance;
     }
 
+    //-------------------------------------------------------------------
+    // Prijavljivanje
+    //-------------------------------------------------------------------
+
     public boolean prijavljivanjeKorisnika(OpstiDomenskiObjekat odo) {
-        OpstaSistemskaOperacija oso = new SONadjiKorisnikaSistemaPoKorisnickomImenuISifri();
+        OpstaSistemskaOperacija oso = new SOPrijavljivanje();
         return oso.izvrsi(odo);
     }
-    
-    public boolean zapamtiKozmeticara(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOZapamtiKozmeticara();
+
+
+    //-------------------------------------------------------------------
+    // Dodavanje
+    //-------------------------------------------------------------------
+
+    public boolean dodajKozmeticara(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SODodajKozmeticara();
         return oso.izvrsi(odo);
     }
-    
-    public boolean zapamtiUslugu(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOZapamtiUslugu();
+
+    public boolean dodajStavkuZakazaogTermina(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SODodajStavkuZakazanogTermina();
         return oso.izvrsi(odo);
     }
-    
-    public boolean zapamtiZakazivanjeTermina(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOZapamtiZakazivanjeTermina();
+
+    public boolean dodajUslugu(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SODodajUslugu();
         return oso.izvrsi(odo);
     }
-    
-    public boolean zapamtiStavkaZakazivanja(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOZapamtiStavkuZakazivanja();
+
+    public boolean dodajZakazaniTermin(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SODodajZakazaniTermin();
         return oso.izvrsi(odo);
     }
-    
-    public boolean ucitajListuKategorijaUsluga(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOUcitajListuKategorijaUsluga();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean ucitajListuKlijenata(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOUcitajListuKlijenata();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean ucitajListuKozmeticara(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOUcitajListuKozmeticara();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean ucitajListuUsluga(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOUcitajListuUsluga();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean nadjiKorisnikaSistemaPoKorisnickomImenuISifri(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SONadjiKorisnikaSistemaPoKorisnickomImenuISifri();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean nadjiKozmeticarePoPrezimenu(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SONadjiKozmeticarePoPrezimenu();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean nadjiUslugePoNazivu(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SONadjiUslugePoNazivu();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean nadjiZakazivanjeTerminaPoDatumu(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SONadjiZakazivanjeTerminaPoDatumu();
-        return oso.izvrsi(odo);
-    }
-    
-    public boolean nadjiZakazivanjeTerminaPoIdu(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SONadjiZakazivanjeTerminaPoIdu();
-        return oso.izvrsi(odo);
-    }
+
+    //-------------------------------------------------------------------
+    // Azuriranje
+    //-------------------------------------------------------------------
 
     public boolean azurirajKozmeticara(OpstiDomenskiObjekat odo){
         OpstaSistemskaOperacija oso = new SOAzurirajKozmeticara();
         return oso.izvrsi(odo);
     }
-    
-    public boolean azurirajZakazivanjeTermina(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOAzurirajZakazivanjeTermina();
+
+    public boolean azurirajZakazaniTermin(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SOAzurirajZakazaniTermin();
         return oso.izvrsi(odo);
     }
-    
+
+    //-------------------------------------------------------------------
+    // Brisanje
+    //-------------------------------------------------------------------
+
     public boolean obrisiKozmeticara(OpstiDomenskiObjekat odo){
         OpstaSistemskaOperacija oso = new SOObrisiKozmeticara();
         return oso.izvrsi(odo);
     }
-    
-    public boolean obrisiStavkuZakazivanja(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOObrisiStavkuZakazivanja();
+
+    public boolean obrisiStavkeZakazanogTermina(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SOObrisiStavkeZakazanogTermina();
         return oso.izvrsi(odo);
     }
-    
+
     public boolean obrisiUslugu(OpstiDomenskiObjekat odo){
         OpstaSistemskaOperacija oso = new SOObrisiUslugu();
         return oso.izvrsi(odo);
     }
-    
-    public boolean obrisiZakazivanjeTermina(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOObrisiZakazivanjeTermina();
+
+    public boolean obrisiZakazaniTermin(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SOObrisiZakazaniTermin();
         return oso.izvrsi(odo);
     }
-    
-    
+
+    //-------------------------------------------------------------------
+    // Dohvatanje
+    //-------------------------------------------------------------------
+
+    public List<KategorijaUsluga> dohvatiKategorijeUsluga(OpstiDomenskiObjekat odo){
+        SODohvatiKategorijeUsluga oso = new SODohvatiKategorijeUsluga();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaKategorijaUsluga();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<Klijent> dohvatiKlijente(OpstiDomenskiObjekat odo){
+        SODohvatiKlijente oso = new SODohvatiKlijente();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaKlijenata();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<Kozmeticar> dohvatiSveKozmeticare(OpstiDomenskiObjekat odo){
+        SODohvatiSveKozmeticare oso = new SODohvatiSveKozmeticare();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaKozmeticara();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<Kozmeticar> dohvatiKozmeticarePoPrezimenu(OpstiDomenskiObjekat odo){
+        SODohvatiKozmeticarePoPrezimenu oso = new SODohvatiKozmeticarePoPrezimenu();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaKozmeticara();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<Usluga> dohvatiSveUsluge(OpstiDomenskiObjekat odo){
+        SODohvatiSveUsluge oso = new SODohvatiSveUsluge();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaUsluga();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<Usluga> dohvatiUsluguPoNazivu(OpstiDomenskiObjekat odo){
+        SODohvatiUsluguPoNazivu oso = new SODohvatiUsluguPoNazivu();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaUsluga();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<ZakazaniTermin> dohvatiZakazaneTermineZaKlijenta(OpstiDomenskiObjekat odo){
+        SODohvatiZakazaneTermineZaKlijenta oso = new SODohvatiZakazaneTermineZaKlijenta();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaZakazanihTermina();
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<StavkaZakazanogTermina> dohvatiStavkeZaZakazaniTermin(OpstiDomenskiObjekat odo){
+        SODohvatiStavkeZaZakazaniTermin oso = new SODohvatiStavkeZaZakazaniTermin();
+        boolean uspeo = oso.izvrsi(odo);
+        if(uspeo){
+            return oso.getListaStavki();
+        }
+        else{
+            return null;
+        }
+    }
 }

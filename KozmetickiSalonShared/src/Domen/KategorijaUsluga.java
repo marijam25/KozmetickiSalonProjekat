@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
 
 public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
 
@@ -41,7 +42,7 @@ public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public ArrayList<String> naziviKolona() {
+    public List<String> naziviKolona() {
         ArrayList<String> naziviKol = new ArrayList<>();
         naziviKol.add("kategorijaId");
         naziviKol.add("nazivKategorije");
@@ -49,28 +50,30 @@ public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public HashMap<String, String> naziviIVrednostiKolona() {
-        HashMap<String, String> nazivIVrednostiKol = new HashMap<String, String>();
+    public Map<String, String> naziviIVrednostiKolona() {
+        HashMap<String, String> nazivIVrednostiKol = new HashMap<>();
         nazivIVrednostiKol.put("kategorijaId", Integer.toString(kategorijaId));
         nazivIVrednostiKol.put("nazivKategorije", nazivKategorije);
         return nazivIVrednostiKol;
     }
 
     @Override
-    public String nazivPrimarnogKljuca() {
-        return "kategorijaId";
+    public List<String> naziviKolonaPrimarnogKljuca() {
+        ArrayList<String> naziviKolPrimKljuca = new ArrayList<>();
+        naziviKolPrimKljuca.add("kategorijaId");
+        return naziviKolPrimKljuca;
     }
 
     @Override
-    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+    public Map<String, String> nazivIVrednostPrimarnogKljuca() {
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("kategorijaId",Integer.toString(kategorijaId));
         return mapa;
     }
 
     @Override
-    public ArrayList<KategorijaUsluga> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<KategorijaUsluga> lista = new ArrayList<KategorijaUsluga>();
+    public List<KategorijaUsluga> ucitajIzResultSeta(ResultSet rs) {
+        ArrayList<KategorijaUsluga> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int id = rs.getInt("KategorijaID");

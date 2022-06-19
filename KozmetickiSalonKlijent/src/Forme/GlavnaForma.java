@@ -1,8 +1,18 @@
 package Forme;
 
+import Forme.Azuriranje.IzmenaKozmeticaraForma;
+import Forme.Azuriranje.IzmenaZakazanogTerminaForma;
+import Forme.Brisanje.BrisanjeKozmeticaraForma;
+import Forme.Brisanje.BrisanjeZakazanogTerminaForma;
+import Forme.Brisanje.BrisanjeUslugeForma;
+import Forme.Kreiranje.KreirajeKozmeticaraForma;
+import Forme.Kreiranje.KreiranjeZakazanogTerminaForma;
+import Forme.Kreiranje.KreiranjeUslugeForma;
+import Forme.Pretrazivanje.PretrazivanjeUsluge;
+
 import javax.swing.JFrame;
 
-public class GlavnaForma extends javax.swing.JFrame {
+public class GlavnaForma extends JFrame {
 
     public GlavnaForma() {
         initComponents();
@@ -180,7 +190,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreirajKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajKozmeticaraActionPerformed
         // TODO add your handling code here:
-        KreirajKozmeticaraForma kkf = new KreirajKozmeticaraForma();
+        KreirajeKozmeticaraForma kkf = new KreirajeKozmeticaraForma();
         //this.setVisible(false);
         kkf.setVisible(true);
         //JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
@@ -225,7 +235,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnKreiranjeTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeTerminaActionPerformed
         // TODO add your handling code here:
-        KreiranjeTerminaForma ktf = new KreiranjeTerminaForma();
+        KreiranjeZakazanogTerminaForma ktf = new KreiranjeZakazanogTerminaForma();
         //this.setVisible(false);
         ktf.setVisible(true);
         //JOptionPane.showMessageDialog(this, "Sistem je kreirao novi termin");
@@ -233,14 +243,14 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void btnIzmenaTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmenaTerminaActionPerformed
         // TODO add your handling code here:
-        IzmenaTerminaForma itf = new IzmenaTerminaForma();
+        IzmenaZakazanogTerminaForma itf = new IzmenaZakazanogTerminaForma();
         //this.setVisible(false);
         itf.setVisible(true);
     }//GEN-LAST:event_btnIzmenaTerminaActionPerformed
 
     private void btnBrisanjeTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrisanjeTerminaActionPerformed
         // TODO add your handling code here:
-        BrisanjeTerminaForma btf = new BrisanjeTerminaForma();
+        BrisanjeZakazanogTerminaForma btf = new BrisanjeZakazanogTerminaForma();
         //this.setVisible(false);
         btf.setVisible(true);
     }//GEN-LAST:event_btnBrisanjeTerminaActionPerformed

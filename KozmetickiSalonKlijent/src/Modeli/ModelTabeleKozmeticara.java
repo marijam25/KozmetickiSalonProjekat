@@ -1,15 +1,15 @@
 package Modeli;
 
 import Domen.Kozmeticar;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 
 public class ModelTabeleKozmeticara extends AbstractTableModel {
 
-    ArrayList<Kozmeticar> listaKozmeticara;
+    List<Kozmeticar> listaKozmeticara;
 
-    public ModelTabeleKozmeticara(ArrayList<Kozmeticar> listaKozmeticara) {
+    public ModelTabeleKozmeticara(List<Kozmeticar> listaKozmeticara) {
         this.listaKozmeticara = listaKozmeticara;
     }
     
@@ -47,7 +47,7 @@ public class ModelTabeleKozmeticara extends AbstractTableModel {
         }
     }
 
-    public ArrayList<Kozmeticar> getListaKozmeticara() {
+    public List<Kozmeticar> getListaKozmeticara() {
         return listaKozmeticara;
     }
     

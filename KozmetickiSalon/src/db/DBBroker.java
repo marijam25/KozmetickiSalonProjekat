@@ -7,11 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import javafx.util.Pair;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,15 +28,10 @@ public class DBBroker {
         return instance;
     }
 
-    public Connection getKonekcija() {
-        return konekcija;
-    }
-
     public void uspostaviKonekciju() {
         try {
             if (konekcija == null || konekcija.isClosed()) {
                 DBPropertiesLoader dbl = new DBPropertiesLoader();
-                //Class.forName(dbl.getValue(DBPropertiesLoader.Constants.DRIVER));
 
                 String url = dbl.vratiURL();
                 String user = dbl.vratiUsername();
@@ -92,7 +83,7 @@ public class DBBroker {
 
     public boolean upisiUBazu(OpstiDomenskiObjekat odo) {
         String upit = "insert into " + odo.nazivTabele();
-        HashMap<String, String> naziviIVrednosti = odo.naziviIVrednostiKolona();
+        Map<String, String> naziviIVrednosti = odo.naziviIVrednostiKolona();
         String imenaKolona = " (";
         String vrednostiKolona = " (";
 
@@ -115,25 +106,9 @@ public class DBBroker {
         return executeUpdateWrapper(upit);
     }
 
-    public int vratiMaxId(OpstiDomenskiObjekat odo) {
-        try {
-            String upit = "SELECT max(" + odo.nazivPrimarnogKljuca() + ") as maxid FROM " + odo.nazivTabele();
-            Statement st = konekcija.createStatement();
-            ResultSet rs = st.executeQuery(upit);
-            boolean f = rs.first();
-
-            //int id = rs.getInt(1);
-            //int id2 = rs.getInt(odo.nazivPrimarnogKljuca());
-            return rs.getInt("maxid");
-        } catch (SQLException ex) {
-            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return -1;
-    }
-
-    public boolean azurirajUBazi(OpstiDomenskiObjekat odo) {
+    public boolean azurirajUBazi(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
         String upit = "update " + odo.nazivTabele() + " set ";
-        HashMap<String, String> naziviIVrednosti = odo.naziviIVrednostiKolona();
+        Map<String, String> naziviIVrednosti = odo.naziviIVrednostiKolona();
 
         int i = 0;
 
@@ -147,42 +122,62 @@ public class DBBroker {
         }
 
         upit += " where";
-            HashMap<String, String> uslovi = odo.nazivIVrednostPrimarnogKljuca();
-            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
-                upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
-                
+        //Map<String, String> naziviIVrednostiKolona = odo.naziviIVrednostiKolona();
+        int j=0;
+        for (Map.Entry<String, String> nazivIVrednostKolone : naziviIVrednosti.entrySet()) {
+            if (koloneZaUslov != null && koloneZaUslov.contains(nazivIVrednostKolone.getKey())) {
+                if(j>0) upit+= " AND";
+                upit += " " + nazivIVrednostKolone.getKey() + "=" + "'" + nazivIVrednostKolone.getValue() + "'";
+                j++;
             }
-        
-        return executeUpdateWrapper(upit);
-    }
-
-    public boolean izbrisiIzBaze(OpstiDomenskiObjekat odo) {
-        String upit = "delete from " + odo.nazivTabele();
-
-               upit += " where";
-            HashMap<String, String> uslovi = odo.nazivIVrednostPrimarnogKljuca();
-            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
-                upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
-                
-            }
-
-        return executeUpdateWrapper(upit);
-    }
-
-    
-
-    public ArrayList<? extends OpstiDomenskiObjekat> pronadjiUBazi(OpstiDomenskiObjekat odo, Set<String> koloneZaPretrazivanje) {
-        String upit = "select * from " + odo.nazivTabele();
-        if (koloneZaPretrazivanje!=null && !koloneZaPretrazivanje.isEmpty()) {
-            upit += " where";
-            HashMap<String, String> uslovi = odo.naziviIVrednostiKolona();
-            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
-                if (uslov.getValue() != null && koloneZaPretrazivanje.contains(uslov.getKey())) {
-                    upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
-                }
-            }
+            
         }
 
+        return executeUpdateWrapper(upit);
+    }
+
+    public boolean azurirajUBaziPoIdju(OpstiDomenskiObjekat odo) {
+        return azurirajUBazi(odo, odo.naziviKolonaPrimarnogKljuca());
+    }
+
+    public boolean izbrisiIzBaze(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
+        String upit = "delete from " + odo.nazivTabele();
+
+        upit += " where";
+        Map<String, String> naziviIVrednostiKolona = odo.naziviIVrednostiKolona();
+        int i=0;
+        for (Map.Entry<String, String> nazivIVrednostKolone : naziviIVrednostiKolona.entrySet()) {
+            if (koloneZaUslov != null && koloneZaUslov.contains(nazivIVrednostKolone.getKey())) {
+                if(i>0) upit+= " AND";
+                upit += " " + nazivIVrednostKolone.getKey() + "=" + "'" + nazivIVrednostKolone.getValue() + "'";
+                i++;
+            }
+            
+        }
+       
+
+        return executeUpdateWrapper(upit);
+    }
+
+    public boolean izbrisiIzBazePoIdju(OpstiDomenskiObjekat odo) {
+        return izbrisiIzBaze(odo, odo.naziviKolonaPrimarnogKljuca());
+    }
+
+    public List<? extends OpstiDomenskiObjekat> dohvatiIzBaze(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
+        String upit = "select * from " + odo.nazivTabele();
+        if (koloneZaUslov != null && !koloneZaUslov.isEmpty()) {
+            upit += " where";
+            Map<String, String> uslovi = odo.naziviIVrednostiKolona();
+            int i=0;
+            for (Map.Entry<String, String> uslov : uslovi.entrySet()) {
+                if (uslov.getValue() != null && koloneZaUslov.contains(uslov.getKey())) {
+                    if(i>0) upit+= " AND";
+                    upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
+                    i++;
+                }
+                
+            }
+        }
         try {
             Statement st = konekcija.createStatement();
             ResultSet res = st.executeQuery(upit);
@@ -192,5 +187,26 @@ public class DBBroker {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public List<? extends OpstiDomenskiObjekat> dohvatiIzBazePoIdju(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
+        return dohvatiIzBaze(odo, odo.naziviKolonaPrimarnogKljuca());
+    }
+
+    public List<? extends OpstiDomenskiObjekat> dohvatiSveIzBaze(OpstiDomenskiObjekat odo) {
+        return dohvatiIzBaze(odo, null);
+    }
+
+    public int vratiMaxId(OpstiDomenskiObjekat odo) {
+        try {
+            String upit = "SELECT max(" + odo.naziviKolonaPrimarnogKljuca().get(0) + ") as maxid FROM " + odo.nazivTabele();
+            Statement st = konekcija.createStatement();
+            ResultSet rs = st.executeQuery(upit);
+            rs.first();
+            return rs.getInt("maxid");
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }

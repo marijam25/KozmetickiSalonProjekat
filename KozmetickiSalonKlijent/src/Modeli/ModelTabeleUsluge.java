@@ -3,14 +3,15 @@ package Modeli;
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ModelTabeleUsluge extends AbstractTableModel {
 
-    ArrayList<Usluga> listaUsluga;
-    ArrayList<KategorijaUsluga> listaKategorija;
+    List<Usluga> listaUsluga;
+    List<KategorijaUsluga> listaKategorija;
 
-    public ModelTabeleUsluge(ArrayList<Usluga> listaUsluga) {
+    public ModelTabeleUsluge(List<Usluga> listaUsluga) {
         this.listaUsluga = listaUsluga;
     }
 
@@ -57,7 +58,7 @@ public class ModelTabeleUsluge extends AbstractTableModel {
         }
     }
 
-    public ArrayList<Usluga> getListaKozmeticara() {
+    public List<Usluga> getListaKozmeticara() {
         return listaUsluga;
     }
 
@@ -65,7 +66,7 @@ public class ModelTabeleUsluge extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void setListaKategorija(ArrayList<KategorijaUsluga> listaKategorija) {
+    public void setListaKategorija(List<KategorijaUsluga> listaKategorija) {
         this.listaKategorija = listaKategorija;
     }
 

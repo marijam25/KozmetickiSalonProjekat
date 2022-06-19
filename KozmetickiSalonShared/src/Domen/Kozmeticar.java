@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
 
 public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
 
@@ -64,7 +65,7 @@ public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public ArrayList<String> naziviKolona() {
+    public List<String> naziviKolona() {
         ArrayList<String> naziviKol = new ArrayList<>();
         naziviKol.add("kozmeticarId");
         naziviKol.add("ime");
@@ -75,8 +76,8 @@ public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public HashMap<String, String> naziviIVrednostiKolona() {
-        HashMap<String, String> nazivIVrednostiKol = new HashMap<String, String>();
+    public Map<String, String> naziviIVrednostiKolona() {
+        HashMap<String, String> nazivIVrednostiKol = new HashMap<>();
         nazivIVrednostiKol.put("kozmeticarId", Integer.toString(kozmeticarId));
         nazivIVrednostiKol.put("ime", ime);
         nazivIVrednostiKol.put("prezime", prezime);
@@ -85,28 +86,30 @@ public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public String nazivPrimarnogKljuca() {
-        return "kozmeticarId";
+    public List<String> naziviKolonaPrimarnogKljuca() {
+        ArrayList<String> naziviKolPrimKljuca = new ArrayList<>();
+        naziviKolPrimKljuca.add("kozmeticarId");
+        return naziviKolPrimKljuca;
     }
 
     @Override
-    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+    public Map<String, String> nazivIVrednostPrimarnogKljuca() {
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("kozmeticarId",Integer.toString(kozmeticarId));
         return mapa;
     }
 
     @Override
-    public ArrayList<Kozmeticar> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<Kozmeticar> lista = new ArrayList<Kozmeticar>();
+    public List<Kozmeticar> ucitajIzResultSeta(ResultSet rs) {
+        ArrayList<Kozmeticar> lista = new ArrayList<>();
         try {
             while (rs.next()) {
-                int kozmeticarid = rs.getInt("KozmeticarID");
-                String ime = rs.getString("Ime");
-                String prezime = rs.getString("Prezime");
-                int godine = rs.getInt("Godine");
+                int id = rs.getInt("KozmeticarID");
+                String imeK = rs.getString("Ime");
+                String prezimeK = rs.getString("Prezime");
+                int godineK = rs.getInt("Godine");
 
-                Kozmeticar k = new Kozmeticar(kozmeticarid, ime, prezime, godine);
+                Kozmeticar k = new Kozmeticar(id, imeK, prezimeK, godineK);
                 lista.add(k);
             }
         } catch (SQLException ex) {

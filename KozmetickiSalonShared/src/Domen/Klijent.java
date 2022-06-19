@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.util.Pair;
 
 public class Klijent implements Serializable, OpstiDomenskiObjekat {
 
@@ -47,7 +48,7 @@ public class Klijent implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public ArrayList<String> naziviKolona() {
+    public List<String> naziviKolona() {
         ArrayList<String> naziviKol = new ArrayList<>();
         naziviKol.add("klijentId");
         naziviKol.add("ime");
@@ -56,8 +57,8 @@ public class Klijent implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public HashMap<String, String> naziviIVrednostiKolona() {
-        HashMap<String, String> nazivIVrednostiKol = new HashMap<String, String>();
+    public Map<String, String> naziviIVrednostiKolona() {
+        HashMap<String, String> nazivIVrednostiKol = new HashMap<>();
         nazivIVrednostiKol.put("klijentId", Integer.toString(klijentId));
         nazivIVrednostiKol.put("ime", ime);
         nazivIVrednostiKol.put("prezime", prezime);
@@ -65,27 +66,29 @@ public class Klijent implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public String nazivPrimarnogKljuca() {
-        return "klijentId";
+    public List<String> naziviKolonaPrimarnogKljuca() {
+        ArrayList<String> naziviKolPrimKljuca = new ArrayList<>();
+        naziviKolPrimKljuca.add("klijentID");
+        return naziviKolPrimKljuca;
     }
 
     @Override
-    public HashMap<String, String> nazivIVrednostPrimarnogKljuca() {
+    public Map<String, String> nazivIVrednostPrimarnogKljuca() {
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("klijentId",Integer.toString(klijentId));
         return mapa;
     }
 
     @Override
-    public ArrayList<Klijent> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<Klijent> lista = new ArrayList<Klijent>();
+    public List<Klijent> ucitajIzResultSeta(ResultSet rs) {
+        ArrayList<Klijent> lista = new ArrayList<>();
         try {
             while (rs.next()) {
-                int klijentId = rs.getInt("KlijentID");
-                String ime = rs.getString("Ime");
-                String prezime = rs.getString("Prezime");
+                int Id = rs.getInt("KlijentID");
+                String imeK = rs.getString("Ime");
+                String prezimeK = rs.getString("Prezime");
 
-                Klijent k = new Klijent(klijentId, ime, prezime);
+                Klijent k = new Klijent(Id, imeK, prezimeK);
                 lista.add(k);
             }
         } catch (SQLException ex) {
