@@ -8,7 +8,7 @@ import db.DBBroker;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SOObrisiStavkeZakazanogTermina extends OpstaSistemskaOperacija {
+public class SOObrisiSveStavkeZakazanogTermina extends OpstaSistemskaOperacija {
 
     @Override
     protected boolean proveriPreduslov(OpstiDomenskiObjekat odo) {

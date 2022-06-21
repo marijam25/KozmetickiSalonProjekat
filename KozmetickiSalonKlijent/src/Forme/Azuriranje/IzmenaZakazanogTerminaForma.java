@@ -29,6 +29,7 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
         initComponents();
         listaZakazanihTermina = new ArrayList<>();
         listaKlijenata = new ArrayList<>();
+        dohvatiSveKlijente();
         popuniKlijente();
         podesiModelTabele();
 

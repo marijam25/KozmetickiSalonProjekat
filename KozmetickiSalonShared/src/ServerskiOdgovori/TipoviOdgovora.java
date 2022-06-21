@@ -12,6 +12,7 @@ public class TipoviOdgovora implements Serializable {
     public static final int DODAJ_KOZMETICARA_ODGOVOR = 10;
     public static final int DODAJ_USLUGU_ODGOVOR = 11;
     public static final int DODAJ_ZAKAZANI_TERMIN_ODGOVOR = 12;
+    public static final int DODAJ_STAVKU_ZAKAZIVANJA_ODGOVOR = 13;
 
 
     /* Odgovori na zahteve za azuriranje */
@@ -23,6 +24,7 @@ public class TipoviOdgovora implements Serializable {
     public static final int OBRISI_KOZMETICARA_ODGOVOR = 30;
     public static final int OBRISI_USLUGU_ODGOVOR = 31;
     public static final int OBRISI_ZAKAZANI_TERMIN_ODGOVOR = 32;
+    public static final int OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV = 33;
 
 
     /* Odgovori na zahteve za dohvatanje */

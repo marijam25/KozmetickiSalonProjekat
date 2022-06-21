@@ -151,12 +151,9 @@ public class DBBroker {
                 if(i>0) upit+= " AND";
                 upit += " " + nazivIVrednostKolone.getKey() + "=" + "'" + nazivIVrednostKolone.getValue() + "'";
                 i++;
-            }
-            
+            } 
         }
-       
-
-        return executeUpdateWrapper(upit);
+       return executeUpdateWrapper(upit);
     }
 
     public boolean izbrisiIzBazePoIdju(OpstiDomenskiObjekat odo) {

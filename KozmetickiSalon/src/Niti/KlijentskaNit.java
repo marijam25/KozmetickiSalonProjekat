@@ -96,7 +96,7 @@ public class KlijentskaNit extends Thread {
 
                             for (Usluga usluga : listaUsluga) {
                                 StavkaZakazanogTermina stavka = new StavkaZakazanogTermina(0, zakazaniTerminId, usluga.getUslugaId());
-                                uspeo = kontroler.dodajStavkuZakazaogTermina(stavka);
+                                uspeo = kontroler.dodajStavkuZakazanogTermina(stavka);
                                 if(uspeo==false)
                                     break;
                             }
@@ -104,6 +104,16 @@ public class KlijentskaNit extends Thread {
 
                         DodajZakazaniTerminOdgovor odgovor = new DodajZakazaniTerminOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.DODAJ_ZAKAZANI_TERMIN_ODGOVOR);
+                        oos.writeObject(odgovor);
+                        break;
+                    }
+                    
+                    case TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV:{
+                        DodajStavkuZakazivanjaZahtev zahtev = (DodajStavkuZakazivanjaZahtev) ois.readObject();
+                        boolean uspeo = kontroler.dodajStavkuZakazanogTermina(zahtev.getStavka());
+
+                        DodajStavkuZakazivanjaOdgovor odgovor = new DodajStavkuZakazivanjaOdgovor(uspeo);
+                        oos.writeInt(TipoviOdgovora.DODAJ_STAVKU_ZAKAZIVANJA_ODGOVOR);
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -161,13 +171,23 @@ public class KlijentskaNit extends Thread {
                         ZakazaniTermin zt = zahtev.getZakazaniTermin();
                         StavkaZakazanogTermina szt = new StavkaZakazanogTermina(0, zt.getZakazaniTerminId(), 0);
 
-                        boolean uspeo = kontroler.obrisiStavkeZakazanogTermina(szt);
+                        boolean uspeo = kontroler.obrisiSveStavkeZakazanogTermina(szt);
                         if(uspeo) {
                             // ako je uspeo da obrise stavke onda moze da obrise i zakazni termin
                             uspeo = kontroler.obrisiZakazaniTermin(zt);
                         }
 
                         ObrisiZakazaniTerminOdgovor odgovor = new ObrisiZakazaniTerminOdgovor(uspeo);
+                        oos.writeInt(TipoviOdgovora.OBRISI_ZAKAZANI_TERMIN_ODGOVOR);
+                        oos.writeObject(odgovor);
+                        break;
+                    }
+                    
+                    case TipoviZahteva.OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV:{
+                        ObrisiStavkuZakazivanjaZahtev zahtev = (ObrisiStavkuZakazivanjaZahtev) ois.readObject();
+                        boolean uspeo = kontroler.obrisiStavkuZakaznogTermina(zahtev.getStavka());
+
+                        ObrisiStavkuZakazivanjaOdgovor odgovor = new ObrisiStavkuZakazivanjaOdgovor(uspeo);
                         oos.writeInt(TipoviOdgovora.OBRISI_ZAKAZANI_TERMIN_ODGOVOR);
                         oos.writeObject(odgovor);
                         break;

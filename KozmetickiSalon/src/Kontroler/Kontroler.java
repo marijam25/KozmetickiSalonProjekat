@@ -44,7 +44,7 @@ public class Kontroler {
         return oso.izvrsi(odo);
     }
 
-    public boolean dodajStavkuZakazaogTermina(OpstiDomenskiObjekat odo){
+    public boolean dodajStavkuZakazanogTermina(OpstiDomenskiObjekat odo){
         OpstaSistemskaOperacija oso = new SODodajStavkuZakazanogTermina();
         return oso.izvrsi(odo);
     }
@@ -82,8 +82,8 @@ public class Kontroler {
         return oso.izvrsi(odo);
     }
 
-    public boolean obrisiStavkeZakazanogTermina(OpstiDomenskiObjekat odo){
-        OpstaSistemskaOperacija oso = new SOObrisiStavkeZakazanogTermina();
+    public boolean obrisiSveStavkeZakazanogTermina(OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SOObrisiSveStavkeZakazanogTermina();
         return oso.izvrsi(odo);
     }
 
@@ -94,6 +94,11 @@ public class Kontroler {
 
     public boolean obrisiZakazaniTermin(OpstiDomenskiObjekat odo){
         OpstaSistemskaOperacija oso = new SOObrisiZakazaniTermin();
+        return oso.izvrsi(odo);
+    }
+    
+    public boolean obrisiStavkuZakaznogTermina (OpstiDomenskiObjekat odo){
+        OpstaSistemskaOperacija oso = new SOObrisiStavkuZakazanogTerminaPoIdu();
         return oso.izvrsi(odo);
     }
 

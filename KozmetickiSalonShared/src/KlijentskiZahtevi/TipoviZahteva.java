@@ -12,6 +12,7 @@ public class TipoviZahteva implements Serializable {
     public static final int DODAJ_KOZMETICARA_ZAHTEV = 10;
     public static final int DODAJ_USLUGU_ZAHTEV = 11;
     public static final int DODAJ_ZAKAZANI_TERMIN_ZAHTEV = 12;
+    public static final int DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV = 13;
 
 
     /* Zahtevi za azuriranje */
@@ -23,6 +24,8 @@ public class TipoviZahteva implements Serializable {
     public static final int OBRISI_KOZMETICARA_ZAHTEV = 30;
     public static final int OBRISI_USLUGU_ZAHTEV = 31;
     public static final int OBRISI_ZAKAZANI_TERMIN_ZAHTEV = 32;
+    public static final int OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV = 33;
+    
 
 
     /* Zahtevi za dohvatanje */

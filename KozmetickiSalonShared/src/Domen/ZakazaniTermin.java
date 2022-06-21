@@ -4,6 +4,7 @@ import PomocneFunkcije.DatumPomocneFunkcije;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +45,12 @@ public class ZakazaniTermin implements Serializable, OpstiDomenskiObjekat {
         this.zakazaniTerminId = zakazaniTerminId;
     }
 
+    public void setDatumIVreme(Date datumIVreme) {
+        this.datumIVreme = datumIVreme;
+    }
+    
+    
+
     
     @Override
     public String nazivTabele() {
@@ -66,7 +73,10 @@ public class ZakazaniTermin implements Serializable, OpstiDomenskiObjekat {
         nazivIVrednostiKol.put("zakazaniTerminId", Integer.toString(zakazaniTerminId));
         nazivIVrednostiKol.put("kozmeticarId", Integer.toString(kozmeticarId));
         nazivIVrednostiKol.put("klijentId", Integer.toString(klijentId));
-        nazivIVrednostiKol.put("datumIVreme", DatumPomocneFunkcije.UtilDateUSQLString(datumIVreme));
+        if(datumIVreme!=null){
+           nazivIVrednostiKol.put("datumIVreme", DatumPomocneFunkcije.UtilDateUSQLString(datumIVreme)); 
+        }
+        
         return nazivIVrednostiKol;
     }
 
@@ -92,8 +102,7 @@ public class ZakazaniTermin implements Serializable, OpstiDomenskiObjekat {
                 int zakazId = rs.getInt("zakazaniTerminId");
                 int kozmId = rs.getInt("kozmeticarId");
                 int klijId = rs.getInt("klijentId");
-                java.sql.Date datSql = rs.getDate("datumIVreme");
-                java.util.Date datUtil = new java.util.Date(datSql.getTime());
+                java.util.Date datUtil = rs.getTimestamp("datumIVreme");
                 ZakazaniTermin z = new ZakazaniTermin(zakazId,kozmId,klijId,datUtil);
                 lista.add(z);
             }

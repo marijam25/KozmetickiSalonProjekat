@@ -173,11 +173,8 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
                 SimpleDateFormat datumIVremeFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
                 String datumIVreme = txtDatum.getText();
 
-                java.util.Date datumUtil = null;
+                java.util.Date datumUtil =  datumIVremeFormat.parse(datumIVreme);
 
-                datumUtil = datumIVremeFormat.parse(datumIVreme);
-
-                ZakazaniTermin termin = new ZakazaniTermin(0, 0, 0, datumUtil); //je l se ovo brise
                 Kozmeticar kozmeticar = (Kozmeticar) kozmeticariCombo.getSelectedItem();
                 Klijent klijent = (Klijent) klijentiCombo.getSelectedItem();
                 List<Usluga> izabraneUsluge = uslugeSwingList.getSelectedValuesList();

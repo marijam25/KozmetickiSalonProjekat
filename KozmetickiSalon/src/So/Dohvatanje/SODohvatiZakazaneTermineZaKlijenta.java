@@ -1,7 +1,6 @@
 package So.Dohvatanje;
 
 import Domen.OpstiDomenskiObjekat;
-import Domen.Usluga;
 import Domen.ZakazaniTermin;
 import So.OpstaSistemskaOperacija;
 import db.DBBroker;
