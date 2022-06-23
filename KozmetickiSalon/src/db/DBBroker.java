@@ -172,7 +172,6 @@ public class DBBroker {
                     upit += " " + uslov.getKey() + "=" + "'" + uslov.getValue() + "'";
                     i++;
                 }
-                
             }
         }
         try {

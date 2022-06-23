@@ -5,7 +5,6 @@ import Domen.Kozmeticar;
 import Domen.Usluga;
 import Domen.ZakazaniTermin;
 import Forme.Brisanje.BrisanjeZakazanogTerminaForma;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDodavanje.DodajZakazaniTerminZahtev;
 import ServerskiOdgovori.OdgovoriDodavanje.DodajZakazaniTerminOdgovor;
@@ -23,7 +22,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import komunikacija.KomunikacijaSaServerom;
 
@@ -59,7 +57,6 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
         kozmeticariCombo = new javax.swing.JComboBox();
         klijentiCombo = new javax.swing.JComboBox();
         btnSacuvaj = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -76,13 +73,6 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);
-            }
-        });
-
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
             }
         });
 
@@ -110,8 +100,6 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNazad)
-                            .addGap(194, 194, 194)
                             .addComponent(btnSacuvaj))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,9 +138,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSacuvaj)
-                            .addComponent(btnNazad)))
+                        .addComponent(btnSacuvaj))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -164,9 +150,10 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
+        List<Usluga> izabraneUsluge = uslugeSwingList.getSelectedValuesList();
         try {
             // TODO add your handling code here:
-            if (txtDatum.getText().isEmpty()) {
+            if (txtDatum.getText().isEmpty() || izabraneUsluge.isEmpty() ) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
             } else {
 
@@ -177,7 +164,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
 
                 Kozmeticar kozmeticar = (Kozmeticar) kozmeticariCombo.getSelectedItem();
                 Klijent klijent = (Klijent) klijentiCombo.getSelectedItem();
-                List<Usluga> izabraneUsluge = uslugeSwingList.getSelectedValuesList();
+                //List<Usluga> izabraneUsluge = uslugeSwingList.getSelectedValuesList();
                 
                 ZakazaniTermin zt = new ZakazaniTermin(0, kozmeticar.getKozmeticarId(), klijent.getKlijentId(), datumUtil);
                 DodajZakazaniTerminZahtev dztz = new DodajZakazaniTerminZahtev(zt, izabraneUsluge);
@@ -190,6 +177,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
 
                 if (odgovor.isUspeo()) {
                     JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
+                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
                 }
@@ -204,13 +192,6 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSacuvajActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,7 +230,6 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

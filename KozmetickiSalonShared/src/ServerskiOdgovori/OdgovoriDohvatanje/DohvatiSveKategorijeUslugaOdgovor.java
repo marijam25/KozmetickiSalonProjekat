@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DohvatiSveKategorijeUslugaOdgovor implements Serializable {
 
-    List<KategorijaUsluga> listaKategorijaUsluga;
+    private List<KategorijaUsluga> listaKategorijaUsluga;
 
     public DohvatiSveKategorijeUslugaOdgovor(List<KategorijaUsluga> listaKategorijaUsluga) {
         this.listaKategorijaUsluga = listaKategorijaUsluga;

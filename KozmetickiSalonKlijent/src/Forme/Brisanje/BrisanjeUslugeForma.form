@@ -36,12 +36,8 @@
                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnNazad" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnObrisi" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnObrisi" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="670" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
@@ -70,10 +66,7 @@
                   </Group>
               </Group>
               <EmptySpace pref="53" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnObrisi" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnNazad" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnObrisi" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -128,14 +121,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Pretraga usluga po nazivu:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnNazad">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nazad"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNazadActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

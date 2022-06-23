@@ -1,7 +1,6 @@
 package Forme.Kreiranje;
 
 import Domen.Kozmeticar;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDodavanje.DodajKozmeticaraZahtev;
 import ServerskiOdgovori.OdgovoriDodavanje.DodajKozmeticaraOdgovor;
@@ -29,7 +28,6 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
         txtImeKozmeticara = new javax.swing.JTextField();
         txtPrezimeKozmeticara = new javax.swing.JTextField();
         btnSacuvaj = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -41,13 +39,6 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);
-            }
-        });
-
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
             }
         });
 
@@ -70,8 +61,7 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNazad)
-                        .addGap(139, 139, 139)
+                        .addGap(206, 206, 206)
                         .addComponent(btnSacuvaj))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtPrezimeKozmeticara, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,9 +85,7 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNazad)
-                    .addComponent(btnSacuvaj))
+                .addComponent(btnSacuvaj)
                 .addContainerGap(93, Short.MAX_VALUE))
         );
 
@@ -112,10 +100,16 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
             String prezime = txtPrezimeKozmeticara.getText();
             int godine = Integer.parseInt(txtGodine.getText());
 
-            Kozmeticar kozmeticar = new Kozmeticar(0, ime, prezime, godine);
-            if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty() || godine<=0) {
+            String regex = "^[a-zA-Z]+$";
+            if (!ime.matches(regex) || !prezime.matches(regex)) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
-                //da li treba return da ne bi slao zahtev
+                return;
+            }
+
+            Kozmeticar kozmeticar = new Kozmeticar(0, ime, prezime, godine);
+            if (ime.isEmpty() || prezime.isEmpty() || txtGodine.getText().isEmpty() || godine <= 0) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
+                return;
             }
 
             DodajKozmeticaraZahtev zahtev = new DodajKozmeticaraZahtev(kozmeticar);
@@ -125,9 +119,10 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
 
             int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
             DodajKozmeticaraOdgovor odgovor = (DodajKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            
+
             if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio kozmeticara");
+                this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
             }
@@ -141,13 +136,6 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSacuvajActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,7 +174,6 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

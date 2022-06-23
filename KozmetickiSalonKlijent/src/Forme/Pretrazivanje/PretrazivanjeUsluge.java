@@ -45,7 +45,6 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsluge = new javax.swing.JTable();
         btnPrikazi = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -76,13 +75,6 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
             }
         });
 
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Pretraga usluga");
 
         jLabel2.setText("Pretraga usluga po nazivu");
@@ -109,8 +101,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
                                 .addGap(0, 13, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnNazad)
-                                        .addGap(543, 543, 543)
+                                        .addGap(610, 610, 610)
                                         .addComponent(btnPrikazi))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(129, 129, 129))))
@@ -128,9 +119,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNazad)
-                    .addComponent(btnPrikazi))
+                .addComponent(btnPrikazi)
                 .addGap(93, 93, 93))
         );
 
@@ -183,13 +172,6 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPrikaziActionPerformed
 
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -226,7 +208,6 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JButton btnPrikazi;
     private javax.swing.JLabel jLabel1;

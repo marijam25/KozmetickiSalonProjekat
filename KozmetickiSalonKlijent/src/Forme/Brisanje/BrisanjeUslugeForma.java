@@ -2,7 +2,6 @@ package Forme.Brisanje;
 
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaBrisanje.ObrisiUsluguZahtev;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiUsluguPoNazivuZahtev;
@@ -52,7 +51,6 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
         btnObrisi = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnNazad = new javax.swing.JButton();
 
         btnPretrazi.setText("Pretrazi");
         btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
@@ -85,13 +83,6 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
 
         jLabel2.setText("Pretraga usluga po nazivu:");
 
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,11 +101,8 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
                         .addComponent(btnPretrazi)
                         .addGap(72, 72, 72))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNazad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnObrisi))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnObrisi)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 83, Short.MAX_VALUE))))
         );
@@ -134,9 +122,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
                         .addGap(88, 88, 88)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnObrisi)
-                    .addComponent(btnNazad))
+                .addComponent(btnObrisi)
                 .addGap(52, 52, 52))
         );
 
@@ -199,6 +185,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
                     if (odgovor.isUspeo()) {
                         JOptionPane.showMessageDialog(this, "Sistem je obrisao uslugu");
                         listaTabela.remove(usluga);
+                        this.setVisible(false);
                     } else {
                         JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
                     }
@@ -212,13 +199,6 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,7 +236,6 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JLabel jLabel1;

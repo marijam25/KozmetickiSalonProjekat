@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SOPrijavljivanje extends OpstaSistemskaOperacija {
-    private ArrayList<KorisnikSistema> listaKorisnika;
+    private List<KorisnikSistema> listaKorisnika;
 
     @Override
     public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -22,13 +22,13 @@ public class SOPrijavljivanje extends OpstaSistemskaOperacija {
         koloneZaUslov.add("sifra");
 
         listaKorisnika = (ArrayList<KorisnikSistema>) DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
-        if(listaKorisnika==null)
+        if(listaKorisnika.isEmpty())
             return false;
         else
             return true;
     }
 
-    public ArrayList<KorisnikSistema> getListaKorisnika() {
+    public List<KorisnikSistema> getListaKorisnika() {
         return listaKorisnika;
     }
     

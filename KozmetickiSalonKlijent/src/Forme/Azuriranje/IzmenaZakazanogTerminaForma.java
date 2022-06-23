@@ -3,7 +3,6 @@ package Forme.Azuriranje;
 import Domen.Klijent;
 import Domen.ZakazaniTermin;
 import Forme.Brisanje.BrisanjeZakazanogTerminaForma;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiZakazaneTermineZaKlijentaZahtev;
 import Modeli.ModelTabeleZakazaniTermin;
@@ -47,7 +46,6 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTermin = new javax.swing.JTable();
-        btnNazad = new javax.swing.JButton();
         btnIzmeni = new javax.swing.JButton();
         btnPretrazi = new javax.swing.JButton();
         klijentiKombo = new javax.swing.JComboBox<>();
@@ -66,13 +64,6 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblTermin);
-
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
-            }
-        });
 
         btnIzmeni.setText("Izmeni");
         btnIzmeni.addActionListener(new java.awt.event.ActionListener() {
@@ -105,9 +96,7 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(138, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(btnNazad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(54, 675, Short.MAX_VALUE)
                 .addComponent(btnIzmeni)
                 .addGap(188, 188, 188))
         );
@@ -122,22 +111,13 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNazad)
-                    .addComponent(btnIzmeni))
+                .addComponent(btnIzmeni)
                 .addGap(85, 85, 85))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
         // TODO add your handling code here:
@@ -226,7 +206,6 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIzmeni;
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

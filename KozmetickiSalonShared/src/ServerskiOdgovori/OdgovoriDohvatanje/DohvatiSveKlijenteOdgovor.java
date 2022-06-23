@@ -2,7 +2,6 @@ package ServerskiOdgovori.OdgovoriDohvatanje;
 
 import Domen.Klijent;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DohvatiSveKlijenteOdgovor implements Serializable {

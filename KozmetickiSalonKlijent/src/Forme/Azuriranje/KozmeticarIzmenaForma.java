@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
-import ServerskiOdgovori.OdgovoriAzuriranje.AzurirajZakazaniTerminOdgovor;
 import komunikacija.KomunikacijaSaServerom;
 
 public class KozmeticarIzmenaForma extends javax.swing.JFrame {
@@ -18,11 +16,11 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
 
     public KozmeticarIzmenaForma(Kozmeticar kozmeticar) {
         initComponents();
-        JOptionPane.showMessageDialog(this, "Sistem je ucitao kozmeticara");
         this.kozmeticar = kozmeticar;
         txtIme.setText(kozmeticar.getIme());
         txtPrezime.setText(kozmeticar.getPrezime());
         txtGodine.setText(kozmeticar.getGodine() + "");
+        
     }
 
     @SuppressWarnings("unchecked")

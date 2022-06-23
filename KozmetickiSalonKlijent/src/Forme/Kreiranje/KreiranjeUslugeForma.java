@@ -34,7 +34,6 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
         txtNazivUsluge = new javax.swing.JTextField();
         cmbKategorijaUsluga = new javax.swing.JComboBox();
         btnSacuvaj = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -45,13 +44,6 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);
-            }
-        });
-
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
             }
         });
 
@@ -81,9 +73,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
                 .addGap(105, 105, 105))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(302, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNazad)
-                    .addComponent(btnSacuvaj))
+                .addComponent(btnSacuvaj)
                 .addGap(243, 243, 243))
         );
         layout.setVerticalGroup(
@@ -101,9 +91,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(54, 54, 54)
                 .addComponent(btnSacuvaj)
-                .addGap(55, 55, 55)
-                .addComponent(btnNazad)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,6 +103,13 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             // TODO add your handling code here:
             String naziv = txtNazivUsluge.getText();
             KategorijaUsluga kategorija = (KategorijaUsluga) cmbKategorijaUsluga.getSelectedItem();
+            
+            String regex = "^[a-zA-Z]+$";
+            if (!naziv.matches(regex)) {
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti uslugu");
+                return;
+            }
+            
             Usluga usluga = new Usluga(0, naziv, kategorija.getKategorijaId());
 
             if (naziv.isEmpty() || cmbKategorijaUsluga.getSelectedIndex() == -1) {
@@ -131,6 +126,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
                 
                 if (odgovor.isUspeo()) {
                     JOptionPane.showMessageDialog(this, "Sistem je zapamtio uslugu");
+                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti uslugu");
                 }
@@ -141,13 +137,6 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             Logger.getLogger(KreiranjeUslugeForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +174,6 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
     private javax.swing.JComboBox cmbKategorijaUsluga;
     private javax.swing.JLabel jLabel1;

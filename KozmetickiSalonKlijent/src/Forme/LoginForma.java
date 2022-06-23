@@ -98,10 +98,8 @@ public class LoginForma extends javax.swing.JFrame {
 
             if (korisnickoIme.isEmpty() || sifra.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
-                //da li ovde treba return da se ne bi slao zahtev
+                return;
             }
-            
-            //NIJE DOBRO
             
             PrijavljivanjeZahtev zahtev = new PrijavljivanjeZahtev(new KorisnikSistema(0, korisnickoIme, sifra));
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV);
@@ -114,7 +112,6 @@ public class LoginForma extends javax.swing.JFrame {
             if (odgovor.isUspeo()) {
                 JOptionPane.showMessageDialog(this, "Uspesno prijavljivanje na sistem!");
                 GlavnaForma gf = new GlavnaForma();
-                //da l uopste ovo treba
                 this.setVisible(false);
                 gf.setVisible(true);
             } else {

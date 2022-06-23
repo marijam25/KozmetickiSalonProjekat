@@ -48,9 +48,10 @@ public class ZakazaniTermin implements Serializable, OpstiDomenskiObjekat {
     public void setDatumIVreme(Date datumIVreme) {
         this.datumIVreme = datumIVreme;
     }
-    
-    
 
+    public void setKozmeticarId(int kozmeticarId) {
+        this.kozmeticarId = kozmeticarId;
+    }
     
     @Override
     public String nazivTabele() {

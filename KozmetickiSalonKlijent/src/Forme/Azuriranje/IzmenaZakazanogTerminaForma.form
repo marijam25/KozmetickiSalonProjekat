@@ -36,9 +36,7 @@
               <EmptySpace pref="138" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Component id="btnNazad" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="54" pref="675" max="32767" attributes="0"/>
               <Component id="btnIzmeni" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
           </Group>
@@ -56,10 +54,7 @@
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="277" max="-2" attributes="0"/>
               <EmptySpace pref="129" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnNazad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnIzmeni" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnIzmeni" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -92,14 +87,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnNazad">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nazad"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNazadActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="btnIzmeni">
       <Properties>
         <Property name="text" type="java.lang.String" value="Izmeni"/>

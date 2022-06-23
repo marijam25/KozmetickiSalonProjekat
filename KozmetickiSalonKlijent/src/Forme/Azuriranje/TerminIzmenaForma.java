@@ -1,5 +1,6 @@
 package Forme.Azuriranje;
 
+import Domen.Kozmeticar;
 import Domen.StavkaZakazanogTermina;
 import Domen.Usluga;
 import Domen.ZakazaniTermin;
@@ -13,11 +14,11 @@ import ServerskiOdgovori.OdgovoriAzuriranje.AzurirajZakazaniTerminOdgovor;
 import ServerskiOdgovori.OdgovoriBrisanje.ObrisiStavkuZakazivanjaOdgovor;
 import ServerskiOdgovori.OdgovoriDodavanje.DodajStavkuZakazivanjaOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiStavkeZaZakazniTerminOdgovor;
+import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiSveKozmeticareOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiSveUslugeOdgovor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,22 +35,25 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
     private ZakazaniTermin zakazaniTermin;
     private List<StavkaZakazanogTermina> listaStavkiZaTermin;
     private List<Usluga> listaUsluga;
+    private List<Kozmeticar> listaKozmeticara;
     private List<Usluga> listaUslugaZaKojePostojeStavke; //za koje postoje stavke
     private List<Usluga> listaUslugaKojeZelimoDaDodamo = new ArrayList<>(); //koje korisnik hoce da doda u termin
     private List<Usluga> listaUslugaKojeZelimoDaObrisemo = new ArrayList<>(); //koje korisnik hoce da obrise iz termina
 
     SimpleDateFormat datumIVremeFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-    
+
     public TerminIzmenaForma(ZakazaniTermin zt) {
         initComponents();
         this.zakazaniTermin = zt;
 
         txtDatum.setText(datumIVremeFormat.format(zt.getDatumIVreme()));
-        //popuniListuUsluga();
+        
         dohvatiSveUsluge();
         dohvatiStavkeZaTermin();
         napraviListuUslugaZaKojePostojeStavke();
         popuniCmbSvihUsluga();
+        dohvatiSveKozmeticare();
+        popuniCmbSvihKozmeticara();
         popuniSwingIzabranihUsluga();
 
     }
@@ -73,6 +77,8 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         cmbSveUsluge = new javax.swing.JComboBox();
         btnDodaj = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
+        cmbKozmeticari = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setText("Izmena termina");
 
@@ -110,6 +116,10 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             }
         });
 
+        cmbKozmeticari.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("Kozmeticari");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,19 +133,23 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSacuvaj))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnObrisi)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDodaj, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmbSveUsluge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)))
+                        .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(78, 78, 78)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbKozmeticari, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDatum, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,18 +157,22 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbKozmeticari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
+                        .addGap(71, 71, 71)
                         .addComponent(cmbSveUsluge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDodaj))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(100, 100, 100)
+                        .addGap(50, 50, 50)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(btnObrisi)
@@ -183,19 +201,20 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
                 return;
             }
-            
 
             String dat = txtDatum.getText();
             java.util.Date datumUtil = null;
             datumUtil = datumIVremeFormat.parse(dat);
-            
+            Kozmeticar kozm = (Kozmeticar) cmbKozmeticari.getSelectedItem();
+
             if (zakazaniTermin.getDatumIVreme().getTime() != datumUtil.getTime()) {
                 zakazaniTermin.setDatumIVreme(datumUtil);
-                
+                zakazaniTermin.setKozmeticarId(kozm.getKozmeticarId());
+
                 AzurirajZakazaniTerminZahtev zahtev = new AzurirajZakazaniTerminZahtev(zakazaniTermin);
                 KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.AZURIRAJ_ZAKAZANI_TERMIN_ZAHTEV);
                 KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-                
+
                 int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
                 AzurirajZakazaniTerminOdgovor odgovor = (AzurirajZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
@@ -206,24 +225,30 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             }
 
             for (Usluga usluga : listaUslugaKojeZelimoDaDodamo) {
-                StavkaZakazanogTermina s = new StavkaZakazanogTermina(0, zakazaniTermin.getZakazaniTerminId(), usluga.getUslugaId());
-                DodajStavkuZakazivanjaZahtev zahtev = new DodajStavkuZakazivanjaZahtev(s);
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-                
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
-                DodajStavkuZakazivanjaOdgovor odgovor = (DodajStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-                
-                if (!odgovor.isUspeo()) {
-                    JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
-                    return;
+
+                for (Usluga usluga1 : listaUslugaZaKojePostojeStavke) {
+                    if (usluga.getUslugaId() != usluga1.getUslugaId()) {
+                        StavkaZakazanogTermina s = new StavkaZakazanogTermina(0, zakazaniTermin.getZakazaniTerminId(), usluga.getUslugaId());
+                        DodajStavkuZakazivanjaZahtev zahtev = new DodajStavkuZakazivanjaZahtev(s);
+                        KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV);
+                        KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+
+                        int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                        DodajStavkuZakazivanjaOdgovor odgovor = (DodajStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+
+                        if (!odgovor.isUspeo()) {
+                            JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
+                            return;
+                        }
+                    }
                 }
+
             }
 
             for (Usluga usluga : listaUslugaKojeZelimoDaObrisemo) {
-                int idStavke=0;
+                int idStavke = 0;
                 for (StavkaZakazanogTermina stavkaZakazanogTermina : listaStavkiZaTermin) {
-                    if(stavkaZakazanogTermina.getUslugaId()==usluga.getUslugaId()){
+                    if (stavkaZakazanogTermina.getUslugaId() == usluga.getUslugaId()) {
                         idStavke = stavkaZakazanogTermina.getStavkaId();
                         break;
                     }
@@ -233,16 +258,17 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 ObrisiStavkuZakazivanjaZahtev zahtev = new ObrisiStavkuZakazivanjaZahtev(s);
                 KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV);
                 KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-                
+
                 int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
                 ObrisiStavkuZakazivanjaOdgovor odgovor = (ObrisiStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-                
+
                 if (!odgovor.isUspeo()) {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
                     return;
                 }
             }
             JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
+            this.setVisible(false);
 
         } catch (ParseException ex) {
             Logger.getLogger(TerminIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,16 +283,28 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         Usluga u = (Usluga) cmbSveUsluge.getSelectedItem();
         boolean pronasao = false;
-        for (Usluga usluga : listaUslugaZaKojePostojeStavke) {
+
+        for (Usluga usluga : listaUslugaKojeZelimoDaObrisemo) {
             if (usluga.getUslugaId() == u.getUslugaId()) {
+                listaUslugaKojeZelimoDaObrisemo.remove(usluga);
                 pronasao = true;
                 break;
             }
         }
 
-        if (pronasao) {
-            JOptionPane.showMessageDialog(this, "Usluga je vec izabrana");
-            return;
+        if (!pronasao) {
+
+            for (Usluga usluga : listaUslugaZaKojePostojeStavke) {
+                if (usluga.getUslugaId() == u.getUslugaId()) {
+                    pronasao = true;
+                    break;
+                }
+            }
+
+            if (pronasao) {
+                JOptionPane.showMessageDialog(this, "Usluga je vec izabrana");
+                return;
+            }
         }
 
         pronasao = false;
@@ -279,11 +317,13 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
 
         if (pronasao) {
             JOptionPane.showMessageDialog(this, "Usluga je vec dodata");
-
-        } else {
-            listaUslugaKojeZelimoDaDodamo.add(u);
-            popuniSwingIzabranihUsluga();
+            return;
         }
+
+        //pronasao=false;
+        listaUslugaKojeZelimoDaDodamo.add(u);
+        popuniSwingIzabranihUsluga();
+
 
     }//GEN-LAST:event_btnDodajActionPerformed
 
@@ -300,6 +340,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             for (Usluga usluga1 : listaUslugaZaKojePostojeStavke) {
                 if (usluga.getUslugaId() == usluga1.getUslugaId()) {
                     listaUslugaKojeZelimoDaObrisemo.add(usluga);
+                    listaUslugaZaKojePostojeStavke.remove(usluga1);
                     break;
                 }
             }
@@ -347,9 +388,11 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
     private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JComboBox cmbKozmeticari;
     private javax.swing.JComboBox cmbSveUsluge;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Usluga> swingListaIzabranihUsluga;
     private javax.swing.JTextField txtDatum;
@@ -424,4 +467,32 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             cmbSveUsluge.addItem(usluga);
         }
     }
+
+    private void dohvatiSveKozmeticare() {
+        try {
+            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
+            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
+            oos.writeInt(TipoviZahteva.DOHVATI_SVE_KOZMETICARE_ZAHTEV);
+            oos.flush();
+
+            int tipOdgovora = ois.readInt();
+            DohvatiSveKozmeticareOdgovor odgovor = (DohvatiSveKozmeticareOdgovor) ois.readObject();
+            listaKozmeticara = odgovor.getListaKozmeticara();
+        } catch (Exception ex) {
+            Logger.getLogger(BrisanjeZakazanogTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void popuniCmbSvihKozmeticara() {
+        cmbKozmeticari.removeAllItems();
+        for (Kozmeticar k : listaKozmeticara) {
+            cmbKozmeticari.addItem(k);
+            if(k.getKozmeticarId()==zakazaniTermin.getKozmeticarId()){
+                cmbKozmeticari.setSelectedItem(k);
+            }
+        }
+        
+    }
+    
+    
 }

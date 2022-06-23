@@ -40,8 +40,7 @@
                               <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="btnNazad" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="543" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="610" max="-2" attributes="0"/>
                                       <Component id="btnPrikazi" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane1" min="-2" pref="679" max="-2" attributes="0"/>
@@ -68,10 +67,7 @@
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="261" max="-2" attributes="0"/>
               <EmptySpace pref="43" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnNazad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPrikazi" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnPrikazi" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -115,14 +111,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrikaziActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnNazad">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nazad"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNazadActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

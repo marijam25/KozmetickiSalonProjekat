@@ -23,22 +23,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class KlijentskaNit extends Thread {
-    
+
     private Socket s;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
-    
+
     public KlijentskaNit(Socket s) {
         try {
             this.s = s;
             oos = new ObjectOutputStream(s.getOutputStream());
             ois = new ObjectInputStream(s.getInputStream());
-            this.run();
+            
         } catch (IOException ex) {
             Logger.getLogger(KlijentskaNit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void run() {
         Kontroler kontroler = Kontroler.getInstance();
@@ -46,12 +46,11 @@ public class KlijentskaNit extends Thread {
             try {
                 int tipZahteva = ois.readInt();
 
-                switch (tipZahteva){
+                switch (tipZahteva) {
 
                     // ----------------------------------------------------------------------------------------
                     // Zahtevi za prijavljivanje
                     // ----------------------------------------------------------------------------------------
-
                     case TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV: {
                         PrijavljivanjeZahtev zahtev = (PrijavljivanjeZahtev) ois.readObject();
                         boolean uspesno = kontroler.prijavljivanjeKorisnika(zahtev.getKorisnik());
@@ -65,7 +64,6 @@ public class KlijentskaNit extends Thread {
                     // ----------------------------------------------------------------------------------------
                     // Zahtevi za dodavanje
                     // ----------------------------------------------------------------------------------------
-
                     case TipoviZahteva.DODAJ_KOZMETICARA_ZAHTEV: {
                         DodajKozmeticaraZahtev zahtev = (DodajKozmeticaraZahtev) ois.readObject();
                         boolean uspeo = kontroler.dodajKozmeticara(zahtev.getKozmeticar());
@@ -76,7 +74,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DODAJ_USLUGU_ZAHTEV:{
+                    case TipoviZahteva.DODAJ_USLUGU_ZAHTEV: {
                         DodajUsluguZahtev zahtev = (DodajUsluguZahtev) ois.readObject();
                         boolean uspeo = kontroler.dodajUslugu(zahtev.getUsluga());
 
@@ -86,19 +84,20 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DODAJ_ZAKAZANI_TERMIN_ZAHTEV:{
+                    case TipoviZahteva.DODAJ_ZAKAZANI_TERMIN_ZAHTEV: {
                         DodajZakazaniTerminZahtev zahtev = (DodajZakazaniTerminZahtev) ois.readObject();
                         ZakazaniTermin zakazaniTermin = zahtev.getZakazaniTermin();
                         boolean uspeo = kontroler.dodajZakazaniTermin(zakazaniTermin);
-                        if(uspeo){
+                        if (uspeo) {
                             int zakazaniTerminId = zakazaniTermin.getZakazaniTerminId();
                             List<Usluga> listaUsluga = zahtev.getListaUsluga();
 
                             for (Usluga usluga : listaUsluga) {
                                 StavkaZakazanogTermina stavka = new StavkaZakazanogTermina(0, zakazaniTerminId, usluga.getUslugaId());
                                 uspeo = kontroler.dodajStavkuZakazanogTermina(stavka);
-                                if(uspeo==false)
+                                if (uspeo == false) {
                                     break;
+                                }
                             }
                         }
 
@@ -107,8 +106,8 @@ public class KlijentskaNit extends Thread {
                         oos.writeObject(odgovor);
                         break;
                     }
-                    
-                    case TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV:{
+
+                    case TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV: {
                         DodajStavkuZakazivanjaZahtev zahtev = (DodajStavkuZakazivanjaZahtev) ois.readObject();
                         boolean uspeo = kontroler.dodajStavkuZakazanogTermina(zahtev.getStavka());
 
@@ -121,8 +120,7 @@ public class KlijentskaNit extends Thread {
                     // ----------------------------------------------------------------------------------------
                     // Zahtevi za azuriranje
                     // ----------------------------------------------------------------------------------------
-
-                    case TipoviZahteva.AZURIRAJ_KOZMETICARA_ZAHTEV:{
+                    case TipoviZahteva.AZURIRAJ_KOZMETICARA_ZAHTEV: {
                         AzurirajKozmeticaraZahtev zahtev = (AzurirajKozmeticaraZahtev) ois.readObject();
                         boolean uspeo = kontroler.azurirajKozmeticara(zahtev.getKozmeticar());
 
@@ -145,8 +143,7 @@ public class KlijentskaNit extends Thread {
                     // ----------------------------------------------------------------------------------------
                     // Zahtevi za brisanje
                     // ----------------------------------------------------------------------------------------
-
-                    case TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV:{
+                    case TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV: {
                         ObrisiKozmeticaraZahtev zahtev = (ObrisiKozmeticaraZahtev) ois.readObject();
                         boolean uspeo = kontroler.obrisiKozmeticara(zahtev.getKozmeticar());
 
@@ -156,7 +153,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.OBRISI_USLUGU_ZAHTEV:{
+                    case TipoviZahteva.OBRISI_USLUGU_ZAHTEV: {
                         ObrisiUsluguZahtev zahtev = (ObrisiUsluguZahtev) ois.readObject();
                         boolean uspeo = kontroler.obrisiUslugu(zahtev.getUsluga());
 
@@ -166,13 +163,13 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.OBRISI_ZAKAZANI_TERMIN_ZAHTEV:{
+                    case TipoviZahteva.OBRISI_ZAKAZANI_TERMIN_ZAHTEV: {
                         ObrisiZakazaniTerminZahtev zahtev = (ObrisiZakazaniTerminZahtev) ois.readObject();
                         ZakazaniTermin zt = zahtev.getZakazaniTermin();
                         StavkaZakazanogTermina szt = new StavkaZakazanogTermina(0, zt.getZakazaniTerminId(), 0);
 
                         boolean uspeo = kontroler.obrisiSveStavkeZakazanogTermina(szt);
-                        if(uspeo) {
+                        if (uspeo) {
                             // ako je uspeo da obrise stavke onda moze da obrise i zakazni termin
                             uspeo = kontroler.obrisiZakazaniTermin(zt);
                         }
@@ -182,8 +179,8 @@ public class KlijentskaNit extends Thread {
                         oos.writeObject(odgovor);
                         break;
                     }
-                    
-                    case TipoviZahteva.OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV:{
+
+                    case TipoviZahteva.OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV: {
                         ObrisiStavkuZakazivanjaZahtev zahtev = (ObrisiStavkuZakazivanjaZahtev) ois.readObject();
                         boolean uspeo = kontroler.obrisiStavkuZakaznogTermina(zahtev.getStavka());
 
@@ -196,8 +193,7 @@ public class KlijentskaNit extends Thread {
                     // ----------------------------------------------------------------------------------------
                     // Zahtevi za dohvatanje
                     // ----------------------------------------------------------------------------------------
-
-                    case TipoviZahteva.DOHVATI_KOZMETICARE_PO_PREZIMENU_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_KOZMETICARE_PO_PREZIMENU_ZAHTEV: {
                         DohvatiKozmeticarePoPrezimenuZahtev zahtev = (DohvatiKozmeticarePoPrezimenuZahtev) ois.readObject();
                         List<Kozmeticar> listaKozmeticara = kontroler.dohvatiKozmeticarePoPrezimenu(zahtev.getKozmeticar());
 
@@ -207,7 +203,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_SVE_KATEGORIJE_USLUGA_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_SVE_KATEGORIJE_USLUGA_ZAHTEV: {
                         KategorijaUsluga k = new KategorijaUsluga();
                         List<KategorijaUsluga> listaKategorijaUsluga = kontroler.dohvatiKategorijeUsluga(k);
 
@@ -217,7 +213,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_SVE_KLIJENTE_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_SVE_KLIJENTE_ZAHTEV: {
                         Klijent k = new Klijent();
                         List<Klijent> listaKlijenata = kontroler.dohvatiKlijente(k);
 
@@ -227,7 +223,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_USLUGU_PO_NAZIVU_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_USLUGU_PO_NAZIVU_ZAHTEV: {
                         DohvatiUsluguPoNazivuZahtev zahtev = (DohvatiUsluguPoNazivuZahtev) ois.readObject();
                         List<Usluga> lsitaUsluga = kontroler.dohvatiUsluguPoNazivu(zahtev.getUsluga());
 
@@ -237,7 +233,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_ZAKAZANE_TERMINE_ZA_KLIJENTA_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_ZAKAZANE_TERMINE_ZA_KLIJENTA_ZAHTEV: {
                         DohvatiZakazaneTermineZaKlijentaZahtev zahtev = (DohvatiZakazaneTermineZaKlijentaZahtev) ois.readObject();
                         List<ZakazaniTermin> listaZakazanihTermina = kontroler.dohvatiZakazaneTermineZaKlijenta(zahtev.getZakazaniTermin());
 
@@ -247,7 +243,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_SVE_USLUGE_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_SVE_USLUGE_ZAHTEV: {
                         Usluga u = new Usluga();
                         List<Usluga> listaUsluga = kontroler.dohvatiSveUsluge(u);
 
@@ -257,7 +253,7 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_SVE_KOZMETICARE_ZAHTEV:{
+                    case TipoviZahteva.DOHVATI_SVE_KOZMETICARE_ZAHTEV: {
                         Kozmeticar k = new Kozmeticar();
                         List<Kozmeticar> listaKozmeticara = kontroler.dohvatiSveKozmeticare(k);
 
@@ -267,8 +263,8 @@ public class KlijentskaNit extends Thread {
                         break;
                     }
 
-                    case TipoviZahteva.DOHVATI_STAVKE_ZA_ZAKAZANI_TERMIN_ZAHTEV:{
-                        DohvatiStavkeZaZakazaniTerminZahtev zahtev =  (DohvatiStavkeZaZakazaniTerminZahtev) ois.readObject();
+                    case TipoviZahteva.DOHVATI_STAVKE_ZA_ZAKAZANI_TERMIN_ZAHTEV: {
+                        DohvatiStavkeZaZakazaniTerminZahtev zahtev = (DohvatiStavkeZaZakazaniTerminZahtev) ois.readObject();
                         List<StavkaZakazanogTermina> listaStavki = kontroler.dohvatiStavkeZaZakazaniTermin(zahtev.getStavkaZakazanogTermina());
 
                         DohvatiStavkeZaZakazniTerminOdgovor odgovor = new DohvatiStavkeZaZakazniTerminOdgovor(listaStavki);
@@ -278,7 +274,7 @@ public class KlijentskaNit extends Thread {
 
                     }
                 }
-                
+
             } catch (IOException ex) {
                 //Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("Klijent disconectovan");
@@ -292,7 +288,7 @@ public class KlijentskaNit extends Thread {
             }
         }
     }
-    
+
     void prekiniKonekciju() {
         try {
             s.close();
@@ -300,5 +296,5 @@ public class KlijentskaNit extends Thread {
             Logger.getLogger(KlijentskaNit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

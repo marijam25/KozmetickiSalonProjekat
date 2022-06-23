@@ -1,7 +1,6 @@
 package Forme.Azuriranje;
 
 import Domen.Kozmeticar;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiKozmeticarePoPrezimenuZahtev;
 import Modeli.ModelTabeleKozmeticara;
@@ -36,7 +35,6 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
         tblKozmeticar = new javax.swing.JTable();
         btnPretrazi = new javax.swing.JButton();
         btnIzmeni = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -67,13 +65,6 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             }
         });
 
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Izmena kozmeticara");
 
         jLabel2.setText("Pretraga kozmeticara po prezimenu");
@@ -85,10 +76,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNazad)
-                        .addGap(635, 635, 635)
-                        .addComponent(btnIzmeni))
+                    .addComponent(btnIzmeni)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -113,9 +101,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnIzmeni)
-                    .addComponent(btnNazad))
+                .addComponent(btnIzmeni)
                 .addGap(64, 64, 64))
         );
 
@@ -157,7 +143,7 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPretraziActionPerformed
 
-    private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
+    private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {                                          
         int izabraniRed = tblKozmeticar.getSelectedRow();
         if (izabraniRed == -1) {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da ucita kozmeticara");
@@ -165,16 +151,10 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
             KozmeticarIzmenaForma kif = new KozmeticarIzmenaForma(kozmeticar);
             this.setVisible(false);
+            JOptionPane.showMessageDialog(this, "Sistem je ucitao kozmeticara");
             kif.setVisible(true);
             podesiModelTabele();
         }
-    }
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
     }
 
 
@@ -212,7 +192,6 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIzmeni;
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

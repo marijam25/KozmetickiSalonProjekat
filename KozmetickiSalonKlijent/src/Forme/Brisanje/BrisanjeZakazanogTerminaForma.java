@@ -47,7 +47,6 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTermin = new javax.swing.JTable();
         btnPretrazi = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
         klijentiCombo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -74,13 +73,6 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
             }
         });
 
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
-            }
-        });
-
         btnObrisi.setText("Obrisi");
         btnObrisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,9 +87,7 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(btnNazad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(39, 708, Short.MAX_VALUE)
                 .addComponent(btnObrisi)
                 .addGap(126, 126, 126))
             .addGroup(layout.createSequentialGroup()
@@ -129,13 +119,8 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(btnNazad))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(btnObrisi)))
+                .addGap(81, 81, 81)
+                .addComponent(btnObrisi)
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -147,13 +132,6 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         DohvatiZakazaneTermineZaIzabranogKlijenta();
     }//GEN-LAST:event_btnPretraziActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
@@ -177,6 +155,7 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
 
                     if (odgovor.isUspeo()) {
                         JOptionPane.showMessageDialog(this, "Sistem je obrisao termin");
+                        this.setVisible(false);
                     } else {
                         JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
                     }
@@ -225,7 +204,6 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JLabel jLabel1;

@@ -18,7 +18,7 @@ public class ServerskaNit extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ServerskaNit.class.getName()).log(Level.SEVERE, null, ex);
         }
-        klijenti = new ArrayList<KlijentskaNit>();
+        klijenti = new ArrayList<>();
     }
 
     @Override

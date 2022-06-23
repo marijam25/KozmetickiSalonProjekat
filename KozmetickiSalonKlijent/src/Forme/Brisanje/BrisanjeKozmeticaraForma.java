@@ -1,7 +1,6 @@
 package Forme.Brisanje;
 
 import Domen.Kozmeticar;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaBrisanje.ObrisiKozmeticaraZahtev;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiKozmeticarePoPrezimenuZahtev;
@@ -45,7 +44,6 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
         btnObrisi = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnNazad = new javax.swing.JButton();
 
         btnPretrazi.setText("Pretrazi");
         btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
@@ -78,13 +76,6 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
 
         jLabel2.setText("Brisanje kozmeticara");
 
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,9 +94,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPretrazi))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(btnNazad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnObrisi)))
                 .addGap(67, 67, 67))
         );
@@ -122,9 +111,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnObrisi)
-                    .addComponent(btnNazad))
+                .addComponent(btnObrisi)
                 .addGap(68, 68, 68))
         );
 
@@ -188,6 +175,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                     if (odgovor.isUspeo()) {
                         JOptionPane.showMessageDialog(this, "Sistem je obrisao kozmeticara");
                         listaTabela.remove(kozmeticar);
+                        this.setVisible(false);
                     } else {
                         JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
                     }
@@ -201,13 +189,6 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        GlavnaForma gf = new GlavnaForma();
-        this.setVisible(false);
-        gf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,7 +226,6 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JLabel jLabel1;
