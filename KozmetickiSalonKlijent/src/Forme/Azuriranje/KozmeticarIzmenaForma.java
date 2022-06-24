@@ -3,6 +3,7 @@ package Forme.Azuriranje;
 import Domen.Kozmeticar;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaAzuriranje.AzurirajKozmeticaraZahtev;
+import Kontroler.KontrolerKI;
 import ServerskiOdgovori.OdgovoriAzuriranje.AzurirajKozmeticaraOdgovor;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -122,15 +123,10 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             kozmeticar.setPrezime(prezime);
             kozmeticar.setGodine(godine);
 
-            AzurirajKozmeticaraZahtev zahtev = new AzurirajKozmeticaraZahtev(kozmeticar);
+            KontrolerKI.getInstance().azurirajKozmeticaraZahtev(kozmeticar);
 
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.AZURIRAJ_KOZMETICARA_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-
-            
-            AzurirajKozmeticaraOdgovor odgovor = (AzurirajKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-            
-            if (odgovor.isUspeo()) {
+            boolean odgovor = KontrolerKI.getInstance().azurirajKozmeticaraOdgovor();
+            if (odgovor) {
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio kozmeticara");
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");

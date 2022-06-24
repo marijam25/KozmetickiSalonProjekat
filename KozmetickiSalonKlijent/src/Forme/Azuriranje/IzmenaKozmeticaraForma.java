@@ -1,19 +1,15 @@
 package Forme.Azuriranje;
 
 import Domen.Kozmeticar;
-import KlijentskiZahtevi.TipoviZahteva;
-import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiKozmeticarePoPrezimenuZahtev;
+import Kontroler.KontrolerKI;
 import Modeli.ModelTabeleKozmeticara;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiKozmeticarePoPrezimenuOdgovor;
-import komunikacija.KomunikacijaSaServerom;
+
 
 public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
@@ -110,19 +106,14 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
         try {
-            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
-            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-
+            
             Kozmeticar k = new Kozmeticar();
             k.setPrezime(txtPrezime.getText());
 
-            DohvatiKozmeticarePoPrezimenuZahtev zahtev = new DohvatiKozmeticarePoPrezimenuZahtev(k);
-            oos.writeInt(TipoviZahteva.DOHVATI_KOZMETICARE_PO_PREZIMENU_ZAHTEV);
-            oos.writeObject(zahtev);
-            oos.flush();
+            KontrolerKI.getInstance().dohvatiKozmeticarePoPrezimenuZahtev(k);
 
-            DohvatiKozmeticarePoPrezimenuOdgovor odgovor = (DohvatiKozmeticarePoPrezimenuOdgovor) ois.readObject();
-            listaTabela = odgovor.getListaKozmeticara();
+            
+            listaTabela = KontrolerKI.getInstance().dohvatiKozmeticarePoPrezimenuOdgovor();
 
             if (!listaTabela.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Sistem je nasao kozmeticare po zadatoj vrednosti");

@@ -10,6 +10,7 @@ import KlijentskiZahtevi.ZahteviZaAzuriranje.AzurirajZakazaniTerminZahtev;
 import KlijentskiZahtevi.ZahteviZaBrisanje.ObrisiStavkuZakazivanjaZahtev;
 import KlijentskiZahtevi.ZahteviZaDodavanje.DodajStavkuZakazivanjaZahtev;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiStavkeZaZakazaniTerminZahtev;
+import Kontroler.KontrolerKI;
 import ServerskiOdgovori.OdgovoriAzuriranje.AzurirajZakazaniTerminOdgovor;
 import ServerskiOdgovori.OdgovoriBrisanje.ObrisiStavkuZakazivanjaOdgovor;
 import ServerskiOdgovori.OdgovoriDodavanje.DodajStavkuZakazivanjaOdgovor;
@@ -211,14 +212,12 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 zakazaniTermin.setDatumIVreme(datumUtil);
                 zakazaniTermin.setKozmeticarId(kozm.getKozmeticarId());
 
-                AzurirajZakazaniTerminZahtev zahtev = new AzurirajZakazaniTerminZahtev(zakazaniTermin);
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.AZURIRAJ_ZAKAZANI_TERMIN_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+                KontrolerKI.getInstance().azurirajZakazaniTerminZahtev(zakazaniTermin);
 
                 
-                AzurirajZakazaniTerminOdgovor odgovor = (AzurirajZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+                boolean odgovor = KontrolerKI.getInstance().azurirajZakazaniTerminOdgovor();
 
-                if (!odgovor.isUspeo()) {
+                if (!odgovor) {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
                     return;
                 }
@@ -229,14 +228,11 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 for (Usluga usluga1 : listaUslugaZaKojePostojeStavke) {
                     if (usluga.getUslugaId() != usluga1.getUslugaId()) {
                         StavkaZakazanogTermina s = new StavkaZakazanogTermina(0, zakazaniTermin.getZakazaniTerminId(), usluga.getUslugaId());
-                        DodajStavkuZakazivanjaZahtev zahtev = new DodajStavkuZakazivanjaZahtev(s);
-                        KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV);
-                        KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+                        KontrolerKI.getInstance().dodajStavkuZahtev(s);
 
-                        
-                        DodajStavkuZakazivanjaOdgovor odgovor = (DodajStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+                        boolean odgovor = KontrolerKI.getInstance().dodajStavkuOdgovor();
 
-                        if (!odgovor.isUspeo()) {
+                        if (!odgovor) {
                             JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
                             return;
                         }
@@ -255,14 +251,12 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 }
                 StavkaZakazanogTermina s = new StavkaZakazanogTermina(idStavke, zakazaniTermin.getZakazaniTerminId(), usluga.getUslugaId());
 
-                ObrisiStavkuZakazivanjaZahtev zahtev = new ObrisiStavkuZakazivanjaZahtev(s);
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+                KontrolerKI.getInstance().obrisiStavkuZahtev(s);
 
                 
-                ObrisiStavkuZakazivanjaOdgovor odgovor = (ObrisiStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+                boolean odgovor = KontrolerKI.getInstance().obrisiStavkuOdgovor();
 
-                if (!odgovor.isUspeo()) {
+                if (!odgovor) {
                     JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti termin");
                     return;
                 }

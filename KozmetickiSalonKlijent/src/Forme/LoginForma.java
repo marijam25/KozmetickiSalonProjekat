@@ -1,14 +1,12 @@
 package Forme;
 
 import Domen.KorisnikSistema;
-import KlijentskiZahtevi.TipoviZahteva;
-import KlijentskiZahtevi.ZahteviZaPrijavljivanje.PrijavljivanjeZahtev;
+import Kontroler.KontrolerKI;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import ServerskiOdgovori.OdgovoriPrijavljivanje.PrijavljivanjeOdgovor;
-import komunikacija.KomunikacijaSaServerom;
+
 
 public class LoginForma extends javax.swing.JFrame {
 
@@ -100,16 +98,13 @@ public class LoginForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Polja ne smeju biti prazna!");
                 return;
             }
+            KorisnikSistema k = new KorisnikSistema(0, korisnickoIme, sifra);
             
-            PrijavljivanjeZahtev zahtev = new PrijavljivanjeZahtev(new KorisnikSistema(0, korisnickoIme, sifra));
-            KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.PRIJAVLJIVANJE_ZAHTEV);
-            KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
-            KomunikacijaSaServerom.getInstanca().getOos().flush();
+            KontrolerKI.getInstance().prijaviKorisnikaZahtev(k);
 
-            
-            PrijavljivanjeOdgovor odgovor = (PrijavljivanjeOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+            boolean odgovor = KontrolerKI.getInstance().prijaviKorisnikaOdgovor();
 
-            if (odgovor.isUspeo()) {
+            if (odgovor) {
                 JOptionPane.showMessageDialog(this, "Uspesno prijavljivanje na sistem!");
                 GlavnaForma gf = new GlavnaForma();
                 this.setVisible(false);

@@ -7,6 +7,7 @@ import Domen.ZakazaniTermin;
 import Forme.Brisanje.BrisanjeZakazanogTerminaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDodavanje.DodajZakazaniTerminZahtev;
+import Kontroler.KontrolerKI;
 import ServerskiOdgovori.OdgovoriDodavanje.DodajZakazaniTerminOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiSveKlijenteOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiSveKozmeticareOdgovor;
@@ -164,18 +165,14 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
 
                 Kozmeticar kozmeticar = (Kozmeticar) kozmeticariCombo.getSelectedItem();
                 Klijent klijent = (Klijent) klijentiCombo.getSelectedItem();
-                //List<Usluga> izabraneUsluge = uslugeSwingList.getSelectedValuesList();
                 
                 ZakazaniTermin zt = new ZakazaniTermin(0, kozmeticar.getKozmeticarId(), klijent.getKlijentId(), datumUtil);
-                DodajZakazaniTerminZahtev dztz = new DodajZakazaniTerminZahtev(zt, izabraneUsluge);
-                
-                KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_ZAKAZANI_TERMIN_ZAHTEV);
-                KomunikacijaSaServerom.getInstanca().getOos().writeObject(dztz);
+                KontrolerKI.getInstance().dodajZakazaniTerminZahtev(zt, listaUsluga);
 
                 
-                DodajZakazaniTerminOdgovor odgovor = (DodajZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
+                boolean odgovor = KontrolerKI.getInstance().dodajZakazaniTerminOdgovor();
 
-                if (odgovor.isUspeo()) {
+                if (odgovor) {
                     JOptionPane.showMessageDialog(this, "Sistem je zapamtio termin");
                     this.setVisible(false);
                 } else {

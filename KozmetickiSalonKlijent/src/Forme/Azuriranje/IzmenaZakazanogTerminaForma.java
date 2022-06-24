@@ -5,6 +5,7 @@ import Domen.ZakazaniTermin;
 import Forme.Brisanje.BrisanjeZakazanogTerminaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiZakazaneTermineZaKlijentaZahtev;
+import Kontroler.KontrolerKI;
 import Modeli.ModelTabeleZakazaniTermin;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiSveKlijenteOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiZakazaneTermineZaKlijentaOdgovor;
@@ -137,19 +138,12 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
         // TODO add your handling code here:        
         try {
             
-            ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
-            ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
             Klijent k = (Klijent) klijentiKombo.getSelectedItem();
             ZakazaniTermin zt = new ZakazaniTermin(0, 0, k.getKlijentId(), null);
-            DohvatiZakazaneTermineZaKlijentaZahtev zahtev = new DohvatiZakazaneTermineZaKlijentaZahtev(zt);
-            oos.writeInt(TipoviZahteva.DOHVATI_ZAKAZANE_TERMINE_ZA_KLIJENTA_ZAHTEV);
-            oos.writeObject(zahtev);
-            oos.flush();
-
             
-            DohvatiZakazaneTermineZaKlijentaOdgovor odgovor = (DohvatiZakazaneTermineZaKlijentaOdgovor) ois.readObject();
+            KontrolerKI.getInstance().dohvatiZakazaneTermineZaKlijentaZahtev(zt);
 
-            listaZakazanihTermina = odgovor.getListaZakazanihTermina();
+            listaZakazanihTermina = KontrolerKI.getInstance().dohvatiZakazaneTermineZaKlijentaOdgovor();
 
             if (listaZakazanihTermina == null || !listaZakazanihTermina.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Sistem je nasao termine po zadatoj vrednosti");

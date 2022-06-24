@@ -3,10 +3,9 @@ package Forme.Brisanje;
 import Domen.Klijent;
 import Domen.ZakazaniTermin;
 import KlijentskiZahtevi.TipoviZahteva;
-import KlijentskiZahtevi.ZahteviZaBrisanje.ObrisiZakazaniTerminZahtev;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiZakazaneTermineZaKlijentaZahtev;
+import Kontroler.KontrolerKI;
 import Modeli.ModelTabeleZakazaniTermin;
-import ServerskiOdgovori.OdgovoriBrisanje.ObrisiZakazaniTerminOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiSveKlijenteOdgovor;
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiZakazaneTermineZaKlijentaOdgovor;
 import java.io.IOException;
@@ -143,14 +142,11 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
                 } else {
                     ZakazaniTermin zt = listaZakaznihTermina.get(izabraniRed);
 
-                    ObrisiZakazaniTerminZahtev zahtev = new ObrisiZakazaniTerminZahtev(zt);
+                    KontrolerKI.getInstance().brisanjeZakazanogTerminaZahtev(zt);
 
-                    KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_ZAKAZANI_TERMIN_ZAHTEV);
-                    KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
+                    boolean odgovor = KontrolerKI.getInstance().brisanjeZakazanogTerminaOdgovor();
 
-                    ObrisiZakazaniTerminOdgovor odgovor = (ObrisiZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
-
-                    if (odgovor.isUspeo()) {
+                    if (odgovor) {
                         JOptionPane.showMessageDialog(this, "Sistem je obrisao termin");
                         this.setVisible(false);
                     } else {
