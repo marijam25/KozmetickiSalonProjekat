@@ -2,7 +2,6 @@ package Forme.Pretrazivanje;
 
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiUsluguPoNazivuZahtev;
 import Modeli.ModelTabeleUsluge;
@@ -168,7 +167,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
             PrikazUslugeForma puf = new PrikazUslugeForma(usluga, listaKategorija);
             this.setVisible(false);
             puf.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Sistem je ucitao uslugu");
+            
         }
     }//GEN-LAST:event_btnPrikaziActionPerformed
 

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -130,7 +129,7 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
             TerminIzmenaForma tif = new TerminIzmenaForma(termin);
             this.setVisible(false);
             tif.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Sistem je ucitao termin");
+            
         }
     }//GEN-LAST:event_btnIzmeniActionPerformed
 
@@ -158,9 +157,7 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
             }
-        } //catch (ParseException ex) {
-            //Logger.getLogger(IzmenaTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje termine po zadatoj vrednosti");
+        } 
          catch (IOException ex) {
             Logger.getLogger(IzmenaZakazanogTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

@@ -191,15 +191,13 @@ public class GlavnaForma extends JFrame {
     private void btnKreirajKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajKozmeticaraActionPerformed
         // TODO add your handling code here:
         KreirajeKozmeticaraForma kkf = new KreirajeKozmeticaraForma();
-        //this.setVisible(false);
         kkf.setVisible(true);
-        //JOptionPane.showMessageDialog(this, "Sistem je kreirao novog kozmeticara");
     }//GEN-LAST:event_btnKreirajKozmeticaraActionPerformed
 
     private void txtBrisanjeKozmeticaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrisanjeKozmeticaraActionPerformed
         // TODO add your handling code here:
         BrisanjeKozmeticaraForma bkf = new BrisanjeKozmeticaraForma();
-        //this.setVisible(false);
+        
         bkf.setVisible(true);
         
     }//GEN-LAST:event_txtBrisanjeKozmeticaraActionPerformed
@@ -214,44 +212,44 @@ public class GlavnaForma extends JFrame {
     private void btnKreiranjeUslugeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeUslugeActionPerformed
         // TODO add your handling code here:
         KreiranjeUslugeForma kuf = new KreiranjeUslugeForma();
-        //this.setVisible(false);
+        
         kuf.setVisible(true);
-        //JOptionPane.showMessageDialog(this, "Sistem je kreirao novu uslugu");
+        
     }//GEN-LAST:event_btnKreiranjeUslugeActionPerformed
 
     private void btnPretragaUslugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretragaUslugaActionPerformed
         // TODO add your handling code here:
         PretrazivanjeUsluge pu = new PretrazivanjeUsluge();
-        //this.setVisible(false);
+        
         pu.setVisible(true);
     }//GEN-LAST:event_btnPretragaUslugaActionPerformed
 
     private void btnObrisiUsluguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiUsluguActionPerformed
         // TODO add your handling code here:
         BrisanjeUslugeForma buf = new BrisanjeUslugeForma();
-        //this.setVisible(false);
+        
         buf.setVisible(true);
     }//GEN-LAST:event_btnObrisiUsluguActionPerformed
 
     private void btnKreiranjeTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreiranjeTerminaActionPerformed
         // TODO add your handling code here:
         KreiranjeZakazanogTerminaForma ktf = new KreiranjeZakazanogTerminaForma();
-        //this.setVisible(false);
+        
         ktf.setVisible(true);
-        //JOptionPane.showMessageDialog(this, "Sistem je kreirao novi termin");
+        
     }//GEN-LAST:event_btnKreiranjeTerminaActionPerformed
 
     private void btnIzmenaTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmenaTerminaActionPerformed
         // TODO add your handling code here:
         IzmenaZakazanogTerminaForma itf = new IzmenaZakazanogTerminaForma();
-        //this.setVisible(false);
+        
         itf.setVisible(true);
     }//GEN-LAST:event_btnIzmenaTerminaActionPerformed
 
     private void btnBrisanjeTerminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrisanjeTerminaActionPerformed
         // TODO add your handling code here:
         BrisanjeZakazanogTerminaForma btf = new BrisanjeZakazanogTerminaForma();
-        //this.setVisible(false);
+        
         btf.setVisible(true);
     }//GEN-LAST:event_btnBrisanjeTerminaActionPerformed
 

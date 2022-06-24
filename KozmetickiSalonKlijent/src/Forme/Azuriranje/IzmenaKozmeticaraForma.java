@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 import ServerskiOdgovori.OdgovoriDohvatanje.DohvatiKozmeticarePoPrezimenuOdgovor;
 import komunikacija.KomunikacijaSaServerom;
 
@@ -150,7 +149,6 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             Kozmeticar kozmeticar = listaTabela.get(izabraniRed);
             KozmeticarIzmenaForma kif = new KozmeticarIzmenaForma(kozmeticar);
             this.setVisible(false);
-            JOptionPane.showMessageDialog(this, "Sistem je ucitao kozmeticara");
             kif.setVisible(true);
             podesiModelTabele();
         }

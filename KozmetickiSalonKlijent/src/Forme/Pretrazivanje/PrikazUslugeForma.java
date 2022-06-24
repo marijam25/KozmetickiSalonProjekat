@@ -2,7 +2,6 @@ package Forme.Pretrazivanje;
 
 import Domen.KategorijaUsluga;
 import Domen.Usluga;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PrikazUslugeForma extends javax.swing.JFrame {

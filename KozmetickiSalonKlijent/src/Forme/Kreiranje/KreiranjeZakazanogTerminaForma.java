@@ -290,14 +290,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
     }
     
     private void popuniUsluge(){
-        /*Usluga[] nizUsluga = new Usluga[listaUsluga.size()];
-        int i=0;
-        for (Usluga usluga : listaUsluga) {
-            nizUsluga[i++] = usluga;
-        }
-        uslugeSwingList = new javax.swing.JList<Usluga>(nizUsluga);*/
-        
-        //ListModel<Usluga> modelUsluga = uslugeSwingList.getModel();
+       
         DefaultListModel<Usluga> modelUsluga = new DefaultListModel<>();
         for (Usluga usluga : listaUsluga) {
             modelUsluga.addElement(usluga);
