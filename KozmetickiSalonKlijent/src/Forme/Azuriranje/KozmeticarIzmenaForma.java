@@ -30,7 +30,6 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         txtIme = new javax.swing.JTextField();
         txtPrezime = new javax.swing.JTextField();
         btnSacuvaj = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -41,13 +40,6 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);
-            }
-        });
-
-        btnNazad.setText("Nazad");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
             }
         });
 
@@ -86,9 +78,7 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
                         .addGap(66, 66, 66))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSacuvaj)
-                            .addComponent(btnNazad))
+                        .addComponent(btnSacuvaj)
                         .addGap(223, 223, 223))))
         );
         layout.setVerticalGroup(
@@ -110,9 +100,7 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
                     .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addComponent(btnSacuvaj)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(btnNazad)
-                .addGap(24, 24, 24))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,7 +127,7 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.AZURIRAJ_KOZMETICARA_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+            
             AzurirajKozmeticaraOdgovor odgovor = (AzurirajKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
             
             if (odgovor.isUspeo()) {
@@ -149,8 +137,7 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             }
 
             this.setVisible(false);
-            IzmenaKozmeticaraForma ikf = new IzmenaKozmeticaraForma();
-            ikf.setVisible(true);
+            
 
         } catch (IOException ex) {
             Logger.getLogger(KozmeticarIzmenaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,13 +147,6 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti kozmeticara");
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        IzmenaKozmeticaraForma ikf = new IzmenaKozmeticaraForma();
-        ikf.setVisible(true);
-    }//GEN-LAST:event_btnNazadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +184,6 @@ public class KozmeticarIzmenaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

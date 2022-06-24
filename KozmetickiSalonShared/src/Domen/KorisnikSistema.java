@@ -76,8 +76,8 @@ public class KorisnikSistema implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public List<KorisnikSistema> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<KorisnikSistema> lista = new ArrayList<>();
+    public List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int Id = rs.getInt("korisnikId");

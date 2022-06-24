@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SODohvatiStavkeZaZakazaniTermin extends OpstaSistemskaOperacija {
 
-    private List<StavkaZakazanogTermina> listaStavki;
+    private List<OpstiDomenskiObjekat> listaStavki;
 
     @Override
     protected boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -22,7 +22,7 @@ public class SODohvatiStavkeZaZakazaniTermin extends OpstaSistemskaOperacija {
     protected boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
         List<String> koloneZaUslov = new ArrayList<>();
         koloneZaUslov.add("zakazaniTerminId");
-        listaStavki = (List<StavkaZakazanogTermina>) DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
+        listaStavki = DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
         if(listaStavki==null)
             return false;
         else
@@ -30,6 +30,10 @@ public class SODohvatiStavkeZaZakazaniTermin extends OpstaSistemskaOperacija {
     }
 
     public List<StavkaZakazanogTermina> getListaStavki() {
-        return listaStavki;
+        List<StavkaZakazanogTermina> listaStavkiKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaStavki) {
+            listaStavkiKastovana.add((StavkaZakazanogTermina)opstiDomenskiObjekat);
+        }
+        return listaStavkiKastovana;
     }
 }

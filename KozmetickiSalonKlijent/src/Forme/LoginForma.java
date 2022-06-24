@@ -106,7 +106,7 @@ public class LoginForma extends javax.swing.JFrame {
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
             KomunikacijaSaServerom.getInstanca().getOos().flush();
 
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+            
             PrijavljivanjeOdgovor odgovor = (PrijavljivanjeOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
             if (odgovor.isUspeo()) {

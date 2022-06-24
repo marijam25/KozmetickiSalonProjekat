@@ -172,7 +172,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
                 KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_ZAKAZANI_TERMIN_ZAHTEV);
                 KomunikacijaSaServerom.getInstanca().getOos().writeObject(dztz);
 
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                
                 DodajZakazaniTerminOdgovor odgovor = (DodajZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                 if (odgovor.isUspeo()) {
@@ -257,7 +257,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KOZMETICARE_ZAHTEV);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKozmeticareOdgovor odgovor = (DohvatiSveKozmeticareOdgovor) ois.readObject();
             listaKozmeticara = odgovor.getListaKozmeticara();
         } catch (IOException ex) {
@@ -281,7 +281,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KLIJENTE_ZAHTEV);
             oos.flush();
             
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKlijenteOdgovor odgovor = (DohvatiSveKlijenteOdgovor) ois.readObject();
             listaKlijenata = odgovor.getListaKlijenata();
         } catch (Exception ex) {
@@ -315,7 +315,7 @@ public class KreiranjeZakazanogTerminaForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_USLUGE_ZAHTEV);
             oos.flush();
             
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveUslugeOdgovor odgovor = (DohvatiSveUslugeOdgovor) ois.readObject();
             listaUsluga = odgovor.getNizUsluga();
         } catch (Exception ex) {

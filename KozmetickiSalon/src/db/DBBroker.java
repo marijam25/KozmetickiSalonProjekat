@@ -160,7 +160,7 @@ public class DBBroker {
         return izbrisiIzBaze(odo, odo.naziviKolonaPrimarnogKljuca());
     }
 
-    public List<? extends OpstiDomenskiObjekat> dohvatiIzBaze(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
+    public List<OpstiDomenskiObjekat> dohvatiIzBaze(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
         String upit = "select * from " + odo.nazivTabele();
         if (koloneZaUslov != null && !koloneZaUslov.isEmpty()) {
             upit += " where";
@@ -185,11 +185,11 @@ public class DBBroker {
         }
     }
 
-    public List<? extends OpstiDomenskiObjekat> dohvatiIzBazePoIdju(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
+    public List<OpstiDomenskiObjekat> dohvatiIzBazePoIdju(OpstiDomenskiObjekat odo, List<String> koloneZaUslov) {
         return dohvatiIzBaze(odo, odo.naziviKolonaPrimarnogKljuca());
     }
 
-    public List<? extends OpstiDomenskiObjekat> dohvatiSveIzBaze(OpstiDomenskiObjekat odo) {
+    public List<OpstiDomenskiObjekat> dohvatiSveIzBaze(OpstiDomenskiObjekat odo) {
         return dohvatiIzBaze(odo, null);
     }
 

@@ -4,7 +4,6 @@ import PomocneFunkcije.DatumPomocneFunkcije;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,8 +95,8 @@ public class ZakazaniTermin implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public List<ZakazaniTermin> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<ZakazaniTermin> lista = new ArrayList<>();
+    public List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int zakazId = rs.getInt("zakazaniTerminId");

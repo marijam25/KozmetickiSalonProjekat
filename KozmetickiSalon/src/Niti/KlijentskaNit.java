@@ -13,7 +13,6 @@ import ServerskiOdgovori.OdgovoriBrisanje.*;
 import ServerskiOdgovori.OdgovoriDodavanje.*;
 import ServerskiOdgovori.OdgovoriDohvatanje.*;
 import ServerskiOdgovori.OdgovoriPrijavljivanje.PrijavljivanjeOdgovor;
-import ServerskiOdgovori.TipoviOdgovora;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -56,7 +55,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspesno = kontroler.prijavljivanjeKorisnika(zahtev.getKorisnik());
 
                         PrijavljivanjeOdgovor odgovor = new PrijavljivanjeOdgovor(uspesno);
-                        oos.writeInt(TipoviOdgovora.PRIJAVLJIVANJE_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -69,7 +68,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.dodajKozmeticara(zahtev.getKozmeticar());
 
                         DodajKozmeticaraOdgovor odgovor = new DodajKozmeticaraOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.DODAJ_KOZMETICARA_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -79,7 +78,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.dodajUslugu(zahtev.getUsluga());
 
                         DodajUsluguOdgovor odgovor = new DodajUsluguOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.DODAJ_USLUGU_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -102,7 +101,7 @@ public class KlijentskaNit extends Thread {
                         }
 
                         DodajZakazaniTerminOdgovor odgovor = new DodajZakazaniTerminOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.DODAJ_ZAKAZANI_TERMIN_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -112,7 +111,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.dodajStavkuZakazanogTermina(zahtev.getStavka());
 
                         DodajStavkuZakazivanjaOdgovor odgovor = new DodajStavkuZakazivanjaOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.DODAJ_STAVKU_ZAKAZIVANJA_ODGOVOR);
+                       
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -125,7 +124,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.azurirajKozmeticara(zahtev.getKozmeticar());
 
                         AzurirajKozmeticaraOdgovor odgovor = new AzurirajKozmeticaraOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.AZURIRAJ_KOZMETICARA_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -135,7 +134,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.azurirajZakazaniTermin(zahtev.getZakazaniTermin());
 
                         AzurirajZakazaniTerminOdgovor odgovor = new AzurirajZakazaniTerminOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.AZURIRAJ_ZAKAZANI_TERMIN_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -148,7 +147,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.obrisiKozmeticara(zahtev.getKozmeticar());
 
                         ObrisiKozmeticaraOdgovor odgovor = new ObrisiKozmeticaraOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.OBRISI_KOZMETICARA_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -158,7 +157,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.obrisiUslugu(zahtev.getUsluga());
 
                         ObrisiUsluguOdgovor odgovor = new ObrisiUsluguOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.OBRISI_USLUGU_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -175,7 +174,7 @@ public class KlijentskaNit extends Thread {
                         }
 
                         ObrisiZakazaniTerminOdgovor odgovor = new ObrisiZakazaniTerminOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.OBRISI_ZAKAZANI_TERMIN_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -185,7 +184,7 @@ public class KlijentskaNit extends Thread {
                         boolean uspeo = kontroler.obrisiStavkuZakaznogTermina(zahtev.getStavka());
 
                         ObrisiStavkuZakazivanjaOdgovor odgovor = new ObrisiStavkuZakazivanjaOdgovor(uspeo);
-                        oos.writeInt(TipoviOdgovora.OBRISI_ZAKAZANI_TERMIN_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -198,7 +197,7 @@ public class KlijentskaNit extends Thread {
                         List<Kozmeticar> listaKozmeticara = kontroler.dohvatiKozmeticarePoPrezimenu(zahtev.getKozmeticar());
 
                         DohvatiKozmeticarePoPrezimenuOdgovor odgovor = new DohvatiKozmeticarePoPrezimenuOdgovor(listaKozmeticara);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_KOZMETICARE_PO_PREZIMENU_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -208,7 +207,7 @@ public class KlijentskaNit extends Thread {
                         List<KategorijaUsluga> listaKategorijaUsluga = kontroler.dohvatiKategorijeUsluga(k);
 
                         DohvatiSveKategorijeUslugaOdgovor odgovor = new DohvatiSveKategorijeUslugaOdgovor(listaKategorijaUsluga);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_SVE_KATEGORIJE_USLUGA_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -218,7 +217,7 @@ public class KlijentskaNit extends Thread {
                         List<Klijent> listaKlijenata = kontroler.dohvatiKlijente(k);
 
                         DohvatiSveKlijenteOdgovor odgovor = new DohvatiSveKlijenteOdgovor(listaKlijenata);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_SVE_KLIJENTE_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -228,7 +227,7 @@ public class KlijentskaNit extends Thread {
                         List<Usluga> lsitaUsluga = kontroler.dohvatiUsluguPoNazivu(zahtev.getUsluga());
 
                         DohvatiUsluguPoNazivuOdgovor odgovor = new DohvatiUsluguPoNazivuOdgovor(lsitaUsluga);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_USLUGU_PO_NAZIVU_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -238,7 +237,7 @@ public class KlijentskaNit extends Thread {
                         List<ZakazaniTermin> listaZakazanihTermina = kontroler.dohvatiZakazaneTermineZaKlijenta(zahtev.getZakazaniTermin());
 
                         DohvatiZakazaneTermineZaKlijentaOdgovor odgovor = new DohvatiZakazaneTermineZaKlijentaOdgovor(listaZakazanihTermina);
-                        oos.writeInt(TipoviOdgovora.DOKVATI_ZAKAZANE_TERMINE_ZA_KLIJENTA_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -248,7 +247,7 @@ public class KlijentskaNit extends Thread {
                         List<Usluga> listaUsluga = kontroler.dohvatiSveUsluge(u);
 
                         DohvatiSveUslugeOdgovor odgovor = new DohvatiSveUslugeOdgovor(listaUsluga);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_SVE_USLUGE_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -258,7 +257,7 @@ public class KlijentskaNit extends Thread {
                         List<Kozmeticar> listaKozmeticara = kontroler.dohvatiSveKozmeticare(k);
 
                         DohvatiSveKozmeticareOdgovor odgovor = new DohvatiSveKozmeticareOdgovor(listaKozmeticara);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_SVE_KOZMETICARE_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
                     }
@@ -268,7 +267,7 @@ public class KlijentskaNit extends Thread {
                         List<StavkaZakazanogTermina> listaStavki = kontroler.dohvatiStavkeZaZakazaniTermin(zahtev.getStavkaZakazanogTermina());
 
                         DohvatiStavkeZaZakazniTerminOdgovor odgovor = new DohvatiStavkeZaZakazniTerminOdgovor(listaStavki);
-                        oos.writeInt(TipoviOdgovora.DOHVATI_STAVKE_ZA_ZAKAZANI_TERMIN_ODGOVOR);
+                        
                         oos.writeObject(odgovor);
                         break;
 

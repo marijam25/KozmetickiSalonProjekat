@@ -80,8 +80,8 @@ public class Usluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public List<Usluga> ucitajIzResultSeta(ResultSet rs) {
-        List<Usluga> lista = new ArrayList<>();
+    public List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int id = rs.getInt("UslugaID");

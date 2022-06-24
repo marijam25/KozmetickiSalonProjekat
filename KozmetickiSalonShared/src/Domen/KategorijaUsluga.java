@@ -72,8 +72,8 @@ public class KategorijaUsluga implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public List<KategorijaUsluga> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<KategorijaUsluga> lista = new ArrayList<>();
+    public List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int id = rs.getInt("KategorijaID");

@@ -215,7 +215,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.AZURIRAJ_ZAKAZANI_TERMIN_ZAHTEV);
                 KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                
                 AzurirajZakazaniTerminOdgovor odgovor = (AzurirajZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                 if (!odgovor.isUspeo()) {
@@ -233,7 +233,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                         KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_STAVKU_ZAKAZIVANJA_ZAHTEV);
                         KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                        int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                        
                         DodajStavkuZakazivanjaOdgovor odgovor = (DodajStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                         if (!odgovor.isUspeo()) {
@@ -259,7 +259,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
                 KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_STAVKU_ZAKAZIVANJA_ZAHTEV);
                 KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                
                 ObrisiStavkuZakazivanjaOdgovor odgovor = (ObrisiStavkuZakazivanjaOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                 if (!odgovor.isUspeo()) {
@@ -407,7 +407,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             oos.writeObject(zahtev);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiStavkeZaZakazniTerminOdgovor odgovor = (DohvatiStavkeZaZakazniTerminOdgovor) ois.readObject();
             listaStavkiZaTermin = odgovor.getStavkeZakazanogTermina();
         } catch (Exception ex) {
@@ -422,7 +422,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_USLUGE_ZAHTEV);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveUslugeOdgovor odgovor = (DohvatiSveUslugeOdgovor) ois.readObject();
             listaUsluga = odgovor.getNizUsluga();
         } catch (Exception ex) {
@@ -475,7 +475,7 @@ public class TerminIzmenaForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KOZMETICARE_ZAHTEV);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKozmeticareOdgovor odgovor = (DohvatiSveKozmeticareOdgovor) ois.readObject();
             listaKozmeticara = odgovor.getListaKozmeticara();
         } catch (Exception ex) {

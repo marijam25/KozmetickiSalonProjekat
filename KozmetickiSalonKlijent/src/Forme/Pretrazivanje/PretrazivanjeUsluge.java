@@ -139,7 +139,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
             oos.writeObject(zahtev);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiUsluguPoNazivuOdgovor odgovor = (DohvatiUsluguPoNazivuOdgovor) ois.readObject();
 
             listaTabela = odgovor.getNizUsluga();
@@ -232,7 +232,7 @@ public class PretrazivanjeUsluge extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKategorijeUslugaOdgovor odgovor = (DohvatiSveKategorijeUslugaOdgovor) ois.readObject();
 
             listaKategorija = odgovor.getListaKategorijaUsluga();

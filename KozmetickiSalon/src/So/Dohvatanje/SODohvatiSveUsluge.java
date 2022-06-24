@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SODohvatiSveUsluge extends OpstaSistemskaOperacija {
 
-    private ArrayList<Usluga> listaUsluga;
+    private List<OpstiDomenskiObjekat> listaUsluga;
     
     @Override
     public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -19,7 +19,7 @@ public class SODohvatiSveUsluge extends OpstaSistemskaOperacija {
     @Override
    public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
         
-        listaUsluga = (ArrayList<Usluga>) DBBroker.getInstance().dohvatiSveIzBaze(odo);
+        listaUsluga = DBBroker.getInstance().dohvatiSveIzBaze(odo);
         
         if(listaUsluga==null)
             return false;
@@ -28,6 +28,10 @@ public class SODohvatiSveUsluge extends OpstaSistemskaOperacija {
     }
 
     public List<Usluga> getListaUsluga() {
-        return listaUsluga;
+        List<Usluga> listaUslugaKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaUsluga) {
+            listaUslugaKastovana.add((Usluga)opstiDomenskiObjekat);
+        }
+        return listaUslugaKastovana;
     }
 }

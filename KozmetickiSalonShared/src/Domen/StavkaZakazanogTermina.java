@@ -80,8 +80,8 @@ public class StavkaZakazanogTermina implements Serializable, OpstiDomenskiObjeka
     }
 
     @Override
-    public List<StavkaZakazanogTermina> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<StavkaZakazanogTermina> lista = new ArrayList<>();
+    public List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int stavkaId1 = rs.getInt("stavkaID");

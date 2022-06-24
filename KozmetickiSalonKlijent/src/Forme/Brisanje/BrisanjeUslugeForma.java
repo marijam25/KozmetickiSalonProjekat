@@ -143,7 +143,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             oos.writeObject(zahtev);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiUsluguPoNazivuOdgovor odgovor = (DohvatiUsluguPoNazivuOdgovor) ois.readObject();
 
             listaTabela = odgovor.getNizUsluga();
@@ -179,7 +179,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
                     KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_USLUGU_ZAHTEV);
                     KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                    int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                    
                     ObrisiUsluguOdgovor odgovor = (ObrisiUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                     if (odgovor.isUspeo()) {
@@ -260,7 +260,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKategorijeUslugaOdgovor odgovor = (DohvatiSveKategorijeUslugaOdgovor) ois.readObject();
 
             listaKategorija = odgovor.getListaKategorijaUsluga();

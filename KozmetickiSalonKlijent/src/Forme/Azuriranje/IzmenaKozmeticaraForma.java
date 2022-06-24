@@ -122,7 +122,6 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
             oos.writeObject(zahtev);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
             DohvatiKozmeticarePoPrezimenuOdgovor odgovor = (DohvatiKozmeticarePoPrezimenuOdgovor) ois.readObject();
             listaTabela = odgovor.getListaKozmeticara();
 

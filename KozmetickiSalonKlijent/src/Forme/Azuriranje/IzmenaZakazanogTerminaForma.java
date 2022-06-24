@@ -147,7 +147,7 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
             oos.writeObject(zahtev);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiZakazaneTermineZaKlijentaOdgovor odgovor = (DohvatiZakazaneTermineZaKlijentaOdgovor) ois.readObject();
 
             listaZakazanihTermina = odgovor.getListaZakazanihTermina();
@@ -233,7 +233,7 @@ public class IzmenaZakazanogTerminaForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KLIJENTE_ZAHTEV);
             oos.flush();
             
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKlijenteOdgovor odgovor = (DohvatiSveKlijenteOdgovor) ois.readObject();
             listaKlijenata = odgovor.getListaKlijenata();
         } catch (Exception ex) {

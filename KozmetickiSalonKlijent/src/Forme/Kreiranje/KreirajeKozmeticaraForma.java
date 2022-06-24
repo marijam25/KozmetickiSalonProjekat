@@ -117,7 +117,7 @@ public class KreirajeKozmeticaraForma extends javax.swing.JFrame {
             KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_KOZMETICARA_ZAHTEV);
             KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-            int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+            
             DodajKozmeticaraOdgovor odgovor = (DodajKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
             if (odgovor.isUspeo()) {

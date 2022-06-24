@@ -100,8 +100,8 @@ public class Kozmeticar implements Serializable, OpstiDomenskiObjekat {
     }
 
     @Override
-    public List<Kozmeticar> ucitajIzResultSeta(ResultSet rs) {
-        ArrayList<Kozmeticar> lista = new ArrayList<>();
+    public List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs) {
+        List<OpstiDomenskiObjekat> lista = new ArrayList<>();
         try {
             while (rs.next()) {
                 int id = rs.getInt("KozmeticarID");

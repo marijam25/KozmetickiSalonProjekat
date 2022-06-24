@@ -10,5 +10,5 @@ public interface OpstiDomenskiObjekat {
     public abstract Map<String, String> naziviIVrednostiKolona();
     public abstract List<String> naziviKolonaPrimarnogKljuca();
     public abstract Map<String, String> nazivIVrednostPrimarnogKljuca();
-    public abstract List<? extends OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs);
+    public abstract List<OpstiDomenskiObjekat> ucitajIzResultSeta(ResultSet rs);
 }

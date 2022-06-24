@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SODohvatiZakazaneTermineZaKlijenta extends OpstaSistemskaOperacija {
 
-    private List<ZakazaniTermin>  listaZakazanihTermina;
+    private List<OpstiDomenskiObjekat>  listaZakazanihTermina;
 
     @Override
     protected boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -21,7 +21,7 @@ public class SODohvatiZakazaneTermineZaKlijenta extends OpstaSistemskaOperacija 
     protected boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
         List<String> koloneZaUslov = new ArrayList<>();
         koloneZaUslov.add("klijentId");
-        listaZakazanihTermina = (List<ZakazaniTermin>) DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
+        listaZakazanihTermina = DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
         if(listaZakazanihTermina==null)
             return false;
         else
@@ -29,6 +29,10 @@ public class SODohvatiZakazaneTermineZaKlijenta extends OpstaSistemskaOperacija 
     }
 
     public List<ZakazaniTermin> getListaZakazanihTermina() {
-        return listaZakazanihTermina;
+        List<ZakazaniTermin> listaZakazanihTerminaKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaZakazanihTermina) {
+            listaZakazanihTerminaKastovana.add((ZakazaniTermin)opstiDomenskiObjekat);
+        }
+        return listaZakazanihTerminaKastovana;
     }
 }

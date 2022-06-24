@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SODohvatiKozmeticarePoPrezimenu extends OpstaSistemskaOperacija {
-    private ArrayList<Kozmeticar> listaKozmeticara;
+    private List<OpstiDomenskiObjekat> listaKozmeticara;
 
     @Override
     public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -20,7 +20,7 @@ public class SODohvatiKozmeticarePoPrezimenu extends OpstaSistemskaOperacija {
         List<String> koloneZaUslov = new ArrayList<>();
         koloneZaUslov.add("prezime");
 
-        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
+        listaKozmeticara = DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
         if(listaKozmeticara!=null)
             return true;
         else
@@ -28,6 +28,10 @@ public class SODohvatiKozmeticarePoPrezimenu extends OpstaSistemskaOperacija {
     }
 
     public List<Kozmeticar> getListaKozmeticara() {
-        return listaKozmeticara;
+        List<Kozmeticar> listaKozmeticaraKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaKozmeticara) {
+            listaKozmeticaraKastovana.add((Kozmeticar)opstiDomenskiObjekat);
+        }
+        return listaKozmeticaraKastovana;
     }
 }

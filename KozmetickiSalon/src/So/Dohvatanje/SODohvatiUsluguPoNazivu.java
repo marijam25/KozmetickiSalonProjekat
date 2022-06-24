@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SODohvatiUsluguPoNazivu extends OpstaSistemskaOperacija {
-    private ArrayList<Usluga> listaUsluga;
+    private List<OpstiDomenskiObjekat> listaUsluga;
 
     @Override
     public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -19,7 +19,7 @@ public class SODohvatiUsluguPoNazivu extends OpstaSistemskaOperacija {
      public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
         List<String> koloneZaUslov = new ArrayList<>();
         koloneZaUslov.add("nazivUsluge");
-        listaUsluga = (ArrayList<Usluga>) DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
+        listaUsluga = DBBroker.getInstance().dohvatiIzBaze(odo, koloneZaUslov);
         if(listaUsluga==null)
             return false;
         else
@@ -27,6 +27,10 @@ public class SODohvatiUsluguPoNazivu extends OpstaSistemskaOperacija {
     }
 
     public List<Usluga> getListaUsluga() {
-        return listaUsluga;
+        List<Usluga> listaUslugaKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaUsluga) {
+            listaUslugaKastovana.add((Usluga)opstiDomenskiObjekat);
+        }
+        return listaUslugaKastovana;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SODohvatiSveKozmeticare extends OpstaSistemskaOperacija {
 
-    private ArrayList<Kozmeticar> listaKozmeticara;
+    private List<OpstiDomenskiObjekat> listaKozmeticara;
     
     @Override
     public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -19,7 +19,7 @@ public class SODohvatiSveKozmeticare extends OpstaSistemskaOperacija {
     @Override
     public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
         
-        listaKozmeticara = (ArrayList<Kozmeticar>)DBBroker.getInstance().dohvatiSveIzBaze(odo);
+        listaKozmeticara = DBBroker.getInstance().dohvatiSveIzBaze(odo);
         
         if(listaKozmeticara==null)
             return false;
@@ -28,7 +28,11 @@ public class SODohvatiSveKozmeticare extends OpstaSistemskaOperacija {
     }
 
     public List<Kozmeticar> getListaKozmeticara() {
-        return listaKozmeticara;
+        List<Kozmeticar> listaKozmeticaraKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaKozmeticara) {
+            listaKozmeticaraKastovana.add((Kozmeticar)opstiDomenskiObjekat);
+        }
+        return listaKozmeticaraKastovana;
     }
     
 }

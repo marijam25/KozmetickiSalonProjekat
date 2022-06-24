@@ -104,7 +104,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             String naziv = txtNazivUsluge.getText();
             KategorijaUsluga kategorija = (KategorijaUsluga) cmbKategorijaUsluga.getSelectedItem();
             
-            String regex = "^[a-zA-Z]+$";
+            String regex = "^[a-zA-Z ]*$";
             if (!naziv.matches(regex)) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti uslugu");
                 return;
@@ -121,7 +121,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
                 KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.DODAJ_USLUGU_ZAHTEV);
                 KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                
                 DodajUsluguOdgovor odgovor = (DodajUsluguOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
                 
                 if (odgovor.isUspeo()) {
@@ -189,7 +189,7 @@ public class KreiranjeUslugeForma extends javax.swing.JFrame {
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KATEGORIJE_USLUGA_ZAHTEV);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiSveKategorijeUslugaOdgovor odgovor = (DohvatiSveKategorijeUslugaOdgovor) ois.readObject();
             cmbKategorijaUsluga.removeAllItems();
 

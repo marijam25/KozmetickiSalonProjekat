@@ -132,7 +132,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
             oos.writeObject(zahtev);
             oos.flush();
 
-            int tipOdgovora = ois.readInt();
+            
             DohvatiKozmeticarePoPrezimenuOdgovor odgovor = (DohvatiKozmeticarePoPrezimenuOdgovor) ois.readObject();
 
             listaTabela = odgovor.getListaKozmeticara();
@@ -169,7 +169,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                     KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_KOZMETICARA_ZAHTEV);
                     KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                    int tipOdgovora = KomunikacijaSaServerom.getInstanca().getOis().readInt();
+                    
                     ObrisiKozmeticaraOdgovor odgovor = (ObrisiKozmeticaraOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                     if (odgovor.isUspeo()) {

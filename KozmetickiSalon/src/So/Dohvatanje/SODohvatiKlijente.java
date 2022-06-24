@@ -5,10 +5,11 @@ import Domen.OpstiDomenskiObjekat;
 import So.OpstaSistemskaOperacija;
 import db.DBBroker;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SODohvatiKlijente extends OpstaSistemskaOperacija {
 
-    private ArrayList<Klijent> listaKlijenata;
+    private List<OpstiDomenskiObjekat> listaKlijenata;
 
     @Override
     public boolean proveriPreduslov(OpstiDomenskiObjekat odo) {
@@ -18,7 +19,7 @@ public class SODohvatiKlijente extends OpstaSistemskaOperacija {
     @Override
     public boolean izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) {
         
-        listaKlijenata = (ArrayList<Klijent>) DBBroker.getInstance().dohvatiSveIzBaze(odo);
+        listaKlijenata = DBBroker.getInstance().dohvatiSveIzBaze(odo);
         
         if(listaKlijenata==null)
             return false;
@@ -26,8 +27,12 @@ public class SODohvatiKlijente extends OpstaSistemskaOperacija {
             return true;
     }
 
-    public ArrayList<Klijent> getListaKlijenata() {
-        return listaKlijenata;
+    public List<Klijent> getListaKlijenata() {
+       List<Klijent> listaKlijenataKastovana = new ArrayList<>();
+        for (OpstiDomenskiObjekat opstiDomenskiObjekat : listaKlijenata) {
+            listaKlijenataKastovana.add((Klijent)opstiDomenskiObjekat);
+        }
+        return listaKlijenataKastovana;
     }
 
 }
