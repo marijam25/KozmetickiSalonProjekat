@@ -2,7 +2,6 @@ package Forme.Brisanje;
 
 import Domen.Klijent;
 import Domen.ZakazaniTermin;
-import Forme.GlavnaForma;
 import KlijentskiZahtevi.TipoviZahteva;
 import KlijentskiZahtevi.ZahteviZaBrisanje.ObrisiZakazaniTerminZahtev;
 import KlijentskiZahtevi.ZahteviZaDohvatanje.DohvatiZakazaneTermineZaKlijentaZahtev;
@@ -24,7 +23,7 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
 
     private List<ZakazaniTermin> listaZakaznihTermina;
     private List<Klijent> listaKlijenata;
-    
+
     public BrisanjeZakazanogTerminaForma() {
         initComponents();
         listaZakaznihTermina = new ArrayList<>();
@@ -149,7 +148,6 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
                     KomunikacijaSaServerom.getInstanca().getOos().writeInt(TipoviZahteva.OBRISI_ZAKAZANI_TERMIN_ZAHTEV);
                     KomunikacijaSaServerom.getInstanca().getOos().writeObject(zahtev);
 
-                    
                     ObrisiZakazaniTerminOdgovor odgovor = (ObrisiZakazaniTerminOdgovor) KomunikacijaSaServerom.getInstanca().getOis().readObject();
 
                     if (odgovor.isUspeo()) {
@@ -157,6 +155,8 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
                         this.setVisible(false);
                     } else {
                         JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise termin");
+                        this.setVisible(false);
+
                     }
                 }
             } catch (IOException ex) {
@@ -217,50 +217,47 @@ public class BrisanjeZakazanogTerminaForma extends javax.swing.JFrame {
         tblTermin.setModel(mtt);
         mtt.osveziTabelu();
     }
-    
-    private void popuniKlijente(){
+
+    private void popuniKlijente() {
         klijentiCombo.removeAllItems();
-        for(Klijent k : listaKlijenata){
+        for (Klijent k : listaKlijenata) {
             klijentiCombo.addItem(k);
         }
     }
 
-    private void DohvatiSveKlijente() {        
+    private void DohvatiSveKlijente() {
         try {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
             oos.writeInt(TipoviZahteva.DOHVATI_SVE_KLIJENTE_ZAHTEV);
             oos.flush();
-            
-            
+
             DohvatiSveKlijenteOdgovor odgovor = (DohvatiSveKlijenteOdgovor) ois.readObject();
             listaKlijenata = odgovor.getListaKlijenata();
         } catch (Exception ex) {
             Logger.getLogger(BrisanjeZakazanogTerminaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void DohvatiZakazaneTermineZaIzabranogKlijenta() {
         try {
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
             ObjectInputStream ois = KomunikacijaSaServerom.getInstanca().getOis();
-            
+
             int indeks = klijentiCombo.getSelectedIndex();
             int selektovaniKlijentId = listaKlijenata.get(indeks).getKlijentId();
             ZakazaniTermin zt = new ZakazaniTermin(0, 0, selektovaniKlijentId, null);
-            
+
             oos.writeInt(TipoviZahteva.DOHVATI_ZAKAZANE_TERMINE_ZA_KLIJENTA_ZAHTEV);
-            DohvatiZakazaneTermineZaKlijentaZahtev zahtev= new DohvatiZakazaneTermineZaKlijentaZahtev(zt);
+            DohvatiZakazaneTermineZaKlijentaZahtev zahtev = new DohvatiZakazaneTermineZaKlijentaZahtev(zt);
             oos.writeObject(zahtev);
             oos.flush();
-            
-            
+
             DohvatiZakazaneTermineZaKlijentaOdgovor odgovor = (DohvatiZakazaneTermineZaKlijentaOdgovor) ois.readObject();
-            if(odgovor.getListaZakazanihTermina() != null){
+            if (odgovor.getListaZakazanihTermina() != null) {
                 listaZakaznihTermina = odgovor.getListaZakazanihTermina();
                 podesiModelTabele();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Desila se greska na serveru");
             }
         } catch (Exception ex) {

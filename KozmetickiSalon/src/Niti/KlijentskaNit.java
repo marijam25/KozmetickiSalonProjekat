@@ -275,7 +275,7 @@ public class KlijentskaNit extends Thread {
                 }
 
             } catch (IOException ex) {
-                //Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                
                 System.out.println("Klijent disconectovan");
                 return;
             } catch (ClassNotFoundException ex) {

@@ -134,10 +134,10 @@ public class IzmenaKozmeticaraForma extends javax.swing.JFrame {
 
         } catch (IOException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(IzmenaKozmeticaraForma.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(this, "Sistem ne moze da nadje kozmeticare po zadatoj vrednosti");
+            
         }
     }//GEN-LAST:event_btnPretraziActionPerformed
 

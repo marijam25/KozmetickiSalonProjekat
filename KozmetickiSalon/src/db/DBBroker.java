@@ -122,7 +122,7 @@ public class DBBroker {
         }
 
         upit += " where";
-        //Map<String, String> naziviIVrednostiKolona = odo.naziviIVrednostiKolona();
+        
         int j=0;
         for (Map.Entry<String, String> nazivIVrednostKolone : naziviIVrednosti.entrySet()) {
             if (koloneZaUslov != null && koloneZaUslov.contains(nazivIVrednostKolone.getKey())) {

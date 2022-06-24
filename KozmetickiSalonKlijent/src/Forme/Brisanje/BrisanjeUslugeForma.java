@@ -133,6 +133,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
     private void btnPretraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretraziActionPerformed
         try {
             // TODO add your handling code here:
+            
             Usluga u = new Usluga(0, txtNazivUsluge.getText(), 0);
 
             ObjectOutputStream oos = KomunikacijaSaServerom.getInstanca().getOos();
@@ -188,6 +189,7 @@ public class BrisanjeUslugeForma extends javax.swing.JFrame {
                         this.setVisible(false);
                     } else {
                         JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise uslugu");
+                        this.setVisible(false);
                     }
 
                     podesiModelTabele();

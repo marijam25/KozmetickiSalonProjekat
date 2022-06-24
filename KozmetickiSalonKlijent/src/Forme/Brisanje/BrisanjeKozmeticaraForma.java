@@ -178,6 +178,7 @@ public class BrisanjeKozmeticaraForma extends javax.swing.JFrame {
                         this.setVisible(false);
                     } else {
                         JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kozmeticara");
+                        this.setVisible(false);
                     }
                     podesiModelTabele();
                 }

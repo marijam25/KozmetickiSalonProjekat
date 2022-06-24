@@ -138,6 +138,7 @@ public class ServerskaForma extends javax.swing.JFrame {
             lblStatus.setText("Server je pokrenut");
             lblStatus.setForeground(Color.GREEN);
             btnPokreni.setEnabled(false);
+            btnPodesavanja.setEnabled(false);
             btnZaustavi.setEnabled(true);
         }
     }//GEN-LAST:event_btnPokreniActionPerformed
@@ -154,6 +155,7 @@ public class ServerskaForma extends javax.swing.JFrame {
             lblStatus.setText("Server je zaustavljen");
             lblStatus.setForeground(Color.red);
             btnZaustavi.setEnabled(false);
+            btnPodesavanja.setEnabled(true);
             btnPokreni.setEnabled(true);
         }
     }//GEN-LAST:event_btnZaustaviActionPerformed

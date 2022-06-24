@@ -46,7 +46,7 @@ public class ServerskaNit extends Thread {
             ss.close();
         } catch (IOException ex) {
             Logger.getLogger(ServerskaNit.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Server je zaustavljenkkk");
+            
         }
     }
 }
